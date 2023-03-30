@@ -417,12 +417,6 @@
   "app.versionexists": "You already have this version of the plugin installed.",
   "app.unknownuser": "Unknown User",
   "app.langswitcher": "Français (Beta)",
-  "app.messagemanagement": "Message Management",
-  "app.message.title": "Manage System Messages",
-  "app.message.generalRibbon": "General Message Ribbon",
-  "app.validationWCAG": "WCAG contrast ratio not met",
-  "app.message.generalRibbonEN": "English Text",
-  "app.message.generalRibbonFR": "French Text",
-  "app.message.generalRibbonBgColor": "Background Color",
-  "app.message.generalRibbonTextColor": "Text Color"
+  "app.scaffold._setCompletionOn.inview.variable": "Example inview english",
+  "app.scaffold._setCompletionOn.allItems.variable": "Example allItems english"
 }

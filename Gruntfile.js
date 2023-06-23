@@ -49,6 +49,15 @@ module.exports = function(grunt) {
             'frontend/src/libraries/**/*.less'
           ],
           paths: 'frontend/src/core/less',
+          modifyVars: {
+            'topbar-bg' : '"assets/top-bar-dev.jpg"',
+            'login-bg': '"assets/login_bg_dev.jpg"',
+            'adapt-primary-color': '#bd4646',
+            'adapt-secondary-color': '#46bdbd',
+            'link-color': 'black',
+            'visited-link-color': 'black',
+            'navigation-text-color': 'black'
+          },
           generateSourceMaps: true,
           compress: false,
           dest: 'frontend/build/css',
@@ -256,7 +265,8 @@ module.exports = function(grunt) {
     function getLessOptions() {
       var ret = {
         compress: options.compress,
-        paths: options.paths
+        paths: options.paths,
+        modifyVars: options.modifyVars
       };
       if (shouldGenerateSourceMaps) {
         ret.sourceMap = {

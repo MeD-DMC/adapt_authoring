@@ -15,6 +15,7 @@
       'scrollTo',
       'selectize',
       'sweetalert',
+      'sweetalert2',
       'velocity'
     ], function() {
       window.Handlebars = $.extend(require('handlebars'), window.Handlebars);

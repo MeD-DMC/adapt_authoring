@@ -1512,7 +1512,8 @@
     "app.passwordchangemessage": "Veuillez mettre à jour votre mot de passe. Cette notification sera automatiquement supprimée lors de la réussite de la modification du mot de passe.",
     "app.numberofrequirementscompleted": "%{number} sur %{total} exigences satisfaites",
     "app.confirmpasswordnotmatch": "Le mot de passe de confirmation ne correspond pas au nouveau mot de passe.",
-    "app.unlockPasswordReset": "Déverrouiller la réinitialisation de mot de passe",
     "app.resetPasswordCount": "Réinitialisations",
-    "app.confirmUnlockPasswordReset": "Déverrouiller la réinitialisation de mot de passe pour<br/><b>%{email}</b>?"
+    "app.unlockPasswordReset": "Déverrouiller la réinitialisation de mot de passe",
+    "app.confirmUnlockPasswordReset": "Déverrouiller la réinitialisation de mot de passe pour<br/><b>%{email}</b>?",
+    "app.passwordForceMessage": "Conformément à nos protocoles de sécurité départementaux, nous vous demandons de mettre à jour votre mot de passe Adapt dès maintenant. Ce message ne sera plus affiché une fois que la modification de votre mot de passe sera terminée."
 }

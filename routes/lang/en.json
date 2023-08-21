@@ -496,7 +496,8 @@
   "app.crosscoursepagecopy": "Copying pages across courses is not yet available. It will be implemetend in future releases.",
   "app.confirmpasswordnotmatch": "Confirmation password does not match the new password.",
   "app.cannotcopyobjecthere": "Unable to copy this type of content here.",
-  "app.unlockPasswordReset": "Unlock Password Reset",
   "app.resetPasswordCount": "Resets",
-  "app.confirmUnlockPasswordReset": "Unlock password reset for<br/><b>%{email}</b>?"
+  "app.unlockPasswordReset": "Unlock Password Reset",
+  "app.confirmUnlockPasswordReset": "Unlock password reset for<br/><b>%{email}</b>?",
+  "app.passwordForceMessage": "In alignment with our departmental security protocols, we kindly ask you to update your Adapt password now. This message will no longer be displayed once your password modification is complete."
 }

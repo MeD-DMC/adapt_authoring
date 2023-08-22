@@ -1519,5 +1519,6 @@
     "app.confirmpasswordnotmatch": "Le mot de passe de confirmation ne correspond pas au nouveau mot de passe.",
     "app.confirmUnlockPasswordReset": "Déverrouiller la réinitialisation de mot de passe pour<br/><b>%{email}</b>?",
     "app.revealpassword": "Révéler le mot de passe",
+    "app.passwordtoocommon": "Ce mot de passe est trop courant, veuillez utiliser un mot de passe plus unique.",
     "app.hidepassword": "Cacher le mot de passe"
 }

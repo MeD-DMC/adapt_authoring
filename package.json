@@ -74,7 +74,7 @@
     "optimist": "^0.6.1",
     "passport": "^0.4.0",
     "request": "^2.88.0",
-    "semver": "^6.3.0",
+    "semver": "^6.3.1",
     "serve-favicon": "^2.5.0",
     "traverse": "^0.6.6",
     "underscore": "^1.12.1",

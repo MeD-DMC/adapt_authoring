@@ -3,6 +3,7 @@ define(function(require) {
   var Origin = require('core/origin');
   var ProjectsView = require('./views/projectsView');
   var ProjectsSidebarView = require('./views/projectsSidebarView');
+  var AllProjectCollection = require('./collections/allProjectCollection');
   var MyProjectCollection = require('./collections/myProjectCollection');
   var SharedProjectCollection = require('./collections/sharedProjectCollection');
   var TagsCollection = require('core/collections/tagsCollection');
@@ -52,7 +53,7 @@ define(function(require) {
     tagsCollection.fetch({
       success: function() {
         Origin.sidebar.addView(new ProjectsSidebarView({ collection: tagsCollection }).$el);
-        Origin.trigger('dashboard:loaded', { type: location || 'all' });
+        Origin.trigger('dashboard:loaded', { type: location || 'own' });
       },
       error: function() {
         console.log('Error occured getting the tags collection - try refreshing your page');
@@ -61,13 +62,25 @@ define(function(require) {
   });
 
   Origin.on('dashboard:loaded', function (options) {
-    var isMine = options.type === 'all';
-    var isShared = options.type === 'shared';
-    if(!isMine && !isShared) {
+    if(!(options && ['all', 'own', 'shared'].includes(options.type))) {
       return;
     }
-    var titleKey = (isMine) ? 'myprojects' : 'sharedprojects';
-    var Coll = (isMine) ? MyProjectCollection : SharedProjectCollection;
+
+    var titleKey;
+    var Coll;
+    switch(options.type){
+      case 'all':
+        titleKey = 'allprojects';
+        Coll = AllProjectCollection;
+        break;
+      case 'sharedprojects':
+        titleKey = 'sharedprojects';
+        Coll = SharedProjectCollection;
+        break;
+      default:
+        titleKey = 'myprojects';
+        Coll = MyProjectCollection;
+    }
 
     Origin.trigger('location:title:update', { breadcrumbs: ['dashboard'], title: Origin.l10n.t('app.' + titleKey) });
     Origin.contentPane.setView(ProjectsView, { collection: new Coll, _isShared: options.type === 'shared' });

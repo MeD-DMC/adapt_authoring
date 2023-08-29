@@ -78,6 +78,7 @@ function initialize () {
   var self = this;
   var app = origin();
   app.once('serverStarted', function(server) {
+    rest.get('/all/course', (req, res, next) => doQuery(req, res, [{}], next));
     // force search to use only courses created by current user
     rest.get('/my/course', (req, res, next) => doQuery(req, res, [{ createdBy: req.user._id }], next));
     // Only return courses which have been shared

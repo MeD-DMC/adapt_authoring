@@ -1088,6 +1088,7 @@
     "app.myprojects": "Mes cours",
     "app.addnewproject": "Ajouter un nouveau cours",
     "app.sharedprojects": "Cours partagés",
+    "app.allprojects": "Tous les cours",
     "app.noprojectstodisplay": "Aucun cours à afficher",
     "app.pleaseentervalue": "Veuillez entrer une valeur ici",
     "app.pleaseaddfile": "Veuillez choisir un fichier à télécharger",

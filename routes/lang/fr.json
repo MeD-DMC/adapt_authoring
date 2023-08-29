@@ -1521,5 +1521,6 @@
     "app.revealpassword": "Révéler le mot de passe",
     "app.passwordtoocommon": "Ce mot de passe est trop courant, veuillez utiliser un mot de passe plus unique.",
     "app.hidepassword": "Cacher le mot de passe",
-    "app.passwordatleast": "Votre mot de passe doit contenir au moins :"
+    "app.passwordatleast": "Votre mot de passe doit contenir au moins :",
+    "app.allprojects": "Tous les cours"
 }

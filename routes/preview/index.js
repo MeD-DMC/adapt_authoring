@@ -33,13 +33,10 @@ server.get('/preview/:tenant/:course/*', (req, res, next) => {
   }
   (file === Constants.Filenames.Main) ? handleIndexFile() : handleNonIndexFile();
   function onAuthError() {
-    //logger.log('warn', `Preview: user '${user._id}' does not have permission to view course '${courseId}' on tenant '${tenantId}'`);
     var ip = (req.headers['x-forwarded-for'] || req.connection.remoteAddress).replace('::ffff:', '');
     //regex expression goes in previewAllowIps property in /conf/config.json
     if(config.previewAllowIps){
-     console.log(config.previewAllowIps)
       var regex = new RegExp(config.previewAllowIps, 'g');
-      console.log(regex)
       if(ip.match(regex)){
         sendFile(file);
       }else {
@@ -65,7 +62,7 @@ server.get('/preview/:tenant/:course/*', (req, res, next) => {
     if (tenantId !== user.tenant._id.toString() && tenantId !== masterTenantId) {
       return onAuthError();
     }
-    helpers.hasCoursePermission('*', user._id, tenantId, { _id: courseId }, (error, hasPermission) => {
+    helpers.hasCoursePermission('read', user._id, tenantId, { _id: courseId }, (error, hasPermission) => {
       if(error) {
         logger.log('error', error);
         next(new PreviewPermissionError());

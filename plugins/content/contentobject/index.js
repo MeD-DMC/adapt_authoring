@@ -260,6 +260,8 @@ ContentObject.prototype.destroy = function (search, force, next) {
           return next(new ContentPermissionError());
         }
 
+        
+
         async.eachSeries(
           docs,
           function (doc, cb) {

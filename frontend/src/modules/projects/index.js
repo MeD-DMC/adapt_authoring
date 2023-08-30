@@ -62,28 +62,35 @@ define(function(require) {
   });
 
   Origin.on('dashboard:loaded', function (options) {
-    if(!(options && ['all', 'own', 'shared'].includes(options.type))) {
+    // Check if options exist and the type is valid
+    if (!options || !['all', 'own', 'shared'].includes(options.type)) {
       return;
     }
 
-    var titleKey;
-    var Coll;
-    switch(options.type){
-      case 'all':
-        titleKey = 'allprojects';
-        Coll = AllProjectCollection;
-        break;
-      case 'sharedprojects':
-        titleKey = 'sharedprojects';
-        Coll = SharedProjectCollection;
-        break;
-      default:
-        titleKey = 'myprojects';
-        Coll = MyProjectCollection;
+    const type = options.type;
+
+    // Map type to title key and collection
+    const typeMappings = {
+      all: { titleKey: 'allprojects', Coll: AllProjectCollection },
+      shared: { titleKey: 'sharedprojects', Coll: SharedProjectCollection },
+      default: { titleKey: 'myprojects', Coll: MyProjectCollection }
+    };
+    const { titleKey, Coll } = typeMappings[type] || typeMappings.default;
+
+    // Data for permissions check
+    const data = {
+      featurePermissions: ["{{tenantid}}/content/*:read"]
+    };
+
+    // Block user access if required permissions are not met
+    if (type === 'all' && !Origin.permissions.hasPermissions(data.featurePermissions)) {
+      Origin.router.blockUserAccess();
+      return;
     }
 
-    Origin.trigger('location:title:update', { breadcrumbs: ['dashboard'], title: Origin.l10n.t('app.' + titleKey) });
-    Origin.contentPane.setView(ProjectsView, { collection: new Coll, _isShared: options.type === 'shared' });
+    // Set the view and update the title
+    Origin.contentPane.setView(ProjectsView, { collection: new Coll(), _isShared: type === 'shared' });
+    Origin.trigger('location:title:update', { breadcrumbs: ['dashboard'], title: Origin.l10n.t(`app.${titleKey}`) });
   });
 
   Origin.on('globalMenu:dashboard:open', function() {

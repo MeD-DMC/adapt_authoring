@@ -504,5 +504,6 @@
   "app.revealpassword": "Reveal Password",
   "app.passwordtoocommon": "This password is too common, please use a more unique password.",
   "app.hidepassword": "Hide Password",
-  "app.passwordatleast": "Your password must have at least:"
+  "app.passwordatleast": "Your password must have at least:",
+  "app.transferownershipto": "Transfer ownership to"
 }

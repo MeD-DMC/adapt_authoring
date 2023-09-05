@@ -36,7 +36,16 @@ define(function(require){
 
       'click button.disable': 'onDisableClicked',
       'click button.delete': 'onDeleteClicked',
+      'click button.transfer': 'onTransferClicked',
       'click button.restore': 'onRestoreClicked'
+    },
+
+    renderItem: function (item, escape) {
+      return Handlebars.templates.scaffoldUsersOption({
+        name: item.firstName && item.lastName ? escape(item.firstName + ' ' + item.lastName) : false,
+        email: escape(item.email),
+        disabled: item.disabled
+      });
     },
 
     preRender: function() {
@@ -50,6 +59,31 @@ define(function(require){
 
     render: function() {
       OriginView.prototype.render.apply(this, arguments);
+      this.$el.find('.transfer-ownership-select-field').selectize({
+        valueField: '_id',
+        labelField: 'email',
+        searchField: ['email', 'firstName', 'lastName'],
+        options: [],
+        render: {
+          item: this.renderItem,
+          option: this.renderItem
+        },
+        load: function (query, callback) {
+          $.ajax({
+            url: 'api/user',
+            method: 'GET',
+            dataType: 'json',
+            data: {
+              query: query || {'firstName': ''}
+            },
+            success: function (response) {
+              callback(response);
+            },
+            error: function (error) {
+            }
+          });
+        }
+      });
       this.applyStyles();
     },
 
@@ -357,6 +391,12 @@ define(function(require){
           }
         }
       });
+    },
+
+    onTransferClicked: function() {
+      console.log('transfer clicked this: ', this);
+      var option = this.$el.find(`[data-transferfrom='${this.model.get('_id')}']`).val();
+      console.log('selected option: ', option);
     },
 
     updateModel: function(key, value) {

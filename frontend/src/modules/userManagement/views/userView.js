@@ -140,6 +140,7 @@ define(function(require){
       if(!this.isSelected) {
         Origin.trigger('userManagement:user:reset');
         this.isSelected = true;
+        var self = this;
         this.transferOwnershipSelectField = this.$el.find('.transfer-ownership-select-field').selectize({
           valueField: '_id',
           labelField: 'email',
@@ -158,6 +159,11 @@ define(function(require){
                 query: query || {'firstName': ''}
               },
               success: function (response) {
+                for(var i = 0; i < response.length; i++) {
+                  if (self.model && response[i]._id === self.model.get('_id')) {
+                    response[i].disabled = true;
+                  }
+                }
                 callback(response);
               },
               error: function (error) {
@@ -165,7 +171,6 @@ define(function(require){
             });
           }
         });
-        var self = this;
 
         // This is to trigger the dropdown load when we open the selectize dropdown, else the dropdown is empty and 
         // we have to press space and erase the space to populate the dropdown
@@ -404,9 +409,32 @@ define(function(require){
     },
 
     onTransferClicked: function() {
-      console.log('transfer clicked this: ', this);
       var option = this.$el.find(`[data-transferfrom='${this.model.get('_id')}']`).val();
-      console.log('selected option: ', option);
+      if (!option) {
+        Origin.Notify.alert({ type: 'warning', text: Origin.l10n.t('app.transfercourseuserrequired') });
+        return;
+      }
+
+      var self = this;
+      Origin.Notify.confirm({
+        type: 'confirm',
+        text: Origin.l10n.t('app.confirmtransfertoanotheruser'),
+        callback: function(confirmed) {
+          if(confirmed) {
+            $.ajax({
+              url: `api/transfer_all_courses_ownership/from_user/${self.model.get('_id')}/to_user/${option}`,
+              method: 'POST',
+              async: false,
+              success: function () {
+                Origin.Notify.alert({ type: 'success', text: Origin.l10n.t('app.transfercoursesuccess') });
+              },
+              error: function (error) {
+                Origin.Notify.alert({ type: 'error', text: error.responseText});
+              }
+            });
+          }
+        }
+      });
     },
 
     updateModel: function(key, value) {

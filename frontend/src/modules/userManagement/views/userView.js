@@ -59,31 +59,6 @@ define(function(require){
 
     render: function() {
       OriginView.prototype.render.apply(this, arguments);
-      this.$el.find('.transfer-ownership-select-field').selectize({
-        valueField: '_id',
-        labelField: 'email',
-        searchField: ['email', 'firstName', 'lastName'],
-        options: [],
-        render: {
-          item: this.renderItem,
-          option: this.renderItem
-        },
-        load: function (query, callback) {
-          $.ajax({
-            url: 'api/user',
-            method: 'GET',
-            dataType: 'json',
-            data: {
-              query: query || {'firstName': ''}
-            },
-            success: function (response) {
-              callback(response);
-            },
-            error: function (error) {
-            }
-          });
-        }
-      });
       this.applyStyles();
     },
 
@@ -115,6 +90,9 @@ define(function(require){
     resetView: function() {
       if(this.isSelected) {
         this.isSelected = false;
+        if (this.transferOwnershipSelectField && this.transferOwnershipSelectField[0]) {
+          this.transferOwnershipSelectField[0].selectize.destroy();
+        }
         this.applyStyles();
       }
     },
@@ -162,6 +140,38 @@ define(function(require){
       if(!this.isSelected) {
         Origin.trigger('userManagement:user:reset');
         this.isSelected = true;
+        this.transferOwnershipSelectField = this.$el.find('.transfer-ownership-select-field').selectize({
+          valueField: '_id',
+          labelField: 'email',
+          searchField: ['email', 'firstName', 'lastName'],
+          options: [],
+          render: {
+            item: this.renderItem,
+            option: this.renderItem
+          },
+          load: function (query, callback) {
+            $.ajax({
+              url: 'api/user',
+              method: 'GET',
+              dataType: 'json',
+              data: {
+                query: query || {'firstName': ''}
+              },
+              success: function (response) {
+                callback(response);
+              },
+              error: function (error) {
+              }
+            });
+          }
+        });
+        var self = this;
+
+        // This is to trigger the dropdown load when we open the selectize dropdown, else the dropdown is empty and 
+        // we have to press space and erase the space to populate the dropdown
+        this.$el.find('.selectize-input').on('click', function(e) {
+          self.transferOwnershipSelectField[0].selectize.onSearchChange('');
+        });
         this.applyStyles();
       }
     },

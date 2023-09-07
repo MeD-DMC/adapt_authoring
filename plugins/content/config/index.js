@@ -31,7 +31,7 @@ util.inherits(ConfigContent, ContentPlugin);
  */
 ConfigContent.prototype.hasPermission = function (action, userId, tenantId, contentItem, next) {
   helpers.hasCoursePermission(action, userId, tenantId, contentItem, function(err, isAllowed) {
-       if (err) {
+    if (err) {
       return next(err);
     }
     if (isAllowed) {

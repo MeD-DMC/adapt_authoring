@@ -548,13 +548,13 @@ define(function(require) {
       });
     },
 
-    onSaveError: function() {
-      Origin.Notify.alert({
-        type: 'error',
-        text: Origin.l10n.t('app.errorsave')
-      });
-
-      this.navigateBack();
+    onSaveError: function(model, response, options) {
+      if(arguments.length === 2) {
+        EditorOriginView.prototype.onSaveError.apply(this, arguments);
+        return;
+      }
+      var messageText = typeof response.responseJSON == 'object' && response.responseJSON.message;
+      EditorOriginView.prototype.onSaveError.call(this, null, messageText);
     },
 
     onSaveSuccess: function() {

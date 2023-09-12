@@ -548,12 +548,13 @@ define(function(require) {
       });
     },
 
-    onSaveError: function(model, response, options) {
+    onSaveError: function (response, textStatus, errorThrown) {
       if(arguments.length === 2) {
         EditorOriginView.prototype.onSaveError.apply(this, arguments);
         return;
       }
-      var messageText = typeof response.responseJSON == 'object' && response.responseJSON.message;
+      var messageText = typeof response.responseJSON == 'object' && response.responseJSON.message ? response.responseJSON.message : null;
+      messageText = messageText || typeof response == 'object' && response.responseText ? response.responseText : null;
       EditorOriginView.prototype.onSaveError.call(this, null, messageText);
     },
 

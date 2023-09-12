@@ -161,8 +161,9 @@ define(function(require){
 
       this.model.destroy({
         success: _.bind(this.remove, this),
-        error: function(error) {
-          Origin.Notify.alert({ type: 'error', text: Origin.l10n.t('app.errorgeneric') });
+        error: function (model, response) {
+          var errorMessage = response && typeof response == 'object' && response.responseJSON && response.responseJSON.message ? response.responseJSON.message : Origin.l10n.t('app.errordelete');
+          Origin.Notify.alert({ type: 'error', text: errorMessage });
         }
       });
     },

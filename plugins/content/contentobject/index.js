@@ -32,9 +32,7 @@ ContentObject.prototype.hasPermission = function (action, userId, tenantId, cont
     if (err) {
       return next(err);
     }
-    if (isAllowed) {
-      return next(null, true);
-    }
+    return next(null, isAllowed);
   });
 };
 

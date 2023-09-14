@@ -1588,8 +1588,8 @@
     "app.passwordtoocommon": "Ce mot de passe est trop courant, veuillez utiliser un mot de passe plus unique.",
     "app.hidepassword": "Cacher le mot de passe",
     "app.passwordatleast": "Votre mot de passe doit contenir au moins :",
-    "app.transferownershipto": "Transférer la propriété à",
-    "app.confirmtransfertoanotheruser": "Êtes-vous sûr de vouloir procéder à ce transfert ?",
+    "app.transferallcoursesownershipto": "Transférer la propriété de tous les cours à",
+    "app.confirmtransferallcoursestoanotheruser": "Vous êtes sur le point de transférer la propriété de tous vos cours à l’utilisateur que vous sélectionnez dans le champ suivant. Êtes-vous sûr de cela ?",
     "app.transfercoursesuccess": "Cours transférés avec succès!",
     "app.transfercourseuserrequired": "Veuillez sélectionner un utilisateur."
 }

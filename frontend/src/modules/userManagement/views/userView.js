@@ -6,6 +6,7 @@ define(function(require){
   var Helpers = require('../helpers');
   var PasswordFieldsView = require('plugins/passwordChange/views/passwordFieldsView');
   var PasswordHelpers = require('plugins/passwordChange/passwordHelpers');
+  var CourseTransferFieldsView = require('plugins/courseTransfer/views/courseTransferFieldsView');
 
   var UserView = OriginView.extend({
     tagName: 'div',
@@ -38,14 +39,6 @@ define(function(require){
       'click button.delete': 'onDeleteClicked',
       'click button.transfer': 'onTransferClicked',
       'click button.restore': 'onRestoreClicked'
-    },
-
-    renderItem: function (item, escape) {
-      return Handlebars.templates.scaffoldUsersOption({
-        name: item.firstName && item.lastName ? escape(item.firstName + ' ' + item.lastName) : false,
-        email: escape(item.email),
-        disabled: item.disabled
-      });
     },
 
     preRender: function() {
@@ -90,9 +83,6 @@ define(function(require){
     resetView: function() {
       if(this.isSelected) {
         this.isSelected = false;
-        if (this.transferOwnershipSelectField && this.transferOwnershipSelectField[0]) {
-          this.transferOwnershipSelectField[0].selectize.destroy();
-        }
         this.applyStyles();
       }
     },
@@ -140,43 +130,6 @@ define(function(require){
       if(!this.isSelected) {
         Origin.trigger('userManagement:user:reset');
         this.isSelected = true;
-        var self = this;
-        this.transferOwnershipSelectField = this.$el.find('.transfer-ownership-select-field').selectize({
-          valueField: '_id',
-          labelField: 'email',
-          searchField: ['email', 'firstName', 'lastName'],
-          options: [],
-          render: {
-            item: this.renderItem,
-            option: this.renderItem
-          },
-          load: function (query, callback) {
-            $.ajax({
-              url: 'api/user',
-              method: 'GET',
-              dataType: 'json',
-              data: {
-                query: query || {'firstName': ''}
-              },
-              success: function (response) {
-                for(var i = 0; i < response.length; i++) {
-                  if (self.model && response[i]._id === self.model.get('_id')) {
-                    response[i].disabled = true;
-                  }
-                }
-                callback(response);
-              },
-              error: function (error) {
-              }
-            });
-          }
-        });
-
-        // This is to trigger the dropdown load when we open the selectize dropdown, else the dropdown is empty and 
-        // we have to press space and erase the space to populate the dropdown
-        this.$el.find('.selectize-input').on('click', function(e) {
-          self.transferOwnershipSelectField[0].selectize.onSearchChange('');
-        });
         this.applyStyles();
       }
     },
@@ -409,20 +362,28 @@ define(function(require){
     },
 
     onTransferClicked: function() {
-      var option = this.$el.find(`[data-transferfrom='${this.model.get('_id')}']`).val();
-      if (!option) {
-        Origin.Notify.alert({ type: 'warning', text: Origin.l10n.t('app.transfercourseuserrequired') });
-        return;
-      }
-
       var self = this;
-      Origin.Notify.confirm({
-        type: 'confirm',
-        text: Origin.l10n.t('app.confirmtransfertoanotheruser'),
+      var courseTransferFieldsView = CourseTransferFieldsView({model: this.model});
+      Origin.Notify.alert({
+        type: 'warning',
+        html: courseTransferFieldsView.el,
+        showConfirmButton: true,
+        showCancelButton: true,
+        confirmButtonText: Origin.l10n.t('app.confirmdefaultyes'),
+        cancelButtonText: Origin.l10n.t('app.cancel'),
+        closeOnConfirm: false,
+        allowOutsideClick: false,
+        preConfirm: function(e) {
+          var transferTo = self.model.get('transferTo');
+          if (!transferTo) {
+            self.model.trigger('invalid', self.model, {"courseTransfer": `${Origin.l10n.t('app.transfercourseuserrequired')}`});
+            return false;
+          }
+        },
         callback: function(confirmed) {
           if(confirmed) {
             $.ajax({
-              url: `api/transfer_all_courses_ownership/from_user/${self.model.get('_id')}/to_user/${option}`,
+              url: `api/transfer_all_courses_ownership/from_user/${self.model.get('_id')}/to_user/${self.model.get('transferTo')}`,
               method: 'POST',
               async: false,
               success: function () {

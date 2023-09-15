@@ -1,7 +1,9 @@
-<div aria-live="off" class="password-fields">
-  <p>{{ t 'app.confirmtransferallcoursestoanotheruser' }}</p>
+<div aria-live="off" class="course-transfer-fields">
+  <label for="transferOwnershipSelectField">
+    {{ courseTransferMessage }}
+    <span id="courseTransferError" class="field-error feedback"></span>
+  </label>
   <div>
-    <select class="transfer-ownership-select-field" data-transferfrom="{{ _id }}"></select>
+    <select id="transferOwnershipSelectField" class="transfer-ownership-select-field" data-transferfrom="{{ _id }}"></select>
   </div>
-  <div id="courseTransferError" class="error field-error feedback" style="position: static;"></div>
 </div>

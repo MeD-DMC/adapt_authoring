@@ -11,6 +11,8 @@ define(function (require) {
       events: {},
 
       preRender: function () {
+        var courseTransferMessage = opts && ['true', true].includes(opts.single_course) ? Origin.l10n.t('app.confirmtransfersinglecoursetoanotheruser') : Origin.l10n.t('app.confirmtransferallcoursestoanotheruser');
+        this.model.set('courseTransferMessage', courseTransferMessage)
         this.listenTo(this.model, 'invalid', this.handleValidationError);
       },
 
@@ -23,8 +25,9 @@ define(function (require) {
           dataType: 'json',
           async: false,
           success: function (response) {
+            var userId = self.model && self.model.get('_type') == 'course' ? self.model.get('createdBy')['_id'] : self.model.get('_id');
             for(var i = 0; i < response.length; i++) {
-              if (self.model && response[i]._id === self.model.get('_id')) {
+              if (self.model && response[i]._id === userId) {
                 response[i].disabled = true;
               }
             }

@@ -161,8 +161,9 @@ define(function(require) {
                 Origin.trigger('dashboard:refresh');
                 Origin.Notify.alert({ type: 'success', text: Origin.l10n.t('app.transfercoursesuccess') });
               },
-              error: function (error) {
-                Origin.Notify.alert({ type: 'error', text: error.responseText});
+              error: function (response) {
+                var errorMessage = response && typeof response == 'object' && response.responseJSON && response.responseJSON.message ? response.responseJSON.message : Origin.l10n.t('app.errorgeneric');
+                Origin.Notify.alert({ type: 'error', text: errorMessage });
               }
             });
           }

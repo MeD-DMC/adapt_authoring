@@ -305,7 +305,7 @@ CourseContent.prototype.destroy = function (search, force, next) {
   var permissionQuery = _.clone(search);
   permissionQuery._type = permissionQuery._type || this.getModelName();
 
-  helpers.hasCoursePermission('delete', user._id, tenantId, permissionQuery, function (err, isAllowed) {
+  helpers.hasOwnerPermission('delete', user._id, tenantId, permissionQuery, function (err, isAllowed) {
     if (!isAllowed && !force) {
       return next(new ContentPermissionError());
     }

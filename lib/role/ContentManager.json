@@ -22,6 +22,7 @@
     { "condition":{}, "resource":"urn:x-adapt:{{tenantid}}/api/extension/*", "action":["create", "update", "read"], "effect":"allow" },
     { "condition":{}, "resource":"urn:x-adapt:{{tenantid}}/api/autocomplete/*", "action":["read"], "effect":"allow" },
     { "condition":{}, "resource":"urn:x-adapt:{{tenantid}}/api/messages/*", "action":["read"], "effect":"allow" },
-    { "condition":{}, "resource":"urn:x-adapt:{{tenantid}}/api/clipboard/me", "action":["read"], "effect":"allow" }
+    { "condition":{}, "resource":"urn:x-adapt:{{tenantid}}/api/clipboard/me", "action":["read"], "effect":"allow" },
+    { "condition":{}, "resource":"urn:x-adapt:{{tenantid}}/api/transfer_all_courses_ownership/*", "action":["update"], "effect":"allow" }
   ]
 }

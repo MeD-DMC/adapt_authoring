@@ -147,7 +147,7 @@ define(function(require) {
         preConfirm: function(e) {
           var transferTo = self.model.get('transferTo');
           if (!transferTo) {
-            self.model.trigger('invalid', self.model, {"courseTransfer": `${Origin.l10n.t('app.transfercourseuserrequired')}`});
+            self.model.trigger('invalid', self.model, {"courseTransfer": `${Origin.l10n.t('app.userrequired')}`});
             return false;
           }
         },
@@ -159,7 +159,7 @@ define(function(require) {
               async: false,
               success: function () {
                 Origin.trigger('dashboard:refresh');
-                Origin.Notify.alert({ type: 'success', text: Origin.l10n.t('app.transfercoursesuccess') });
+                Origin.Notify.alert({ type: 'success', text: Origin.l10n.t('app.transfersuccess') });
               },
               error: function (response) {
                 var errorMessage = response && typeof response == 'object' && response.responseJSON && response.responseJSON.message ? response.responseJSON.message : Origin.l10n.t('app.errorgeneric');

@@ -505,10 +505,10 @@
   "app.passwordtoocommon": "This password is too common, please use a more unique password.",
   "app.hidepassword": "Hide Password",
   "app.passwordatleast": "Your password must have at least:",
-  "app.transferallcoursesownershipto": "Transfer all courses ownership to",
-  "app.transfersinglecourseownershipto": "Transfer course ownership to",
+  "app.transferallcoursesownershipto": "Transfer all courses ownership",
+  "app.transfersinglecourseownershipto": "Transfer course ownership",
   "app.confirmtransferallcoursestoanotheruser": "You are about to transfer all your courses to the user you select in the following field. Are you sure about this?",
   "app.confirmtransfersinglecoursetoanotheruser": "You are about to transfer your course to the user you select in the following field. Are you sure about this?",
-  "app.transfercoursesuccess": "Successfully transferred!",
-  "app.transfercourseuserrequired": "Please select a user."
+  "app.transfersuccess": "Successfully transferred!",
+  "app.userrequired": "Please select a user."
 }

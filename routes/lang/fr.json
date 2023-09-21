@@ -1590,8 +1590,8 @@
     "app.passwordatleast": "Votre mot de passe doit contenir au moins :",
     "app.transferallcoursesownershipto": "Transférer la propriété de tous les cours",
     "app.transfersinglecourseownershipto": "Transférer la propriété du cours",
-    "app.confirmtransferallcoursestoanotheruser": "Vous êtes sur le point de transférer la propriété de tous vos cours à l’utilisateur que vous sélectionnez dans le champ suivant. Êtes-vous sûr de cela ?",
-    "app.confirmtransfersinglecoursetoanotheruser": "Vous êtes sur le point de transférer la propriété de tous votre cours à l’utilisateur que vous sélectionnez dans le champ suivant. Êtes-vous sûr de cela ?",
+    "app.confirmtransferallcoursestoanotheruser": "Êtes-vous certain de vouloir transférer la propriété de tous les cours à l’utilisateur identifié dans le champs suivant?",
+    "app.confirmtransfersinglecoursetoanotheruser": "Êtes-vous certain de vouloir transférer la propriété du cours à l’utilisateur identifié dans le champs suivant?",
     "app.transfersuccess": "Transfert réussi!",
     "app.userrequired": "Veuillez sélectionner un utilisateur."
 }

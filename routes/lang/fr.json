@@ -1088,6 +1088,7 @@
     "app.myprojects": "Mes cours",
     "app.addnewproject": "Ajouter un nouveau cours",
     "app.sharedprojects": "Cours partagés",
+    "app.allprojects": "Tous les cours",
     "app.noprojectstodisplay": "Aucun cours à afficher",
     "app.pleaseentervalue": "Veuillez entrer une valeur ici",
     "app.pleaseaddfile": "Veuillez choisir un fichier à télécharger",
@@ -1586,5 +1587,11 @@
     "app.revealpassword": "Révéler le mot de passe",
     "app.passwordtoocommon": "Ce mot de passe est trop courant, veuillez utiliser un mot de passe plus unique.",
     "app.hidepassword": "Cacher le mot de passe",
-    "app.passwordatleast": "Votre mot de passe doit contenir au moins :"
+    "app.passwordatleast": "Votre mot de passe doit contenir au moins :",
+    "app.transferallcoursesownershipto": "Transférer la propriété de tous les cours",
+    "app.transfersinglecourseownershipto": "Transférer la propriété du cours",
+    "app.confirmtransferallcoursestoanotheruser": "Êtes-vous certain de vouloir transférer la propriété de tous les cours à l’utilisateur identifié dans le champs suivant?",
+    "app.confirmtransfersinglecoursetoanotheruser": "Êtes-vous certain de vouloir transférer la propriété du cours à l’utilisateur identifié dans le champs suivant?",
+    "app.transfersuccess": "Transfert réussi!",
+    "app.userrequired": "Veuillez sélectionner un utilisateur."
 }

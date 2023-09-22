@@ -6,6 +6,7 @@ define(function(require){
   var Helpers = require('../helpers');
   var PasswordFieldsView = require('plugins/passwordChange/views/passwordFieldsView');
   var PasswordHelpers = require('plugins/passwordChange/passwordHelpers');
+  var CourseTransferFieldsView = require('plugins/courseTransfer/views/courseTransferFieldsView');
 
   var UserView = OriginView.extend({
     tagName: 'div',
@@ -36,6 +37,7 @@ define(function(require){
 
       'click button.disable': 'onDisableClicked',
       'click button.delete': 'onDeleteClicked',
+      'click button.transfer': 'onTransferClicked',
       'click button.restore': 'onRestoreClicked'
     },
 
@@ -353,6 +355,43 @@ define(function(require){
               },
               processData: true,
               error: self.onError
+            });
+          }
+        }
+      });
+    },
+
+    onTransferClicked: function() {
+      var self = this;
+      var courseTransferFieldsView = CourseTransferFieldsView({model: this.model});
+      Origin.Notify.alert({
+        type: 'warning',
+        html: courseTransferFieldsView.el,
+        showConfirmButton: true,
+        showCancelButton: true,
+        confirmButtonText: Origin.l10n.t('app.confirmdefaultyes'),
+        cancelButtonText: Origin.l10n.t('app.cancel'),
+        closeOnConfirm: false,
+        allowOutsideClick: false,
+        preConfirm: function(e) {
+          var transferTo = self.model.get('transferTo');
+          if (!transferTo) {
+            self.model.trigger('invalid', self.model, {"courseTransfer": `${Origin.l10n.t('app.userrequired')}`});
+            return false;
+          }
+        },
+        callback: function(confirmed) {
+          if(confirmed) {
+            $.ajax({
+              url: `api/transfer_all_courses_ownership/from_user/${self.model.get('_id')}/to_user/${self.model.get('transferTo')}`,
+              method: 'POST',
+              async: false,
+              success: function () {
+                Origin.Notify.alert({ type: 'success', text: Origin.l10n.t('app.transfersuccess') });
+              },
+              error: function (error) {
+                Origin.Notify.alert({ type: 'error', text: error.responseText});
+              }
             });
           }
         }

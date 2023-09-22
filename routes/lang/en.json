@@ -108,6 +108,7 @@
   "app.myprojects": "My courses",
   "app.addnewproject": "Add new course",
   "app.sharedprojects": "Shared courses",
+  "app.allprojects": "All courses",
   "app.noprojectstodisplay": "No courses to display",
   "app.pleaseentervalue": "Please enter a value here",
   "app.pleaseaddfile": "Please choose a file to upload",
@@ -503,5 +504,11 @@
   "app.revealpassword": "Reveal Password",
   "app.passwordtoocommon": "This password is too common, please use a more unique password.",
   "app.hidepassword": "Hide Password",
-  "app.passwordatleast": "Your password must have at least:"
+  "app.passwordatleast": "Your password must have at least:",
+  "app.transferallcoursesownershipto": "Transfer all courses ownership",
+  "app.transfersinglecourseownershipto": "Transfer course ownership",
+  "app.confirmtransferallcoursestoanotheruser": "Are you sure you want to transfer all your courses to the user identified in the following field?",
+  "app.confirmtransfersinglecoursetoanotheruser": "Are you sure you want to transfer your course to the user identified in the following field?",
+  "app.transfersuccess": "Successfully transferred!",
+  "app.userrequired": "Please select a user."
 }

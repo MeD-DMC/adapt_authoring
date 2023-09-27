@@ -384,7 +384,7 @@ define(function(require){
           if(confirmed) {
             $.ajax({
               url: `api/transfer_all_courses_ownership/from_user/${self.model.get('_id')}/to_user/${self.model.get('transferTo')}`,
-              method: 'PUT',
+              method: 'PATCH',
               async: false,
               success: function () {
                 Origin.Notify.alert({ type: 'success', text: Origin.l10n.t('app.transfersuccess') });

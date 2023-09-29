@@ -391,6 +391,8 @@ function duplicate (data, cb) {
 
       // Set the current user's ID as the creator
       doc.createdBy = user._id;
+      doc._shareWithUsers = [];
+      doc._isShared = false;
 
       CourseContent.prototype.create(doc, function (error, newCourse) {
         if (error) {

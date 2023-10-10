@@ -1529,9 +1529,12 @@
     "app.confirmtransfersinglecoursetoanotheruser": "Êtes-vous certain de vouloir transférer la propriété du cours à l’utilisateur identifié dans le champs suivant?",
     "app.transfersuccess": "Transfert réussi!",
     "app.userrequired": "Veuillez sélectionner un utilisateur.",
+    "app.representative": "Représentant.e",
     "app.hiddenasset": "Média Caché",
+    "app.helpdialogmanagement": "Gestion des dialogues d'aide",
     "app.fileself": "Mes médias",
     "app.filehidden": "Médias Cachés",
+    "app.businesslines": "Secteurs d'activité",
     "app.assets.hideasset.label": "Cacher de la bibliothèque de ressources",
     "app.assets.hideasset.help": "Utilisez cette option si vous souhaitez que la ressource ne soit visible que par vous-même dans la bibliothèque de ressources. Cette option peut être utilisée pour cacher les ressources protégées (A) afin qu'elles ne soient pas visibles par tous les utilisateurs."
 }

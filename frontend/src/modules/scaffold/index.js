@@ -13,8 +13,9 @@ define([
   './views/scaffoldItemsModalView',
   './views/scaffoldListView',
   './views/scaffoldTagsView',
-  './views/scaffoldUsersView'
-], function(Origin, Helpers, Schemas, BackboneForms, BackboneFormsLists, Overrides, ScaffoldAssetView, ScaffoldAssetItemView, ScaffoldCodeEditorView, ScaffoldColourPickerView, ScaffoldDisplayTitleView, ScaffoldItemsModalView, ScaffoldListView, ScaffoldTagsView, ScaffoldUsersView) {
+  './views/scaffoldUsersView',
+  './views/scaffoldSingleUserView'
+], function(Origin, Helpers, Schemas, BackboneForms, BackboneFormsLists, Overrides, ScaffoldAssetView, ScaffoldAssetItemView, ScaffoldCodeEditorView, ScaffoldColourPickerView, ScaffoldDisplayTitleView, ScaffoldItemsModalView, ScaffoldListView, ScaffoldTagsView, ScaffoldUsersView, ScaffoldSingleUserView) {
 
   var Scaffold = {};
   var alternativeModel;
@@ -349,6 +350,7 @@ define([
   Scaffold.getCurrentActiveModals = function() { return ActiveItemsModal; };
   Scaffold.isOverlayActive = function() { return isOverlayActive; };
   Scaffold.setOverlayActive = function(booleanValue) { isOverlayActive = booleanValue; };
+  Scaffold.setModel = function(model) { currentModel = model; };
   Scaffold.addCustomField('Boolean', Backbone.Form.editors.Checkbox);
   Scaffold.addCustomField('QuestionButton', Backbone.Form.editors.Text);
 

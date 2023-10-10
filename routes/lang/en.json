@@ -511,9 +511,12 @@
   "app.confirmtransfersinglecoursetoanotheruser": "Are you sure you want to transfer your course to the user identified in the following field?",
   "app.transfersuccess": "Successfully transferred!",
   "app.userrequired": "Please select a user.",
+  "app.representative": "Representative",
   "app.hiddenasset": "Hidden Asset",
+  "app.helpdialogmanagement": "Help Dialog Management",
   "app.fileself": "My Assets",
   "app.filehidden": "Hidden Assets",
+  "app.businesslines": "Business Lines",
   "app.assets.hideasset.label": "Hide from asset library",
   "app.assets.hideasset.help": "Use this option if you want the asset to be only visible by yourself in the Asset Library. This can used to hide protected (A) assets from being seen by all users."
 }

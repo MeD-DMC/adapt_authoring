@@ -510,5 +510,8 @@
   "app.confirmtransferallcoursestoanotheruser": "Are you sure you want to transfer all your courses to the user identified in the following field?",
   "app.confirmtransfersinglecoursetoanotheruser": "Are you sure you want to transfer your course to the user identified in the following field?",
   "app.transfersuccess": "Successfully transferred!",
-  "app.userrequired": "Please select a user."
+  "app.userrequired": "Please select a user.",
+  "app.helpdialogmanagement": "Help Dialog Management",
+  "app.businesslines": "Business Lines",
+  "app.representative": "Representative"
 }

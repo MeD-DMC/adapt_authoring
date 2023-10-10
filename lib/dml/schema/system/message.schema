@@ -18,6 +18,21 @@
     },
     "generalRibbonTextColor": {
       "type": "string"
+    },
+    "helpDialogTitleEN": {
+      "type": "string"
+    },
+    "helpDialogTitleFR": {
+      "type": "string"
+    },
+    "helpDialogEN": {
+      "type": "string"
+    },
+    "helpDialogFR": {
+      "type": "string"
+    },
+    "properties" : {
+      "type": "object"
     }
   }
 }

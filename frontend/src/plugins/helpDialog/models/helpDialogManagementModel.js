@@ -11,6 +11,7 @@ define(function(require) {
     url: 'api/help_dialogs',
 
     schema: {
+      //TODO add name property here instead of inside the properties.name
       helpDialogTitleEN: {
         type: "Text",
         inputType: "Text",
@@ -57,8 +58,8 @@ define(function(require) {
                 titleLabel: `${Origin.l10n.t('app.title')} FR`
               },
               atptRepresentative: {
-                type: "SingleUser",
-                inputType: "SingleUser",
+                type: "UsersWithEmail",
+                inputType: "UsersWithEmail",
                 items: {
                   type: "objectid",
                   inputType: "Text",
@@ -70,8 +71,8 @@ define(function(require) {
                 titleLabel: `ATPT ${Origin.l10n.t('app.representative')}`
               },
               a11yTeamRepresentative: {
-                type: "SingleUser",
-                inputType: "SingleUser",
+                type: "UsersWithEmail",
+                inputType: "UsersWithEmail",
                 items: {
                   type: "objectid",
                   inputType: "Text",

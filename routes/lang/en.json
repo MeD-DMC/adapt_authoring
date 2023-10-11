@@ -513,5 +513,7 @@
   "app.userrequired": "Please select a user.",
   "app.helpdialogmanagement": "Help Dialog Management",
   "app.businesslines": "Business Lines",
-  "app.representative": "Representative"
+  "app.representative": "Representative",
+  "app.helpdialog.technicalissue.text": "Technical Issue Text",
+  "app.helpdialog.accessibility.text": "Accessibility Issue Text"
 }

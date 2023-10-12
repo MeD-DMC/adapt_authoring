@@ -101,7 +101,7 @@ define(function(require){
         if (repObject) {
           repFullname = `${repObject.firstName} ${repObject.lastName}`;
         }
-        repLi.innerHTML = `<a href="${rep}">${repFullname ? repFullname : rep}</a>`;
+        repLi.innerHTML = `<a href="mailto:${rep}">${repFullname ? repFullname : rep}</a>`;
         repsUl.append(repLi);
       })
       this.$el.find('.help-dialog-technical-reps').html(repsUl);
@@ -121,7 +121,7 @@ define(function(require){
         if (repObject) {
           repFullname = `${repObject.firstName} ${repObject.lastName}`;
         }
-        repLi.innerHTML = `<a href="${rep}">${repFullname ? repFullname : rep}</a>`;
+        repLi.innerHTML = `<a href="mailto:${rep}?subject=Message%20Test">${repFullname ? repFullname : rep}</a>`;
         repsUl.append(repLi);
       });
       this.$el.find('.help-dialog-accessibility-reps').html(repsUl);

@@ -22,6 +22,9 @@
     "generalRibbonTextColor": {
       "type": "string"
     },
+    "helpDialogEnabled": {
+      "type": "boolean"
+    },
     "helpDialogTitleEN": {
       "type": "string"
     },

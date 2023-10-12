@@ -1598,5 +1598,5 @@
     "app.businesslines": "Secteurs d'activité",
     "app.representative": "Représentant.e",
     "app.helpdialog.technicalissue.text": "Texte du problème technique",
-    "app.helpdialog.accessibility.text": "Texte sur les problèmes d'accessibilité"
+    "app.helpdialog.accessibilityissue.text": "Texte sur les problèmes d'accessibilité"
 }

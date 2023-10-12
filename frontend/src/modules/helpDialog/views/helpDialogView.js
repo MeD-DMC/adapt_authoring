@@ -29,13 +29,17 @@ define(function(require){
 
     initialize: function() {
       this.listenTo(Origin, 'login:changed', this.loginChanged);
-      this.render();
+      if (this.model && this.model.get('helpDialogTitleEN')) this.render();
       var htmlLang = $('html').attr('lang');
       var tempPropertiesBusinessLines = [];
-      this.model.get('properties')['_businessLines'].forEach(function(bl, i) {
-        bl['title'] = htmlLang === 'en' ? bl['titleEN'] : bl['titleFR'];
-        tempPropertiesBusinessLines[i] = bl;
-      });
+
+      if (this.model && this.model.get('properties') && this.model.get('properties')['_businessLines']) {
+        this.model.get('properties')['_businessLines'].forEach(function(bl, i) {
+          bl['title'] = htmlLang === 'en' ? bl['titleEN'] : bl['titleFR'];
+          tempPropertiesBusinessLines[i] = bl;
+        });
+      }
+
       this.model.set('properties._businessLines', tempPropertiesBusinessLines);
       this.model.set('helpDialogTitle', this.model.get(htmlLang === 'en' ? 'helpDialogTitleEN' : 'helpDialogTitleFR'));
       this.model.set('helpDialog', this.model.get(htmlLang === 'en' ? 'helpDialogEN' : 'helpDialogFR'));

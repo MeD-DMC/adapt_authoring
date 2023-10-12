@@ -63,6 +63,7 @@ define(function (require) {
       this.$('.error').text('');
 
       var toChange = {
+        name: "help_dialog",
         helpDialogTitleEN: helpDialogTitleENVal,
         helpDialogTitleFR: helpDialogTitleFRVal,
         helpDialogEN: helpDialogENVal,

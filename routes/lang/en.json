@@ -523,6 +523,8 @@
   "app.helpdialog.platformissue.link": "Platform Issue",
   "app.helpdialog.platformissue.text": "To send a request for technical support, please send a message to GD BOX",
   "app.hiddenasset": "Hidden Asset",
+  "app.helpdialog.accessibilityissuewithcourse.text": "Accessibility Issue With Course Text",
+  "app.helpdialog.accessibilityissuewithcourse.link": "Accessibility Issue With Course",
   "app.fileself": "My Assets",
   "app.filehidden": "Hidden Assets",
   "app.assets.hideasset.label": "Hide from asset library",

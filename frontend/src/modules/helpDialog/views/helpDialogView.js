@@ -98,6 +98,7 @@ define(function(require){
         repsUl.append(repLi);
       })
       this.$el.find('.help-dialog-technical-reps').html(repsUl);
+      this.$el.find('.reps-texts').removeClass('display-none');
     },
 
     toggleViewEventHandler: function(event) {

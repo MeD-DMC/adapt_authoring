@@ -36,7 +36,7 @@ define(function(require){
 
     initialize: function() {
       this.listenTo(Origin, 'login:changed', this.loginChanged);
-      if (this.model && this.model.get('helpDialogTitleEN')) this.render();
+      if (this.model && this.model.get('helpDialogEnabled')) this.render();
       var htmlLang = $('html').attr('lang');
       var tempPropertiesBusinessLines = [];
 

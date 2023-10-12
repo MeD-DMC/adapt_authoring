@@ -11,7 +11,12 @@ define(function(require) {
     url: 'api/helpdialogs',
 
     schema: {
-      //TODO add name property here instead of inside the properties.name
+      helpDialogEnabled: {
+        type: "Checkbox",
+        inputType: "Checkbox",
+        title: `${Origin.l10n.t('app.enabled')}`,
+        titleLabel: `${Origin.l10n.t('app.enabled')}`
+      },
       helpDialogTitleEN: {
         type: "Text",
         inputType: "Text",

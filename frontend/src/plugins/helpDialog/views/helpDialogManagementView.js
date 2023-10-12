@@ -52,6 +52,7 @@ define(function (require) {
 
     saveHelpDialog: function () {
       var self = this;
+      var helpDialogEnabledVal = this.form.fields['helpDialogEnabled'].editor.getValue();
       var helpDialogTitleENVal = this.form.fields['helpDialogTitleEN'].editor.getValue();
       var helpDialogTitleFRVal = this.form.fields['helpDialogTitleFR'].editor.getValue();
       var helpDialogENVal = CKEDITOR.instances[this.form.fields['helpDialogEN'].$el.attr('data-editor-id')].getData();
@@ -64,6 +65,7 @@ define(function (require) {
 
       var toChange = {
         name: "help_dialog",
+        helpDialogEnabled: helpDialogEnabledVal,
         helpDialogTitleEN: helpDialogTitleENVal,
         helpDialogTitleFR: helpDialogTitleFRVal,
         helpDialogEN: helpDialogENVal,

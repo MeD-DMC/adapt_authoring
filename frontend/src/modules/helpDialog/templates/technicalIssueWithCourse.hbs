@@ -1,0 +1,20 @@
+<h3>{{{ helpDialogTitle }}}</h3>
+
+<p>
+  {{ t 'app.helpdialog.technicalissuewithcourse.text' }}
+</p>
+
+<div>
+  <select class="business-line-select technical-business-line">
+    <option></option>
+    {{#each properties._businessLines}}
+      <option> {{ title }} </option>
+    {{/each}}
+  </select>
+</div>
+
+<div class="help-dialog-technical-reps"></div>
+
+<div>
+  <button>back</button>
+</div>

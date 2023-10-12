@@ -515,5 +515,7 @@
   "app.businesslines": "Business Lines",
   "app.representative": "Representative",
   "app.helpdialog.technicalissue.text": "Technical Issue Text",
-  "app.helpdialog.accessibilityissue.text": "Accessibility Issue Text"
+  "app.helpdialog.technicalissuewithcourse.text": "Technical Issue With Course Text",
+  "app.helpdialog.accessibilityissue.text": "Accessibility Issue Text",
+  "app.helpdialog.platformissue.text": "Platform Issue Text"
 }

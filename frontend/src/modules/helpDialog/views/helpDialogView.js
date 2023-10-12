@@ -84,6 +84,7 @@ define(function(require){
     toggleTechnicalRepInfo: function(event) {
       var bl = this.getBusinessLineInfo(event);
       var repsUl = document.createElement('ul');
+      repsUl.classList.add("help-dialog-choice-list");
       bl['atptRepresentative'].forEach(function(rep) {
         var repLi = document.createElement('li');
         var repObject = users.filter(function(u) {

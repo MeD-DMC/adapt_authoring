@@ -4,7 +4,7 @@
   {{ t 'app.helpdialog.technicalissuewithcourse.text' }}
 </p>
 
-<div>
+<div class="rep-selector-wrapper">
   <select class="business-line-select technical-business-line">
     <option></option>
     {{#each properties._businessLines}}
@@ -12,9 +12,9 @@
     {{/each}}
   </select>
 </div>
-
+<p><em>You can click on your representative's name to send them a message</em></p>
 <div class="help-dialog-technical-reps"></div>
-
+<p>Your representative was not able to answer your question? You can open a <a class="next-view-link" data-help-dialog-next-view="TechnicalIssueView">technical support ticket</a>.</p>
 <div>
-  <button>back</button>
+  <button class="help-dialog-back-button action-primary">back</button>
 </div>

@@ -13,6 +13,8 @@ define(function(require){
     TypeOfIssueView: require('./typeOfIssueView')
   };
 
+  var reusableViews = {};
+
   var users = [];
   $.ajax({
     url: 'api/user',
@@ -43,7 +45,7 @@ define(function(require){
       this.model.set('properties._businessLines', tempPropertiesBusinessLines);
       this.model.set('helpDialogTitle', this.model.get(htmlLang === 'en' ? 'helpDialogTitleEN' : 'helpDialogTitleFR'));
       this.model.set('helpDialog', this.model.get(htmlLang === 'en' ? 'helpDialogEN' : 'helpDialogFR'));
-      this.toggleView(contentViews['TypeOfIssueView']);
+      this.toggleView('TypeOfIssueView', contentViews['TypeOfIssueView']);
     },
 
     events: {
@@ -68,7 +70,8 @@ define(function(require){
       var toggleButton = messageContainer.querySelector('.fab-message__button div');
       var messageToggle = document.getElementById('fab-message-toggle');
       messageContainer.classList.toggle('is-open');
-      toggleButton.classList.toggle('toggle-icon');                    
+      toggleButton.classList.toggle('toggle-icon');
+      this.toggleView('TypeOfIssueView', contentViews['TypeOfIssueView']);                    
     },
 
     getBusinessLineInfo: function(event) {
@@ -98,12 +101,14 @@ define(function(require){
 
     toggleViewEventHandler: function(event) {
       var nextView = $(event.target).attr('data-help-dialog-next-view');
-      this.toggleView(contentViews[nextView]);
+      this.toggleView(nextView, contentViews[nextView]);
     },
 
-    toggleView: function(View) {
-      var view = new View({model: this.model});      
-      this.$el.find('.help-dialog-content-wrapper').html(view.render().el);
+    toggleView: function(viewName, View) {
+      if (!reusableViews[viewName]) {
+        reusableViews[viewName] = new View({model: this.model}); 
+      }
+      this.$el.find('.help-dialog-content-wrapper').html(reusableViews[viewName].render().el);
     }
   }, {
     template: 'helpDialog'

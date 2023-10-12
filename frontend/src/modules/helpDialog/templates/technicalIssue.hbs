@@ -4,13 +4,15 @@
   {{ t 'app.helpdialog.technicalissue.text' }}
 </p>
 
-<div>
-  <select class="business-line-select technical-business-line">
-    <option></option>
-    {{#each properties._businessLines}}
-      <option> {{ title }} </option>
-    {{/each}}
-  </select>
-</div>
-
-<div class="help-dialog-technical-reps"></div>
+<ul class="help-dialog-choice-list">
+  <li>
+    <a class="next-view-link" data-help-dialog-next-view="TechnicalIssueWithCourseView">
+    {{ t 'app.helpdialog.technicalissuewithcourse.text' }}
+    </a> 
+  </li>
+  <li>
+    <a class="next-view-link" data-help-dialog-next-view="PlatformIssueView">
+      {{ t 'app.helpdialog.platformissue.text' }}
+    </a> 
+  </li>
+</ul>

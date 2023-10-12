@@ -8,7 +8,7 @@ define(function(require) {
   var HelpDialogManagementModel = Backbone.Model.extend({
 
     idAttribute: '_id',
-    url: 'api/help_dialogs',
+    url: 'api/helpdialogs',
 
     schema: {
       //TODO add name property here instead of inside the properties.name

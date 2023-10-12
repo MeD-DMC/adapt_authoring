@@ -12,14 +12,10 @@ define(function(require){
     },
 
     events: {
-    },
-
-    render: function() {
-      return this;
     }
     
   }, {
-    template: 'helpDialog'
+    template: 'accessibilityIssue'
   });
 
   return AccessibilityIssueView;

@@ -1597,8 +1597,14 @@
     "app.helpdialogmanagement": "Gestion des dialogues d'aide",
     "app.businesslines": "Secteurs d'activité",
     "app.representative": "Représentant.e",
-    "app.helpdialog.technicalissue.text": "Texte du problème technique",
-    "app.helpdialog.technicalissuewithcourse.text": "Texte du problème technique avec les cours",
+    "app.helpdialog.technicalissue.link": "Problème technique",
+    "app.helpdialog.technicalissue.text": "Avant de poursuivre, veuillez sélectionner le type de problème technique que vous rencontrez. Si vous rencontrez des problèmes avec l'outil de création (messages d'erreur, interface qui ne fonctionne pas, problèmes de traduction, etc. Si vous rencontrez des problèmes techniques liés à la configuration d'un cours, sélectionnez Problème lié à la création d'un cours.",
+    "app.helpdialog.technicalissuewithcourse.link": "Problème lié à la construction d'un cours",
+    "app.helpdialog.technicalissuewithcourse.text": "Le premier point de contact lorsque vous avez besoin d'aide pour construire un cours est votre représentant ATPT. Si vous ne savez pas qui est votre représentant, veuillez sélectionner votre secteur d'activité dans le champ suivant.",
+    "app.helpdialog.accessibilityissue.link": "Accessibility Issue",
     "app.helpdialog.accessibilityissue.text": "Texte sur les problèmes d'accessibilité",
+    "app.helpdialog.accessibilityissuewithcourse.link": "Accessibility Issue With Course",
+    "app.helpdialog.accessibilityissuewithcourse.text": "Accessibility Issue With Course Text",
+    "app.helpdialog.platformissue.link": "Platform Issue",
     "app.helpdialog.platformissue.text": "Texte du problème avec la plateforme"
 }

@@ -520,6 +520,8 @@
   "app.helpdialog.technicalissuewithcourse.text": "The first point of contact when you need assistance with building a course is your ATPT representative. If you don't know who your representative is, please select your business line in the following field.",
   "app.helpdialog.accessibilityissue.link": "Accessibility Issue",
   "app.helpdialog.accessibilityissue.text": "Accessibility Issue Text",
+  "app.helpdialog.accessibilityissuewithcourse.link": "Accessibility Issue With Course",
+  "app.helpdialog.accessibilityissuewithcourse.text": "Accessibility Issue With Course Text",
   "app.helpdialog.platformissue.link": "Platform Issue",
   "app.helpdialog.platformissue.text": "To send a request for technical support, please send a message to GD BOX"
 }

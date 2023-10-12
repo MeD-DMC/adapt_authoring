@@ -25,6 +25,11 @@ define(function(require){
     }
   });
 
+  var viewsPointer = {
+    'previousView': null,
+    'currentView': null
+  };
+
   var HelpDialogView = OriginView.extend({
     tagName: 'div',
     className: 'help-dialog',
@@ -51,7 +56,9 @@ define(function(require){
     events: {
       'click .at-button': 'toggle',
       'click a.next-view-link': 'toggleViewEventHandler',
-      'change select.technical-business-line': 'toggleTechnicalRepInfo'
+      'click .help-dialog-back-button': 'togglePreviousView',
+      'change select.technical-business-line': 'toggleTechnicalRepInfo',
+      'change select.accessibility-business-line': 'toggleAccessibilityRepInfo'
     },
 
     render: function() {
@@ -101,12 +108,43 @@ define(function(require){
       this.$el.find('.reps-texts').removeClass('display-none');
     },
 
+    toggleAccessibilityRepInfo: function(event) {
+      var bl = this.getBusinessLineInfo(event);
+      var repsUl = document.createElement('ul');
+      repsUl.classList.add("help-dialog-choice-list");
+      bl['a11yTeamRepresentative'].forEach(function(rep) {
+        var repLi = document.createElement('li');
+        var repObject = users.filter(function(u) {
+          return u.email === rep;
+        })[0];
+        var repFullname = '';
+        if (repObject) {
+          repFullname = `${repObject.firstName} ${repObject.lastName}`;
+        }
+        repLi.innerHTML = `<a href="${rep}">${repFullname ? repFullname : rep}</a>`;
+        repsUl.append(repLi);
+      });
+      this.$el.find('.help-dialog-accessibility-reps').html(repsUl);
+      this.$el.find('.reps-texts').removeClass('display-none');
+    },
+
     toggleViewEventHandler: function(event) {
       var nextView = $(event.target).attr('data-help-dialog-next-view');
       this.toggleView(nextView, contentViews[nextView]);
     },
 
+    togglePreviousView: function(event) {
+      var previousView = $(event.target).attr('data-help-dialog-previous-view') || viewsPointer['previousView'];
+      this.toggleView(previousView, contentViews[previousView]);
+    },
+
     toggleView: function(viewName, View) {
+      if (!viewsPointer['currentView']) {
+        viewsPointer['currentView'] = viewName;
+      }
+      viewsPointer['previousView'] = viewsPointer['currentView'];
+      viewsPointer['currentView'] = viewName;
+
       if (!reusableViews[viewName]) {
         reusableViews[viewName] = new View({model: this.model}); 
       }

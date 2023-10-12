@@ -1,11 +1,11 @@
 <h3>{{{ helpDialogTitle }}}</h3>
 
 <p>
-  {{ t 'app.helpdialog.technicalissuewithcourse.text' }}
+  {{ t 'app.helpdialog.accessibilityissuewithcourse.text' }}
 </p>
 
 <div class="rep-selector-wrapper">
-  <select class="business-line-select technical-business-line">
+  <select class="business-line-select accessibility-business-line">
     <option></option>
     {{#each properties._businessLines}}
       <option> {{ title }} </option>
@@ -13,8 +13,8 @@
   </select>
 </div>
 <p class="reps-texts display-none"><em>You can click on your representative's name to send them a message</em></p>
-<div class="help-dialog-technical-reps"></div>
+<div class="help-dialog-accessibility-reps"></div>
 <p class="reps-texts display-none">Your representative was not able to answer your question? You can open a <a class="next-view-link" data-help-dialog-next-view="PlatformIssueView">technical support ticket</a>.</p>
 <div>
-  <button class="help-dialog-back-button action-primary" data-help-dialog-previous-view="TechnicalIssueView">back</button>
+  <button class="help-dialog-back-button action-primary" data-help-dialog-previous-view="AccessibilityIssueView">back</button>
 </div>

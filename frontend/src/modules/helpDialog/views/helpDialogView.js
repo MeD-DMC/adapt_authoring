@@ -101,11 +101,20 @@ define(function(require){
         if (repObject) {
           repFullname = `${repObject.firstName} ${repObject.lastName}`;
         }
-        repLi.innerHTML = `<a href="mailto:${rep}">${repFullname ? repFullname : rep}</a>`;
+        var mailToSubject = encodeURIComponent(`${Origin.l10n.t('app.helpdialog.technicalissuewithcourse.link')}`);
+        repLi.innerHTML = `<a href="mailto:${rep}?subject=${mailToSubject}">${repFullname ? repFullname : rep}</a>`;
         repsUl.append(repLi);
       })
       this.$el.find('.help-dialog-technical-reps').html(repsUl);
-      this.$el.find('.reps-texts').removeClass('display-none');
+      if (bl['atptRepresentative'] && bl['atptRepresentative'].length > 0) {
+        this.$el.find('.reps-texts').removeClass('display-none');
+        this.$el.find('.no-reps-texts').addClass('display-none');
+      }
+      else {
+        this.$el.find('.no-reps-texts').removeClass('display-none');
+        this.$el.find('.reps-texts').addClass('display-none');
+      }
+      this.$el.find('.support-reps-texts').removeClass('display-none');
     },
 
     toggleAccessibilityRepInfo: function(event) {
@@ -121,11 +130,21 @@ define(function(require){
         if (repObject) {
           repFullname = `${repObject.firstName} ${repObject.lastName}`;
         }
-        repLi.innerHTML = `<a href="mailto:${rep}?subject=Message%20Test">${repFullname ? repFullname : rep}</a>`;
+        var mailToSubject = encodeURIComponent(`${Origin.l10n.t('app.helpdialog.accessibilityissuewithcourse.link')}`)
+        repLi.innerHTML = `<a href="mailto:${rep}?subject=${mailToSubject}">${repFullname ? repFullname : rep}</a>`;
         repsUl.append(repLi);
       });
       this.$el.find('.help-dialog-accessibility-reps').html(repsUl);
-      this.$el.find('.reps-texts').removeClass('display-none');
+
+      if (bl['a11yTeamRepresentative'] && bl['a11yTeamRepresentative'].length > 0) {
+        this.$el.find('.reps-texts').removeClass('display-none');
+        this.$el.find('.no-reps-texts').addClass('display-none');
+      }
+      else {
+        this.$el.find('.no-reps-texts').removeClass('display-none');
+        this.$el.find('.reps-texts').addClass('display-none');
+      }
+      this.$el.find('.support-reps-texts').removeClass('display-none');
     },
 
     toggleViewEventHandler: function(event) {

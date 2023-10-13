@@ -38,6 +38,11 @@ define(function (require) {
        return this.setViewToReady();
       }
       this.$('.form-container').append(this.form.el);
+      var helpDialogLegend = document.createElement('div');
+      helpDialogLegend.innerHTML = `
+        <legend style="margin: 20px; font-size: 15px; font-weight: bold;">${ Origin.l10n.t('app.helpdialog') }</legend>
+      `;
+      this.$('.form-container').find('fieldset')[0].prepend(helpDialogLegend);
     },
 
     handleValidationError: function (model, error) {

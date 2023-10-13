@@ -527,5 +527,9 @@
   "app.helpdialog.platformissue.text": "To send a request for technical support, please send a message to GD BOX",
   "app.helpdialog.complianceissue.link": "Compliance Issue",
   "app.helpdialog.complianceissue.text": "Compliance Issue Text",
-  "app.heldialog.businessline.norepresentative": "There is currently no representative for your selected business line"
+  "app.heldialog.businessline.norepresentative": "There is currently no representative for your selected business line",
+  "app.heldialog.businessline.representative.helptext": "You can click on your representative's name to send them a message",
+  "app.heldialog.issuewithcourse.support.helptext": "You are unable to get answers to your questions? You can open a support ticket",
+  "app.back": "Back",
+  "app.here": "Here"
 }

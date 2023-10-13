@@ -1595,6 +1595,7 @@
     "app.transfersuccess": "Transfert réussi!",
     "app.userrequired": "Veuillez sélectionner un utilisateur.",
     "app.helpdialogmanagement": "Gestion des dialogues d'aide",
+    "app.helpdialog": "Dialogues d'aide",
     "app.businesslines": "Secteurs d'activité",
     "app.representative": "Représentant.e",
     "app.helpdialog.technicalissue.link": "Problème technique",
@@ -1605,6 +1606,9 @@
     "app.helpdialog.accessibilityissue.text": "Texte sur les problèmes d'accessibilité",
     "app.helpdialog.accessibilityissuewithcourse.link": "Accessibility Issue With Course",
     "app.helpdialog.accessibilityissuewithcourse.text": "Accessibility Issue With Course Text",
-    "app.helpdialog.platformissue.link": "Platform Issue",
-    "app.helpdialog.platformissue.text": "Texte du problème avec la plateforme"
+    "app.helpdialog.platformissue.link": "Problème avec la plateforme",
+    "app.helpdialog.platformissue.text": "Texte du problème avec la plateforme",
+    "app.helpdialog.complianceissue.link": "Problème de conformité",
+    "app.helpdialog.complianceissue.text": "Texte du problème de conformité",
+    "app.heldialog.businessline.norepresentative": "Il n'y a actuellement aucun représentant pour la ligne de votre entreprise sélectionnée."
 }

@@ -46,6 +46,7 @@ define(function(require){
         }, this),
         error: console.error
       });
+      console.log(this.model.attributes._id);
     },
 
     /**
@@ -78,8 +79,13 @@ define(function(require){
           this.removeSelectedItemStyling();
           this.addSelectedItemStyling(selectedModel.get('_id'));
           this.setUpInteraction();
+          this.setCourseCount();
         }, this));
       });
+    },
+
+    setCourseCount: function(){
+      console.log(this);
     },
 
     /**

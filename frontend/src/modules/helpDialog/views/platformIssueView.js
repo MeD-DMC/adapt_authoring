@@ -8,6 +8,9 @@ define(function(require){
     className: 'help-dialog-inner-content',
 
     initialize: function() {
+      var platformissuelink = "https://forms.office.com/Pages/ResponsePage.aspx?id=RljVnoGKRkKs2LGgGr_A0Un9OJIvHjNFiFE__NvAv8RUN083SEdWSDNUSE9JVU5RMzZRMk5YR1NOUi4u";
+      platformissuelink += this.model.get('language') == 'en' ? "" : "&lang=fr-CA";
+      this.model.set('platformissuelink', platformissuelink);
       this.render();
     },
 

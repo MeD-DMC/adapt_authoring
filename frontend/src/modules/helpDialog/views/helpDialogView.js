@@ -40,6 +40,8 @@ define(function(require){
       var htmlLang = $('html').attr('lang');
       var tempPropertiesBusinessLines = [];
 
+      this.model.set('language', htmlLang);
+
       if (this.model && this.model.get('properties') && this.model.get('properties')['_businessLines']) {
         this.model.get('properties')['_businessLines'].forEach(function(bl, i) {
           bl['title'] = htmlLang === 'en' ? bl['titleEN'] : bl['titleFR'];

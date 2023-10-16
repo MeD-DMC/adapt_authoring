@@ -15,7 +15,8 @@ define(function(require) {
     initialize: function() {
       var self = this;
       $(document).ajaxError(function (e, xhr, options) {
-        var route = Backbone.history.getFragment();
+        var fragments = Backbone.history.getFragment().split('/');
+        var route = fragments[0] + '/' + fragments[1];
         console.log('route', route);
         if(route && route !== 'user/login' && route !== 'user/logout' && route !== 'user/forgot' && route !== 'user/reset'){
           if(xhr.status === 403 && xhr.responseJSON.statusCode === 'not-authenticated'){

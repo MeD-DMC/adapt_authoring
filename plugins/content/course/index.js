@@ -107,6 +107,12 @@ function initialize () {
         return res.json({success: true, newCourseId: newCourse._id});
       });
     });
+    // add course schema route
+    rest.get('/schema/course/:id', function (req, res, next) {
+        buildCourseSchema(req.params.id).then(function(schema){
+          res.status(200).json(schema);
+        });
+    });
   });
 
   app.contentmanager.addContentHook('update', 'course', {when:'pre'}, function (data, next) {
@@ -326,6 +332,32 @@ CourseContent.prototype.destroy = function (search, force, next) {
     });
   });
 };
+
+async function buildCourseSchema(courseId){
+  return new Promise((resolve, reject) => {
+  var fullCourse = {};
+  database.getDatabase(function (error, db) {
+    if (error) {
+      logger.log('error', error);
+      return cb(error);
+    }
+    var types = ['contentobject', 'article', 'block', 'component'];
+        async.eachSeries(types, function(contenttype, next){
+            db.retrieve(contenttype, {_courseId: courseId}, function (error, items) {
+              if (error) {
+                logger.log('error', error);
+                
+              } else {
+                fullCourse[contenttype] = items;
+                next();
+              }
+            })
+        }, function(){
+          resolve(fullCourse)
+        });
+    });
+  })
+}
 
 /**
  * Duplicate a course

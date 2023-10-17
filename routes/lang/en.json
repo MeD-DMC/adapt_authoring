@@ -531,5 +531,7 @@
   "app.heldialog.businessline.representative.helptext": "You can click on your representative's name to send them a message.",
   "app.heldialog.technicalissuewithcourse.support.helptext": "You are unable to get answers to your questions? You can <a class='%{classname}' data-help-dialog-next-view='%{nextview}'>open a support ticket</a>.",
   "app.heldialog.accessibilityissuewithcourse.support.helptext": "You are unable to get answers to your questions? You can ask for <a class='%{classname}' data-help-dialog-next-view='%{nextview}'>accessibility recommendations</a>.",
-  "app.back": "Back"
+  "app.back": "Back",
+  "app.representative.atpt": "Authoring Tool Project Team (ATPT) representative",
+  "app.representative.alliesnetwork": "Accessibility Allies Network representative"
 }

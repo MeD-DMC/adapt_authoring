@@ -72,8 +72,8 @@ define(function(require) {
                   editorOnly: true,
                   ref: "user"
                 },
-                title: `ATPT ${Origin.l10n.t('app.representative')}`,
-                titleLabel: `ATPT ${Origin.l10n.t('app.representative')}`
+                title: `${Origin.l10n.t('app.representative.atpt')}`,
+                titleLabel: `${Origin.l10n.t('app.representative.atpt')}`
               },
               a11yTeamRepresentative: {
                 type: "UsersWithEmail",
@@ -85,8 +85,8 @@ define(function(require) {
                   editorOnly: true,
                   ref: "user"
                 },
-                title: `A11y Team ${Origin.l10n.t('app.representative')}`,
-                titleLabel: `A11y Team ${Origin.l10n.t('app.representative')}`
+                title: `${Origin.l10n.t('app.representative.alliesnetwork')}`,
+                titleLabel: `${Origin.l10n.t('app.representative.alliesnetwork')}`
               }
             }
           }

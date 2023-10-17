@@ -14,17 +14,6 @@ define(function(require){
   };
 
   var reusableViews = {};
-
-  var users = [];
-  $.ajax({
-    url: 'api/user',
-    type: 'GET',
-    async: false,
-    success: function(results) {
-      users = results;
-    }
-  });
-
   var viewsPointer = {
     'previousView': null,
     'currentView': null
@@ -40,7 +29,19 @@ define(function(require){
       var htmlLang = $('html').attr('lang');
       var tempPropertiesBusinessLines = [];
 
+      var users = [];
+
+      $.ajax({
+        url: 'api/user',
+        type: 'GET',
+        async: false,
+        success: function(results) {
+          users = results;
+        }
+      });
+
       this.model.set('language', htmlLang);
+      this.model.set('users', users);
 
       if (this.model && this.model.get('properties') && this.model.get('properties')['_businessLines']) {
         this.model.get('properties')['_businessLines'].forEach(function(bl, i) {
@@ -92,11 +93,12 @@ define(function(require){
 
     toggleTechnicalRepInfo: function(event) {
       var bl = this.getBusinessLineInfo(event);
+      var self = this;
       var repsUl = document.createElement('ul');
       repsUl.classList.add("help-dialog-choice-list");
       bl['atptRepresentative'].forEach(function(rep) {
         var repLi = document.createElement('li');
-        var repObject = users.filter(function(u) {
+        var repObject = self.model.get('users').filter(function(u) {
           return u.email === rep;
         })[0];
         var repFullname = '';
@@ -122,10 +124,11 @@ define(function(require){
     toggleAccessibilityRepInfo: function(event) {
       var bl = this.getBusinessLineInfo(event);
       var repsUl = document.createElement('ul');
+      var self = this;
       repsUl.classList.add("help-dialog-choice-list");
       bl['a11yTeamRepresentative'].forEach(function(rep) {
         var repLi = document.createElement('li');
-        var repObject = users.filter(function(u) {
+        var repObject = self.model.get('users').filter(function(u) {
           return u.email === rep;
         })[0];
         var repFullname = '';

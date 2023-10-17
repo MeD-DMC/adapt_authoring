@@ -1,7 +1,7 @@
 <h3>{{{ helpDialogTitle }}}</h3>
 
 <p>
-  {{ t 'app.helpdialog.accessibilityissuewithcourse.text' }}
+  {{{ t 'app.helpdialog.accessibilityissuewithcourse.text' }}}
 </p>
 
 <div class="rep-selector-wrapper">
@@ -12,12 +12,12 @@
     {{/each}}
   </select>
 </div>
-<p class="reps-texts display-none"><em>{{ t 'app.heldialog.businessline.representative.helptext' }}</em></p>
-<p class="no-reps-texts display-none"><em>{{ t 'app.heldialog.businessline.norepresentative' }}</em></p>
+<p class="reps-texts display-none"><em>{{{ t 'app.heldialog.businessline.representative.helptext' }}}</em></p>
+<p class="no-reps-texts display-none"><em>{{{ t 'app.heldialog.businessline.norepresentative' }}}</em></p>
 
 <div class="help-dialog-accessibility-reps"></div>
 
-<p class="support-reps-texts display-none">{{{ td 'app.heldialog.issuewithcourse.support.helptext' '{"classname": "next-view-link", "nextview": "ComplianceIssueView"}' }}}.</p>
+<p class="support-reps-texts display-none">{{{ td 'app.heldialog.accessibilityissuewithcourse.support.helptext' '{"classname": "next-view-link", "nextview": "ComplianceIssueView"}' }}}.</p>
 <div>
   <button class="help-dialog-back-button action-primary" data-help-dialog-previous-view="AccessibilityIssueView">{{ t 'app.back' }}</button>
 </div>

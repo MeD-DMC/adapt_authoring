@@ -6,10 +6,12 @@ define(function(require){
   var contentViews = {
     AccessibilityIssueView: require('./accessibilityIssueView'),
     AccessibilityIssueWithCourseView: require('./accessibilityIssueWithCourseView'),
+    AccessibilityToolsAndDocumentationsView: require('./accessibilityToolsAndDocumentationsView'),
     ComplianceIssueView: require('./complianceIssueView'),
     PlatformIssueView: require('./platformIssueView'),
     TechnicalIssueView: require('./technicalIssueView'),
     TechnicalIssueWithCourseView: require('./technicalIssueWithCourseView'),
+    TechnicalToolsAndDocumentationsView: require('./technicalToolsAndDocumentationsView'),
     TypeOfIssueView: require('./typeOfIssueView')
   };
 

@@ -12,7 +12,7 @@ define(function (require) {
   var dateTime = Date.now();
   var TEN_MINUTES = 10 * 60 * 1000;
   var data = {
-    featurePermissions: ["{{tenantid}}/help_dialog/*:create", "{{tenantid}}/help_dialog/*:read", "{{tenantid}}/help_dialog/*:update"]
+    featurePermissions: ["{{tenantid}}/helpdialogs/*:create", "{{tenantid}}/helpdialogs/*:read", "{{tenantid}}/helpdialogs/*:update"]
   };
 
   Origin.on('origin:dataReady login:changed', function () {

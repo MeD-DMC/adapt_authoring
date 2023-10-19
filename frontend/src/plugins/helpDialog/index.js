@@ -6,6 +6,7 @@ define(function (require) {
   var HelpDialogManagementView = require('./views/helpDialogManagementView');
   var HelpDialogManagementSidebarView = require('./views/helpDialogManagementSidebarView');
   var HelpDialogManagementModel = require('./models/helpDialogManagementModel');
+  var HelpDialogView = require('./views/helpDialogView');
 
   var isReady = false;
   var dateTime = Date.now();
@@ -59,4 +60,14 @@ define(function (require) {
     });
     return
   };
+
+  var helpDialogManagementModel = new HelpDialogManagementModel();
+  Origin.on('origin:dataReady login:changed helpDialogManagementSidebar:views:saved', function() {
+    helpDialogManagementModel.fetch({
+      success: function(result) {
+        $('.help-dialog').remove();
+        $('#app').before(new HelpDialogView({ model: result }).$el);
+      }
+    })
+  });
 })

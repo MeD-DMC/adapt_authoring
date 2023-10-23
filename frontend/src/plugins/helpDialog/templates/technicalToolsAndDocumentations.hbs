@@ -1,18 +1,20 @@
 <h3>{{{ helpDialogTitle }}}</h3>
 
-<div class="breadcrumbs">
-  <div class="item">
-    <a class="next-view-link" data-help-dialog-next-view="TypeOfIssueView">{{{ t 'app.typeofissue' }}}</a>
-  </div>
-  <div class="separator unselectable">&gt;</div>
-  <div class="item">
-    <a class="next-view-link" data-help-dialog-next-view="TechnicalIssueView">{{{ t 'app.helpdialog.technicalissue.link' }}}</a>
-  </div>
-  <div class="separator unselectable">&gt;</div>
-  <div class="item">
-    {{{ t 'app.helpdialog.technicalissuewithcourse.link' }}}
-  </div>
-</div>
+<nav aria-label="Breadcrumb" class="breadcrumbs">
+  <ol>
+    <li class="item">
+      <a href class="next-view-link" data-help-dialog-next-view="TypeOfIssueView">{{{ t 'app.typeofissue' }}}</a>
+    </li>
+    <div class="separator unselectable">&gt;</div>
+    <li class="item">
+      <a href class="next-view-link" data-help-dialog-next-view="TechnicalIssueView">{{{ t 'app.helpdialog.technicalissue.link' }}}</a>
+    </li>
+    <div class="separator unselectable">&gt;</div>
+    <li class="item">
+      <a href class="next-view-link" aria-current="page">{{{ t 'app.helpdialog.technicalissuewithcourse.link' }}}</a>
+    </li>
+  </ol>
+</nav>
 
 <p>
   {{{ td 'app.heldialog.technical.toolsanddocumentations.text' '{"classname": "next-view-link", "nextview": "TechnicalIssueWithCourseView"}' }}}

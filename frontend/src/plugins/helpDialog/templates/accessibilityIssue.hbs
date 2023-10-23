@@ -1,14 +1,16 @@
 <h3>{{{ helpDialogTitle }}}</h3>
 
-<div class="breadcrumbs">
-  <div class="item">
-    <a class="next-view-link" data-help-dialog-next-view="TypeOfIssueView">{{{ t 'app.typeofissue' }}}</a>
-  </div>
-  <div class="separator unselectable">&gt;</div>
-  <div class="item">
-    {{{ t 'app.helpdialog.accessibilityissue.link' }}}
-  </div>
-</div>
+<nav aria-label="Breadcrumb" class="breadcrumbs">
+  <ol>
+    <li class="item">
+      <a href class="next-view-link" data-help-dialog-next-view="TypeOfIssueView">{{{ t 'app.typeofissue' }}}</a>
+    </li>
+    <div class="separator unselectable">&gt;</div>
+    <li class="item">
+      <a href class="next-view-link" aria-current="page">{{{ t 'app.helpdialog.accessibilityissue.link' }}}</a>
+    </li>
+  </ol>
+</nav>
 
 <p>
   {{{ t 'app.helpdialog.accessibilityissue.text' }}}
@@ -16,12 +18,12 @@
 
 <ul class="help-dialog-choice-list">
  <li>
-    <a class="next-view-link" data-help-dialog-next-view="PlatformIssueView">
+    <a href class="next-view-link" data-help-dialog-next-view="PlatformIssueView">
       {{{ t 'app.helpdialog.platformissue.link' }}}
     </a> 
   </li>
   <li>
-    <a class="next-view-link" data-help-dialog-next-view="AccessibilityToolsAndDocumentationsView">
+    <a href class="next-view-link" data-help-dialog-next-view="AccessibilityToolsAndDocumentationsView">
     {{{ t 'app.helpdialog.accessibilityissuewithcourse.link' }}}
     </a> 
   </li>

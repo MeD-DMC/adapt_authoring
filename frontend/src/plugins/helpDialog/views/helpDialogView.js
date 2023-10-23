@@ -78,12 +78,14 @@ define(function(require){
     },
 
     toggle: function() {
+      var messageWrapper = document.querySelector('.fab-message__content');
       var messageContainer = document.querySelector('.fab-message');
-      var toggleButton = messageContainer.querySelector('.fab-message__button div');
+      var toggleButton = messageContainer.querySelector('.fab-message__button button');
       var messageToggle = document.getElementById('fab-message-toggle');
       messageContainer.classList.toggle('is-open');
       toggleButton.classList.toggle('toggle-icon');
-      this.toggleView('TypeOfIssueView', contentViews['TypeOfIssueView']);                    
+      this.toggleView('TypeOfIssueView', contentViews['TypeOfIssueView']);
+      messageWrapper.focus();
     },
 
     getBusinessLineInfo: function(event) {
@@ -155,6 +157,7 @@ define(function(require){
     },
 
     toggleViewEventHandler: function(event) {
+      event.preventDefault();
       var nextView = $(event.target).attr('data-help-dialog-next-view');
       this.toggleView(nextView, contentViews[nextView]);
     },

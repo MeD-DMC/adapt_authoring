@@ -57,6 +57,9 @@
 
 /*FAB Button*/
 .at-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   position: absolute;
   right: 24px;
   bottom: 24px;
@@ -69,7 +72,12 @@
   box-sizing: border-box;
   color: #666;
   -webkit-animation: at-ripple .6s linear infinite;
-  animation: at-ripple .6s linear infinite
+  animation: at-ripple .6s linear infinite;
+}
+
+.at-button:focus-visible {
+  background: #d93df3;
+  outline: none;
 }
 
 .at-button:hover i {
@@ -159,15 +167,17 @@ a.at-button.toggle-icon {
   .breadcrumbs .separator {
     display: inline-block;
     margin: 0 5px;
-    opacity: .35;
     overflow: hidden;
   }
   .breadcrumbs .item {
     display: inline-block;
-    max-width: 250px;
-    text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
+  }
+  .breadcrumbs a[aria-current="page"] {
+    pointer-events: none;
+    text-decoration: none;
+    color: inherit;
   }
 }
 
@@ -195,4 +205,16 @@ a.at-button.toggle-icon {
 
 .form-container > form > div > fieldset {
   padding: 45px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
 }

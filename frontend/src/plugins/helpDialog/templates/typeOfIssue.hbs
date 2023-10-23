@@ -2,19 +2,27 @@
   <h3>{{{ helpDialogTitle }}}</h3>
 </div>
 
+<nav aria-label="Breadcrumb" class="breadcrumbs">
+  <ol>
+    <li class="item">
+      <a href class="next-view-link" aria-current="page">{{{ t 'app.typeofissue' }}}</a>
+    </li>
+  </ol>
+</nav>
+
 <div class="hel-dialog-title">
   {{{ helpDialog }}}
 </div>
 
 <ul class="help-dialog-choice-list">
   <li>
-    <a class="next-view-link" data-help-dialog-next-view="TechnicalIssueView">
+    <a href class="next-view-link" data-help-dialog-next-view="TechnicalIssueView">
     {{ t 'app.helpdialog.technicalissue.link' }}
     </a> 
   </li>
 
   <li>
-    <a class="next-view-link" data-help-dialog-next-view="AccessibilityIssueView">
+    <a href class="next-view-link" data-help-dialog-next-view="AccessibilityIssueView">
       {{ t 'app.helpdialog.accessibilityissue.link' }}
     </a> 
   </li>

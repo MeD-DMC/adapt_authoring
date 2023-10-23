@@ -12,7 +12,7 @@ define(function(require) {
   var UserPasswordResetModel = require('./models/userPasswordResetModel');
 
   Origin.on('navigation:user:logout', function() {
-    Origin.router.navigateTo('user/logout');
+    Origin.router.navigateToLogout();
   });
 
   Origin.on('navigation:user:profile', function() {

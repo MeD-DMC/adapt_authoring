@@ -208,7 +208,7 @@ LocalAuth.prototype.resetPassword = function (req, res, next) {
     if (!usrReset) {
       return res.status(200).json({});
     }
-    self.internalResetPassword({ id: usrReset.user, password: req.body.password }, function (error, user) {
+    self.internalResetPassword({ id: usrReset.user, password: req.body.password }, req, function (error, user) {
       if (error) {
         logger.log('error', error);
         return res.status(500).end();
@@ -218,7 +218,7 @@ LocalAuth.prototype.resetPassword = function (req, res, next) {
   });
  };
 
-LocalAuth.prototype.internalResetPassword = function (user, next) {
+LocalAuth.prototype.internalResetPassword = function (user, req, next) {
   if (!user.id || !user.password) {
     return next(new auth.errors.UserResetPasswordError('User ID and password are required!'));
   }
@@ -228,13 +228,12 @@ LocalAuth.prototype.internalResetPassword = function (user, next) {
     if (error) {
       return cb(error);
     }
-
     // Update user details with hashed password
     usermanager.updateUser({ _id: user.id }, { password: hash, failedLoginCount: 0, passwordResetCount: 0, lastPasswordChange: new Date().toISOString() }, function(err) {
       if (error) {
         return next(error)
       }
-
+      usermanager.clearOtherSessions(req, user.id);
       usermanager.deleteUserPasswordReset({ user: user.id }, function (error, user) {
         if (error) {
           return next(error);

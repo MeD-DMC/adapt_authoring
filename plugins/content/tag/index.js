@@ -71,7 +71,7 @@ TagContent.prototype.create = function (data, next) {
 
 function initialize () {
   app.on('serverStarted', function () {
-    permissions.ignoreRoute(/^\/api\/autocomplete\/tag\/?$/);
+    //permissions.ignoreRoute(/^\/api\/autocomplete\/tag\/?$/);
     app.rest.get('/autocomplete/tag', function (req, res, next) {
       database.getDatabase(function (err, db) {
         if (err) {

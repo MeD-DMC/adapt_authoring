@@ -1622,5 +1622,6 @@
     "app.typeofissue": "Type de problème",
     "app.helpdialog.button.label": "Trouver de l'aide",
     "app.selectrepresentativefromatpt": "Sélectionnez votre représentant du Groupe de travail des outils de création",
-    "app.selectrepresentativefromaccessibilityalliesnetwork": "Sélectionnez votre représentant du Réseau des alliés de l'accessibilité"
+    "app.selectrepresentativefromaccessibilityalliesnetwork": "Sélectionnez votre représentant du Réseau des alliés de l'accessibilité",
+    "app.helpdialog.closebutton.label": "Fermer la boîte de dialogue d'aide"
 }

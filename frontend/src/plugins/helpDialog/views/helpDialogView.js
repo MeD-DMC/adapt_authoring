@@ -77,13 +77,14 @@ define(function(require){
       this.render();
     },
 
-    toggle: function() {
+    toggle: function(event) {
       var messageWrapper = document.querySelector('.fab-message__content');
       var messageContainer = document.querySelector('.fab-message');
       var buttonContainer = messageContainer.querySelector('.fab-message__button');
       var toggleButton = messageContainer.querySelector('.fab-message__button button');
       if($(messageContainer).hasClass('is-open')){
         $(buttonContainer).after(messageWrapper);
+        $(event.target).attr('aria-label', `${Origin.l10n.t('app.helpdialog.button.label')}`);
         $(messageWrapper).attr('tabindex', '1');
         this.toggleView('TypeOfIssueView', contentViews['TypeOfIssueView']);
         messageContainer.classList.toggle('is-open');
@@ -93,6 +94,7 @@ define(function(require){
         }, 300);
       } else {
         $(buttonContainer).before(messageWrapper);
+        $(event.target).attr('aria-label', `${Origin.l10n.t('app.helpdialog.closebutton.label')}`);
         $(messageWrapper).attr('tabindex', '0');
         $(messageWrapper).removeClass('display-none');
         this.toggleView('TypeOfIssueView', contentViews['TypeOfIssueView']);
@@ -188,6 +190,8 @@ define(function(require){
       }
       viewsPointer['previousView'] = viewsPointer['currentView'];
       viewsPointer['currentView'] = viewName;
+
+      this.model.set('previousView', viewsPointer['previousView']);
 
       if (!reusableViews[viewName]) {
         reusableViews[viewName] = new View({model: this.model}); 

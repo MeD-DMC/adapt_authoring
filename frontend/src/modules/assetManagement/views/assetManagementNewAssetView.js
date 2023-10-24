@@ -74,6 +74,7 @@ define(function(require){
 
       var title = this.$('.asset-title').val();
       var description = this.$('.asset-description').val();
+      var privateAsset = this.$('.asset-hide')[0].checked;      
         // If model is new then uploadFile
         if (this.model.isNew()) {
           this.uploadFile();
@@ -81,7 +82,7 @@ define(function(require){
           return false;
         } else {
           // Else just update the title, description and tags
-          this.model.set({title: title, description: description});
+          this.model.set({title: title, description: description, hideAsset: privateAsset});
           this.model.save(null, {
             error: function(model, response, options) {
               Origin.Notify.alert({
@@ -107,7 +108,7 @@ define(function(require){
 
       var self = this;
       this.$('.asset-form').ajaxSubmit({
-
+        data: {hideAsset: this.$el.find('.asset-hide')[0].checked},
         uploadProgress: function(event, position, total, percentComplete) {
           $(".progress-container").css("visibility", "visible");
           var percentVal = percentComplete + '%';

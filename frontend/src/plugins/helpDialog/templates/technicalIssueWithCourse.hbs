@@ -1,7 +1,7 @@
 <h3>{{{ helpDialogTitle }}}</h3>
 
 <nav aria-label="Breadcrumb" class="breadcrumbs">
-  <ol>
+  <ol class="breadcrumbs-list">
     <li class="item">
       <a href class="next-view-link" data-help-dialog-next-view="TypeOfIssueView">{{{ t 'app.typeofissue' }}}</a>
     </li>
@@ -9,7 +9,7 @@
     <li class="item">
       <a href class="next-view-link" data-help-dialog-next-view="TechnicalIssueView">{{{ t 'app.helpdialog.technicalissue.link' }}}</a>
     </li>
-    <div class="separator unselectable">&gt;</div>
+    <li aria-hidden="true" class="separator unselectable">&gt;</li>
     <li class="item">
       <a href class="next-view-link" data-help-dialog-next-view="TechnicalToolsAndDocumentationsView">{{{ t 'app.helpdialog.technicalissuewithcourse.link' }}}</a>
     </li>

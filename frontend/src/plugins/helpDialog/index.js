@@ -66,7 +66,7 @@ define(function (require) {
     helpDialogManagementModel.fetch({
       success: function(result) {
         $('.help-dialog').remove();
-        $('#app').before(new HelpDialogView({ model: result }).$el);
+        $('body').append(new HelpDialogView({ model: result }).$el);
       }
     })
   });

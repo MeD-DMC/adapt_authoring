@@ -2,6 +2,8 @@
 
 /*Questions & Help Message*/
 .fab-message {
+  display: grid;
+  grid-template-rows: 1fr auto;
   position: fixed;
   width: 100%;
   bottom: 0;
@@ -13,12 +15,11 @@
 }
 
 .fab-message__button {
-  float: right;
-  padding: 20px;
   -webkit-transform: translateY(-100%);
   transform: translateY(-100%);
   -webkit-transition: all .3s;
-  transition: all .3s
+  transition: all .3s;
+  order: 1;
 }
 
 .fab-message__content {
@@ -27,9 +28,11 @@
   color: #151515;
   height: auto;
   -webkit-transition: all .3s;
-  transition: all 2s;
-  color: #3f3f3f
+  transition: all .3s;
+  color: #3f3f3f;
+  order: 2;
 }
+
 
 .fab-message__content a {
   color: #0054a6;
@@ -47,8 +50,8 @@
 }
 
 .fab-message.is-open .fab-message__button {
-  -webkit-transform: translateY(-2em);
-  transform: translateY(-2em)
+  -webkit-transform: translateY(0.75em);
+  transform: translateY(0.75em)
 }
 
 .fab-message.is-open .fab-message__content {
@@ -164,6 +167,10 @@ a.at-button.toggle-icon {
     font-weight: 400;
     margin-bottom: 7px;
   }
+  .breadcrumbs .breadcrumbs-list {
+    display: flex;
+    align-items: center;
+  }
   .breadcrumbs .separator {
     display: inline-block;
     margin: 0 5px;
@@ -172,7 +179,6 @@ a.at-button.toggle-icon {
   .breadcrumbs .item {
     display: inline-block;
     white-space: nowrap;
-    overflow: hidden;
   }
   .breadcrumbs a[aria-current="page"] {
     pointer-events: none;

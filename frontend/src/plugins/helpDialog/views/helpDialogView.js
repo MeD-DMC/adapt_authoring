@@ -80,12 +80,27 @@ define(function(require){
     toggle: function() {
       var messageWrapper = document.querySelector('.fab-message__content');
       var messageContainer = document.querySelector('.fab-message');
+      var buttonContainer = messageContainer.querySelector('.fab-message__button');
       var toggleButton = messageContainer.querySelector('.fab-message__button button');
-      var messageToggle = document.getElementById('fab-message-toggle');
-      messageContainer.classList.toggle('is-open');
-      toggleButton.classList.toggle('toggle-icon');
-      this.toggleView('TypeOfIssueView', contentViews['TypeOfIssueView']);
-      messageWrapper.focus();
+      if($(messageContainer).hasClass('is-open')){
+        $(buttonContainer).after(messageWrapper);
+        $(messageWrapper).attr('tabindex', '1');
+        this.toggleView('TypeOfIssueView', contentViews['TypeOfIssueView']);
+        messageContainer.classList.toggle('is-open');
+        toggleButton.classList.toggle('toggle-icon');
+        setTimeout(function(){
+            $(messageWrapper).addClass('display-none');
+        }, 300);
+      } else {
+        $(buttonContainer).before(messageWrapper);
+        $(messageWrapper).attr('tabindex', '0');
+        $(messageWrapper).removeClass('display-none');
+        this.toggleView('TypeOfIssueView', contentViews['TypeOfIssueView']);
+        $(messageWrapper).focus();
+        messageContainer.classList.toggle('is-open');
+        toggleButton.classList.toggle('toggle-icon');
+      }
+
     },
 
     getBusinessLineInfo: function(event) {

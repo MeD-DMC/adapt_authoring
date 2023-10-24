@@ -59,6 +59,10 @@
         "ref": "tag"
       },
       "editorOnly": true
+    },
+    "hideAsset": {
+      "type": "boolean",
+      "default": "false"
     }
   }
 }

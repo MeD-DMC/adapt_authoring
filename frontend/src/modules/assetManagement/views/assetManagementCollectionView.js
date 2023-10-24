@@ -49,8 +49,8 @@ define(function(require){
       this.resetCollection(_.bind(function(collection) {
         var containerHeight = $('.asset-management-assets-container').outerHeight();
         var containerWidth = $('.asset-management-assets-container').outerWidth();
-        var itemHeight = $('.asset-management-list-item').outerHeight(true);
-        var itemWidth = $('.asset-management-list-item').outerWidth(true);
+        var itemHeight = $('.asset-management-list-item').outerHeight(true) || 242;
+        var itemWidth = $('.asset-management-list-item').outerWidth(true) || 192;
         var columns = Math.floor(containerWidth/itemWidth);
         var rows = Math.floor(containerHeight/itemHeight);
         // columns stack nicely, but need to add extra row if it's not a clean split

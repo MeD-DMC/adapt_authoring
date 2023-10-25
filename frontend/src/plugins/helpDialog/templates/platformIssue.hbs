@@ -10,8 +10,14 @@
     {{#ifValueEquals previousView "TechnicalIssueView"}}
       <a href="#TechnicalIssueView" class="next-view-link" data-help-dialog-next-view="TechnicalIssueView">{{{ t 'app.helpdialog.technicalissue.link' }}}</a>
     {{/ifValueEquals}}
+    {{#ifValueEquals previousView "TechnicalIssueWithCourseView"}}
+      <a href="#TechnicalIssueWithCourseView" class="next-view-link" data-help-dialog-next-view="TechnicalIssueWithCourseView">{{{ t 'app.helpdialog.technicalissuewithcourse.link' }}}</a>
+    {{/ifValueEquals}}
     {{#ifValueEquals previousView "AccessibilityIssueView"}}
       <a href="#AccessibilityIssueView" class="next-view-link" data-help-dialog-next-view="AccessibilityIssueView">{{{ t 'app.helpdialog.accessibilityissue.link' }}}</a>
+    {{/ifValueEquals}}
+    {{#ifValueEquals previousView "AccessibilityIssueWithCourseView"}}
+      <a href="#AccessibilityIssueWithCourseView" class="next-view-link" data-help-dialog-next-view="AccessibilityIssueWithCourseView">{{{ t 'app.helpdialog.accessibilityissuewithcourse.link' }}}</a>
     {{/ifValueEquals}}
     </li>
     <li aria-hidden="true" class="separator unselectable">&gt;</li>

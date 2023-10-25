@@ -15,6 +15,11 @@ define(function(require){
 
     preRender: function() {
         this.listenTo(Origin, 'assetManagement:newAsset', this.uploadAsset);
+        var userId = Origin.sessionModel.get('id');
+        var assetOwnerId = this.model.get('createdBy');
+        if(!assetOwnerId || userId === assetOwnerId){
+          this.model.set('ownAsset', true)
+        }
     },
 
     postRender: function() {
@@ -81,7 +86,7 @@ define(function(require){
           // Return false to prevent the page submitting
           return false;
         } else {
-          // Else just update the title, description and tags
+          // Else just update the title, description, tags and hide state
           this.model.set({title: title, description: description, hideAsset: privateAsset});
           this.model.save(null, {
             error: function(model, response, options) {

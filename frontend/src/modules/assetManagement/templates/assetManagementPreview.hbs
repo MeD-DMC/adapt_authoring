@@ -21,6 +21,10 @@
   </div>
 
   <h1 class="asset-preview-title">{{title}}</h1>
+  {{#if hideAsset}}
+  <div class="asset-hidden break">{{t 'app.hiddenasset'}}</div>
+  {{/if}}
+  <div class="asset-creator break">{{t 'app.createdBy'}}: {{{creatorName}}}</div>
   <div class="asset-preview-description">{{description}}</div>
   <div class="asset-size">{{t 'app.assetsize'}}: {{{bytesToSize size}}}</div>
 

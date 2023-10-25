@@ -23,7 +23,7 @@ define(function(require){
         var href = $(e.target).attr('href').substring(1);
   
         if (href == 'contentPane') {
-          $('.' + href).focus();
+           $('.' + href).focus();
         }
         else {
           $('#' + href).focus();
@@ -36,7 +36,7 @@ define(function(require){
           $focusEl.focus();
         }
         else {
-          Origin.trigger('skip-focus-to-nav');
+          $('.navigation-global-menu').focus();
         }
       }
     }

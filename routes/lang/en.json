@@ -541,5 +541,7 @@
   "app.helpdialog.button.label": "Get help",
   "app.selectrepresentativefromatpt": "Select your representative from the Authoring Tool Project Team",
   "app.selectrepresentativefromaccessibilityalliesnetwork": "Select your representative from the Accessibility Allies Network",
-  "app.helpdialog.closebutton.label": "Close help dialog"
+  "app.helpdialog.closebutton.label": "Close help dialog",
+  "skip-to-help-dialog": "Skip to help dialog",
+  "skip-to-main": "Skip to main content"
 }

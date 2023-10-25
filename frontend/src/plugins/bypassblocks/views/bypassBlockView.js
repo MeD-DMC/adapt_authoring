@@ -21,13 +21,7 @@ define(function(require){
 
       if (e.type == 'click' || (e.type == 'keydown' && e.which == 13)) {
         var href = $(e.target).attr('href').substring(1);
-  
-        if (href == 'contentPane') {
-           $('.' + href).focus();
-        }
-        else {
-          $('#' + href).focus();
-        }
+        $('#' + href).focus();
       }
 
       if ((e.type == 'keydown' && e.which == 9)) {

@@ -1528,5 +1528,6 @@
     "app.confirmtransferallcoursestoanotheruser": "Êtes-vous certain de vouloir transférer la propriété de tous les cours à l’utilisateur identifié dans le champs suivant?",
     "app.confirmtransfersinglecoursetoanotheruser": "Êtes-vous certain de vouloir transférer la propriété du cours à l’utilisateur identifié dans le champs suivant?",
     "app.transfersuccess": "Transfert réussi!",
-    "app.userrequired": "Veuillez sélectionner un utilisateur."
+    "app.userrequired": "Veuillez sélectionner un utilisateur.",
+    "app.hiddenasset": "Média Caché"
 }

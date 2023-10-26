@@ -30,7 +30,7 @@ define(function(require){
           $focusEl.focus();
         }
         else {
-          $('.navigation-global-menu').focus();
+          $('.general-ribbon').length > 0 ? $('.ribbon-inner').focus() : $('.navigation-global-menu').focus();
         }
       }
     }

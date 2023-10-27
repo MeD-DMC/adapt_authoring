@@ -83,9 +83,11 @@ define(function(require){
       var buttonContainer = messageContainer.querySelector('.fab-message__button');
       var toggleButton = messageContainer.querySelector('.fab-message__button button');
       if($(messageContainer).hasClass('is-open')){
+
         $(buttonContainer).after(messageWrapper);
         $(event.target).attr('aria-label', `${Origin.l10n.t('app.helpdialog.button.label')}`);
         $(messageWrapper).attr('tabindex', '1');
+        $(messageContainer).removeClass('opened-help-dialog');
         this.toggleView('TypeOfIssueView', contentViews['TypeOfIssueView']);
         messageContainer.classList.toggle('is-open');
         toggleButton.classList.toggle('toggle-icon');
@@ -97,6 +99,7 @@ define(function(require){
         $(event.target).attr('aria-label', `${Origin.l10n.t('app.helpdialog.closebutton.label')}`);
         $(messageWrapper).attr('tabindex', '0');
         $(messageWrapper).removeClass('display-none');
+        $(messageContainer).addClass('opened-help-dialog');
         this.toggleView('TypeOfIssueView', contentViews['TypeOfIssueView']);
         $(messageWrapper).focus();
         messageContainer.classList.toggle('is-open');
@@ -185,6 +188,7 @@ define(function(require){
     },
 
     toggleView: function(viewName, View) {
+      var messageContainer = document.querySelector('.fab-message');
       if (!viewsPointer['currentView']) {
         viewsPointer['currentView'] = viewName;
       }
@@ -197,6 +201,12 @@ define(function(require){
         reusableViews[viewName] = new View({model: this.model}); 
       }
       this.$el.find('.help-dialog-content-wrapper').html(reusableViews[viewName].render().el);
+      if($(messageContainer).hasClass('opened-help-dialog')){
+        Origin.trigger('startkeyboardtrap', this);
+      }
+      else {
+        Origin.trigger('stopkeyboardtrap', this);
+      }
     }
   }, {
     template: 'helpDialog'

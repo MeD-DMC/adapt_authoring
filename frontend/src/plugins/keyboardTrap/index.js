@@ -5,18 +5,20 @@ define(function (require) {
 
   Origin.on('startkeyboardtrap', function(keyboardTrapObject) {
     if (keyboardTrapObject && keyboardTrapObject.$el) {
-      var focusableItems = $(`.${keyboardTrapObject.$el.attr('class')} :focusable`);
-      if (focusableItems && focusableItems.length > 1) {
-        $(focusableItems[1]).on('keydown', function(e) {
+      var focusableItems = $(`.${keyboardTrapObject.$el.attr('class')} :focusable:not(.trap-wrapper)`);
+      if (focusableItems && focusableItems.length > 0) {
+        focusableItems.first().on('keydown', function(e) {
           var keyCode = e.keyCode || e.which;
           if(e.type == 'keydown' && keyCode === 9 && e.shiftKey) {
-            $(focusableItems).last().focus();
+            e.preventDefault();
+            focusableItems.last().focus();
           }
         });
         focusableItems.last().on('keydown', function(e) {
           var keyCode = e.keyCode || e.which;
-          if(e.type == 'keydown' && keyCode === 9) {
-            $(focusableItems[1]).focus();
+          if(e.type == 'keydown' && keyCode === 9 && !e.shiftKey) {
+            e.preventDefault();
+            focusableItems.first().focus();
           }
         });
       }
@@ -26,7 +28,7 @@ define(function (require) {
   Origin.on('stopkeyboardtrap', function(keyboardTrapObject) {
     var focusableItems = $(`.${keyboardTrapObject.$el.attr('class')} :focusable`);
     if (focusableItems && focusableItems.length > 1) {
-      $(focusableItems[1]).off('keydown');
+      focusableItems.first().off('keydown');
       focusableItems.last().off('keydown');
     }
   });

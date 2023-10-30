@@ -43,6 +43,20 @@
             <input type="text" autocomplete="off" class="width-30" id="tags_control" name="tags_control" value="{{pickCSV tags "title"}}" />
         </div>
 
+        <div class="field reg-form" data-editor-id="hideAsset" data-type="Checkbox">
+          <label for="hideAsset" title="Hide from asset library">Hide from asset library</label>
+          <div class="field-help">
+            <i class="fa fa-info-circle"></i>
+            <div class="tooltip">Use this option if you want the asset to be only visible by yourself in the Asset Library. This
+              can used to hide protected (A) assets from being seen by all users.</div>
+          </div>
+          <div class="field-editor">
+            <div class="field-error" data-error=""></div>
+            <span data-editor=""><input id="hideAsset" class="asset-hide" name="_isAvailable" type="checkbox" {{#if hideAsset
+                }}checked{{/if}}></span>
+          </div>
+        </div>
+
         <div class="">
             <button class="asset-management-modal-new-asset-upload btn secondary">{{t 'app.upload'}}</button>
         </div>

@@ -31,6 +31,7 @@ define(function(require){
       this.initPaging();
       // init lazy scrolling
       $('.asset-management-assets-container').on('scroll', this._doLazyScroll);
+      Origin.trigger('assetManagement:sidebarView:applyFilters', this.filters);
       $(window).on('resize', this._onResize);
     },
 

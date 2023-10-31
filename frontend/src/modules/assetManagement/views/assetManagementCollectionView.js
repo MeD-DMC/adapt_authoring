@@ -10,6 +10,7 @@ define(function(require){
     sort: { createdAt: -1 },
     search: {},
     filters: [],
+    searchFilters: [],
     tags: [],
     fetchCount: 0,
     shouldStopFetches: false,
@@ -40,6 +41,10 @@ define(function(require){
         'assetManagement:sidebarFilter:add': this.addFilter,
         'assetManagement:sidebarFilter:remove': this.removeFilter,
         'assetManagement:sidebarView:filter': this.filterBySearchInput,
+        'assetManagement:assetManagementSidebarView:filterBySelf:add': this.filterBySelfAdd,
+        'assetManagement:assetManagementSidebarView:filterBySelf:remove': this.filterBySelfRemove,
+        'assetManagement:assetManagementSidebarView:filterByHidden:add': this.filterByHiddenAdd,
+        'assetManagement:assetManagementSidebarView:filterByHidden:remove': this.filterByHiddenRemove,
         'assetManagement:assetManagementSidebarView:filterByTags': this.filterByTags,
         'assetManagement:collection:refresh': this.resetCollection
       });
@@ -76,10 +81,13 @@ define(function(require){
         return;
       }
       this.isCollectionFetching = true;
-
+      var search = {};
+      this.searchFilters.forEach(function(filter){
+        search = _.extend(search, filter);
+      })
       this.collection.fetch({
         data: {
-          search: _.extend(this.search, {
+          search: _.extend(search, {
             tags: { $all: this.tags },
             assetType: { $in: this.filters }
           }),
@@ -148,6 +156,30 @@ define(function(require){
       this.fetchCollection();
 
       $(".asset-management-modal-filter-search" ).focus();
+    },
+
+    filterBySelfAdd: function (filterText) {
+      this.searchFilters.push({ createdBy: Origin.sessionModel.get('id').toString() });
+      this.filterCollection();
+      this.fetchCollection();
+    },
+
+    filterBySelfRemove: function (filterText) {
+      this.searchFilters = _.filter(this.searchFilters, function(item) { return Object.keys(item)[0] !== 'createdBy'; });
+      this.filterCollection();
+      this.fetchCollection();
+    },
+
+    filterByHiddenAdd: function (filterText) {
+      this.searchFilters.push({ hideAsset: true });
+      this.filterCollection();
+      this.fetchCollection();
+    },
+
+    filterByHiddenRemove: function (filterText) {
+      this.searchFilters = _.filter(this.searchFilters, function(item) { return Object.keys(item)[0] !== 'hideAsset'; });
+      this.filterCollection();
+      this.fetchCollection();
     },
 
     filterByTags: function(tags) {

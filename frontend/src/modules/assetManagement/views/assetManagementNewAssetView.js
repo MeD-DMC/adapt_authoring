@@ -79,7 +79,9 @@ define(function(require){
 
       var title = this.$('.asset-title').val();
       var description = this.$('.asset-description').val();
-      var privateAsset = this.$('.asset-hide')[0].checked;      
+      if(this.$('.asset-hide')[0]){
+        var privateAsset = this.$('.asset-hide')[0].checked;      
+      }
         // If model is new then uploadFile
         if (this.model.isNew()) {
           this.uploadFile();

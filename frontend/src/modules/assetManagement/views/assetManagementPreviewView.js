@@ -21,10 +21,12 @@ define(function(require){
     preRender: function() {
       this.listenTo(this, 'remove', this.remove);
       var createdBy = this.model.get('createdBy');
-      var creatorObject = Origin.users.filter(function(user){
-          return user._id === createdBy;
-      })[0];
-      this.model.set('creatorName', creatorObject ? `${creatorObject.firstName} ${creatorObject.lastName}` : createdBy)
+        if(Origin.users){
+        var creatorObject = Origin.users.find(function(user){
+            return user._id === createdBy;
+        });
+        this.model.set('creatorName', creatorObject ? `${creatorObject.firstName} ${creatorObject.lastName}` : createdBy);
+      }
     },
 
     selectAsset: function (event) {

@@ -43,10 +43,10 @@
         <input type="hidden" name="tags" id="tags" />
         {{#if ownAsset }}
         <div class="field reg-form" data-editor-id="hideAsset" data-type="Checkbox">
-            <label for="hideAsset" title="Hide from asset library">Hide from asset library</label>
+            <label for="hideAsset" title="{{ t 'app.assets.hideasset.label' }}">{{ t 'app.assets.hideasset.label' }}</label>
             <div class="field-help">
                 <i class="fa fa-info-circle"></i>
-                <div class="tooltip">Use this option if you want the asset to be only visible by yourself in the Asset Library. This can used to hide protected (A) assets from being seen by all users.</div>
+                <div class="tooltip">{{ t 'app.assets.hideasset.help' }}</div>
             </div>
             <div class="field-editor">
                 <div class="field-error" data-error=""></div>

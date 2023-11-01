@@ -1531,5 +1531,7 @@
     "app.userrequired": "Veuillez sélectionner un utilisateur.",
     "app.hiddenasset": "Média Caché",
     "app.fileself": "Mes médias",
-    "app.filehidden": "Médias Cachés"
+    "app.filehidden": "Médias Cachés",
+    "app.assets.hideasset.label": "Cacher de la bibliothèque de ressources",
+    "app.assets.hideasset.help": "Utilisez cette option si vous souhaitez que la ressource ne soit visible que par vous-même dans la bibliothèque de ressources. Cette option peut être utilisée pour cacher les ressources protégées (A) afin qu'elles ne soient pas visibles par tous les utilisateurs."
 }

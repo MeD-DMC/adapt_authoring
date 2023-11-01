@@ -21,6 +21,7 @@ define(function(require) {
             this.listenTo(Origin, 'sidebarFilter:filterByTags', this.filterProjectsByTags);
             this.listenTo(Origin, 'sidebarFilter:addTagToSidebar', this.addTagToSidebar);
             this.listenTo(Origin, 'assetManagement:sidebarView:applyFilters', this.applyFilters);
+            this.listenTo(Origin, 'assetManagement:sidebarView:applySearchFilters', this.applySearchFilters);
             this.tags = [];
             this.usedTags = [];
         },
@@ -47,24 +48,26 @@ define(function(require) {
 
         onFilterBySelfClicked: function(event) {
             $currentTarget = $(event.currentTarget);
+            var filterType = $currentTarget.attr('data-filter-type');
             if ($currentTarget.hasClass('selected')) {
                 $currentTarget.removeClass('selected');
-                Origin.trigger('assetManagement:assetManagementSidebarView:filterBySelf:remove');
+                Origin.trigger('assetManagement:assetManagementSidebarView:filterBySelf:remove', filterType);
             } else {
                 $currentTarget.addClass('selected');
-                Origin.trigger('assetManagement:assetManagementSidebarView:filterBySelf:add');
+                Origin.trigger('assetManagement:assetManagementSidebarView:filterBySelf:add', filterType);
             }
 
         },
 
         onFilterByHiddenClicked: function(event) {
             $currentTarget = $(event.currentTarget);
+            var filterType = $currentTarget.attr('data-filter-type');
             if ($currentTarget.hasClass('selected')) {
                 $currentTarget.removeClass('selected');
-                Origin.trigger('assetManagement:assetManagementSidebarView:filterByHidden:remove');
+                Origin.trigger('assetManagement:assetManagementSidebarView:filterByHidden:remove', filterType);
             } else {
                 $currentTarget.addClass('selected');
-                Origin.trigger('assetManagement:assetManagementSidebarView:filterByHidden:add');
+                Origin.trigger('assetManagement:assetManagementSidebarView:filterByHidden:add', filterType);
             }
 
         },
@@ -102,6 +105,15 @@ define(function(require) {
         applyFilters: function(filters) {
           filters.forEach(function(filterType) {
             var filterEl = $(`.asset-management-sidebar-filter-button[data-filter-type="${filterType}"]`);
+            if(filterEl) {
+              filterEl.addClass('selected');
+            }
+          })
+        },
+
+        applySearchFilters: function(filters) {
+          filters.forEach(function(filterType) {
+            var filterEl = $(`.asset-management-sidebar-filter-${filterType}`);
             if(filterEl) {
               filterEl.addClass('selected');
             }

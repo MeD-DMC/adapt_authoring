@@ -11,6 +11,7 @@ define(function(require){
     search: {},
     filters: [],
     searchFilters: [],
+    searchFilterTypes: [],
     tags: [],
     fetchCount: 0,
     shouldStopFetches: false,
@@ -33,6 +34,7 @@ define(function(require){
       // init lazy scrolling
       $('.asset-management-assets-container').on('scroll', this._doLazyScroll);
       Origin.trigger('assetManagement:sidebarView:applyFilters', this.filters);
+      Origin.trigger('assetManagement:sidebarView:applySearchFilters', this.searchFilterTypes);
       $(window).on('resize', this._onResize);
     },
 
@@ -145,7 +147,14 @@ define(function(require){
 
     removeFilter: function(filterType) {
       // remove filter from this.filters
-      this.filters = _.filter(this.filters, function(item) { return item !== filterType; });
+      var tempFilters = _.filter(this.filters, function(item) { return item !== filterType; });
+      var self = this;
+      while(self.filters.length >0){
+        self.filters.pop();
+      }
+      tempFilters.forEach(function(filter){
+        self.filters.push(filter);
+      });
       this.filterCollection();
     },
 
@@ -160,24 +169,54 @@ define(function(require){
 
     filterBySelfAdd: function (filterText) {
       this.searchFilters.push({ createdBy: Origin.sessionModel.get('id').toString() });
+      this.searchFilterTypes.push(filterText);
       this.filterCollection();
       this.fetchCollection();
     },
 
     filterBySelfRemove: function (filterText) {
-      this.searchFilters = _.filter(this.searchFilters, function(item) { return Object.keys(item)[0] !== 'createdBy'; });
+      var tempFilters = _.filter(this.searchFilters, function(item) { return Object.keys(item)[0] !== 'createdBy'; });
+      var tempFilterTypes = _.filter(this.searchFilterTypes, function(item) { return item !== filterText; });
+      var self = this;
+      while(self.searchFilters.length >0){
+        self.searchFilters.pop();
+      }
+      tempFilters.forEach(function(filter){
+        self.searchFilters.push(filter);
+      });
+      while(self.searchFilterTypes.length >0){
+        self.searchFilterTypes.pop();
+      }
+      tempFilterTypes.forEach(function(filterType){
+        self.searchFilterTypes.push(filterType);
+      });
       this.filterCollection();
       this.fetchCollection();
     },
 
     filterByHiddenAdd: function (filterText) {
       this.searchFilters.push({ hideAsset: true });
+      this.searchFilterTypes.push(filterText);
       this.filterCollection();
       this.fetchCollection();
     },
 
     filterByHiddenRemove: function (filterText) {
-      this.searchFilters = _.filter(this.searchFilters, function(item) { return Object.keys(item)[0] !== 'hideAsset'; });
+      var tempFilters = _.filter(this.searchFilters, function(item) { return Object.keys(item)[0] !== 'hideAsset'; });
+      var tempFilterTypes = _.filter(this.searchFilterTypes, function(item) { return item !== filterText; });
+      var self = this;
+      while(self.searchFilters.length >0){
+        self.searchFilters.pop();
+      }
+      tempFilters.forEach(function(filter){
+        self.searchFilters.push(filter);
+      });
+      while(self.searchFilterTypes.length >0){
+        self.searchFilterTypes.pop();
+      }
+      tempFilterTypes.forEach(function(filterType){
+        self.searchFilterTypes.push(filterType);
+      });
       this.filterCollection();
       this.fetchCollection();
     },

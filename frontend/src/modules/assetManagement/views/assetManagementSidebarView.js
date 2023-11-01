@@ -9,6 +9,8 @@ define(function(require) {
         events: {
             'click .asset-management-sidebar-new': 'onAddNewAssetClicked',
             'click .asset-management-sidebar-filter-button': 'onFilterButtonClicked',
+            'click .asset-management-sidebar-filter-self': 'onFilterBySelfClicked',
+            'click .asset-management-sidebar-filter-hidden': 'onFilterByHiddenClicked',
             'click .sidebar-filter-clear': 'onClearSearchClicked',
             'keyup .asset-management-sidebar-filter-search': 'onSearchKeyup',
             'click .asset-management-sidebar-add-tag': 'onAddTagClicked',
@@ -39,6 +41,30 @@ define(function(require) {
             } else {
                 $currentTarget.addClass('selected');
                 Origin.trigger('assetManagement:sidebarFilter:add', filterType);
+            }
+
+        },
+
+        onFilterBySelfClicked: function(event) {
+            $currentTarget = $(event.currentTarget);
+            if ($currentTarget.hasClass('selected')) {
+                $currentTarget.removeClass('selected');
+                Origin.trigger('assetManagement:assetManagementSidebarView:filterBySelf:remove');
+            } else {
+                $currentTarget.addClass('selected');
+                Origin.trigger('assetManagement:assetManagementSidebarView:filterBySelf:add');
+            }
+
+        },
+
+        onFilterByHiddenClicked: function(event) {
+            $currentTarget = $(event.currentTarget);
+            if ($currentTarget.hasClass('selected')) {
+                $currentTarget.removeClass('selected');
+                Origin.trigger('assetManagement:assetManagementSidebarView:filterByHidden:remove');
+            } else {
+                $currentTarget.addClass('selected');
+                Origin.trigger('assetManagement:assetManagementSidebarView:filterByHidden:add');
             }
 
         },

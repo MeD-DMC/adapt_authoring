@@ -35,6 +35,10 @@ define([ 'core/origin', 'backbone-forms' ], function(Origin, BackboneForms) {
 
       var meId = Origin.sessionModel.get('id');
 
+      users = users.filter(function(user) {
+        return !user._isDeleted;
+      });
+
       users.forEach(function(user) {
         if(user._id === meId) user.disabled = true;
       });

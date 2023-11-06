@@ -69,21 +69,6 @@ define(function(require){
       }
     },
 
-    // togglePasswordView: function() {
-    //   event && event.preventDefault();
-
-    //   this.$('#passwordText').toggleClass('display-none');
-    //   this.$('#password').toggleClass('display-none');
-    //   this.$('.toggle-password i').toggleClass('fa-eye').toggleClass('fa-eye-slash');
-    // },
-
-    // indicatePasswordStrength: function(event) {
-    //   var password = $('#password').val();
-    //   var $passwordStrength = $('#passwordFeedback');
-
-    //   $passwordStrength.removeClass().html(PasswordHelpers.getPasswordView(password));
-    // },
-
     saveUser: function() {
       var self = this;
       var prevEmail = self.model.get('email');
@@ -134,21 +119,6 @@ define(function(require){
         }
       });
     },
-
-    // onPasswordKeyup: function() {
-    //   console.log('test');
-    //   if(this.$('#password').val().length > 0) {
-    //     this.$('#passwordText').val(this.$('#password').val());
-    //     this.$('.toggle-password').removeClass('display-none');
-    //   } else {
-    //     this.$('.toggle-password').addClass('display-none');
-    //   }
-      //this.indicatePasswordStrength();
-    //},
-
-    // onPasswordTextKeyup: function() {
-
-    // }
   }, {
     template: 'userProfile'
   });

@@ -11,7 +11,7 @@ define(function(require){
     search: {},
     filters: [],
     searchFilters: [],
-    searchFilterTypes: [],
+    textFilters: [],
     tags: [],
     fetchCount: 0,
     shouldStopFetches: false,
@@ -34,7 +34,8 @@ define(function(require){
       // init lazy scrolling
       $('.asset-management-assets-container').on('scroll', this._doLazyScroll);
       Origin.trigger('assetManagement:sidebarView:applyFilters', this.filters);
-      Origin.trigger('assetManagement:sidebarView:applySearchFilters', this.searchFilterTypes);
+      Origin.trigger('assetManagement:sidebarView:applySearchFilters', this.searchFilters);
+      Origin.trigger('assetManagement:sidebarView:applySearchKeywords', this.textFilters);
       $(window).on('resize', this._onResize);
     },
 
@@ -83,9 +84,12 @@ define(function(require){
         return;
       }
       this.isCollectionFetching = true;
-      var search = {};
+      var search = this.search;
       this.searchFilters.forEach(function(filter){
         search = _.extend(search, filter);
+      })
+      this.textFilters.forEach(function(filter){
+        search = _.extend(search, {title: filter.title, description: filter.description});
       })
       this.collection.fetch({
         data: {
@@ -111,7 +115,6 @@ define(function(require){
           if(typeof cb === 'function') cb(collection);
         }, this),
         error: function(error) {
-          console.log(error);
           this.isCollectionFetching = false;
         }
       });
@@ -147,76 +150,55 @@ define(function(require){
 
     removeFilter: function(filterType) {
       // remove filter from this.filters
-      var tempFilters = _.filter(this.filters, function(item) { return item !== filterType; });
-      var self = this;
-      while(self.filters.length >0){
-        self.filters.pop();
+      for(i = 0; i <= this.filters.length - 1; i++){
+        if(this.filters[i] === filterType){
+          this.filters.splice(i, 1);
+        } 
       }
-      tempFilters.forEach(function(filter){
-        self.filters.push(filter);
-      });
       this.filterCollection();
     },
 
     filterBySearchInput: function (filterText) {
       this.resetCollection(null, false);
       var pattern = '.*' + filterText.toLowerCase() + '.*';
-      this.search = { title: pattern, description: pattern };
+      this.textFilters[0] = { title: pattern, description: pattern, text: filterText };
       this.fetchCollection();
-
       $(".asset-management-modal-filter-search" ).focus();
     },
 
     filterBySelfAdd: function (filterText) {
       this.searchFilters.push({ createdBy: Origin.sessionModel.get('id').toString() });
-      this.searchFilterTypes.push(filterText);
       this.filterCollection();
       this.fetchCollection();
     },
 
     filterBySelfRemove: function (filterText) {
-      var tempFilters = _.filter(this.searchFilters, function(item) { return Object.keys(item)[0] !== 'createdBy'; });
-      var tempFilterTypes = _.filter(this.searchFilterTypes, function(item) { return item !== filterText; });
-      var self = this;
-      while(self.searchFilters.length >0){
-        self.searchFilters.pop();
+      // remove filter from this.filters
+      for(i = 0; i <= this.searchFilters.length - 1; i++){
+        var type = Object.keys(this.searchFilters[i])[0];
+        if(type === filterText){
+          this.searchFilters.splice(i, 1);
+        } 
       }
-      tempFilters.forEach(function(filter){
-        self.searchFilters.push(filter);
-      });
-      while(self.searchFilterTypes.length >0){
-        self.searchFilterTypes.pop();
-      }
-      tempFilterTypes.forEach(function(filterType){
-        self.searchFilterTypes.push(filterType);
-      });
+      delete this.search[filterText];
       this.filterCollection();
       this.fetchCollection();
     },
 
     filterByHiddenAdd: function (filterText) {
       this.searchFilters.push({ hideAsset: true });
-      this.searchFilterTypes.push(filterText);
       this.filterCollection();
       this.fetchCollection();
     },
 
     filterByHiddenRemove: function (filterText) {
-      var tempFilters = _.filter(this.searchFilters, function(item) { return Object.keys(item)[0] !== 'hideAsset'; });
-      var tempFilterTypes = _.filter(this.searchFilterTypes, function(item) { return item !== filterText; });
-      var self = this;
-      while(self.searchFilters.length >0){
-        self.searchFilters.pop();
+      for(i = 0; i <= this.searchFilters.length - 1; i++){
+        var type = Object.keys(this.searchFilters[i])[0];
+        if(type === filterText){
+          this.searchFilters.splice(i, 1);
+        } 
       }
-      tempFilters.forEach(function(filter){
-        self.searchFilters.push(filter);
-      });
-      while(self.searchFilterTypes.length >0){
-        self.searchFilterTypes.pop();
-      }
-      tempFilterTypes.forEach(function(filterType){
-        self.searchFilterTypes.push(filterType);
-      });
+      delete this.search[filterText];
       this.filterCollection();
       this.fetchCollection();
     },

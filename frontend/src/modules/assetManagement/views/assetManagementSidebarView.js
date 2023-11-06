@@ -9,8 +9,8 @@ define(function(require) {
         events: {
             'click .asset-management-sidebar-new': 'onAddNewAssetClicked',
             'click .asset-management-sidebar-filter-button': 'onFilterButtonClicked',
-            'click .asset-management-sidebar-filter-self': 'onFilterBySelfClicked',
-            'click .asset-management-sidebar-filter-hidden': 'onFilterByHiddenClicked',
+            'click .asset-management-sidebar-filter-createdBy': 'onFilterBySelfClicked',
+            'click .asset-management-sidebar-filter-hideAsset': 'onFilterByHiddenClicked',
             'click .sidebar-filter-clear': 'onClearSearchClicked',
             'keyup .asset-management-sidebar-filter-search': 'onSearchKeyup',
             'click .asset-management-sidebar-add-tag': 'onAddTagClicked',
@@ -22,6 +22,7 @@ define(function(require) {
             this.listenTo(Origin, 'sidebarFilter:addTagToSidebar', this.addTagToSidebar);
             this.listenTo(Origin, 'assetManagement:sidebarView:applyFilters', this.applyFilters);
             this.listenTo(Origin, 'assetManagement:sidebarView:applySearchFilters', this.applySearchFilters);
+            this.listenTo(Origin, 'assetManagement:sidebarView:applySearchKeywords', this.applySearchKeywords);
             this.tags = [];
             this.usedTags = [];
         },
@@ -112,14 +113,23 @@ define(function(require) {
         },
 
         applySearchFilters: function(filters) {
-          filters.forEach(function(filterType) {
-            var filterEl = $(`.asset-management-sidebar-filter-${filterType}`);
+          filters.forEach(function(filterObject) {
+            var type = Object.keys(filterObject)[0];
+            var filterEl = $(`.asset-management-sidebar-filter-${type}`);
             if(filterEl) {
               filterEl.addClass('selected');
             }
           })
         },
 
+        applySearchKeywords: function(search) {
+           var keywords = search[0];
+           var searchEl = $(`.asset-management-sidebar-filter-search`);
+           if(keywords && searchEl){
+                searchEl.val(keywords.text);
+           }
+        },
+        
         addTagToSidebar: function(tag) {
             this.usedTags.push(tag);
 

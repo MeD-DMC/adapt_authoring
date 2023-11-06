@@ -1,5 +1,4 @@
 // ESDC - plugin to manage the changing of languages of the Authoring Tool
-console.log('Language switcher plugin loaded')
 // rewrote switcher - removed unecessary parts and added 200 ms delay
 var currlang = localStorage.getItem('lang') || 'en';
 

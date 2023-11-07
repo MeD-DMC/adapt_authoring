@@ -17,7 +17,11 @@
   },
   "scripts": {
     "test": "grunt test",
-    "migrate": "migrate --config conf/migrate.json --template-file migrations/helpers/template.js"
+    "migrate": "migrate --config conf/migrate.json --template-file migrations/helpers/template.js",
+    "server": "%node12% server",
+    "build:prod": "grunt build:prod",
+    "build": "grunt build",
+    "build:dev": "grunt build:dev"
   },
   "dependencies": {
     "@moebius/http-graceful-shutdown": "^1.1.0",
@@ -84,6 +88,7 @@
     "yauzl": "^2.10.0"
   },
   "devDependencies": {
+    "grunt-cli": "^1.4.3",
     "mocha": "^6.2.1",
     "mocha-multi": "^1.1.3",
     "mocha-simple-html-reporter": "^1.1.0",

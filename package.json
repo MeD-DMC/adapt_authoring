@@ -17,7 +17,11 @@
   },
   "scripts": {
     "test": "grunt test",
-    "create-migration": "npx migrate-mongo create -f conf/migrations.js"
+    "create-migration": "npx migrate-mongo create -f conf/migrations.js",
+    "server": "%node12% server",
+    "build:prod": "grunt build:prod",
+    "build": "grunt build",
+    "build:dev": "grunt build:dev"
   },
   "dependencies": {
     "@babel/core": "^7.19.6",

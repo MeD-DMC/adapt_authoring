@@ -4,6 +4,9 @@
   "id": "http://jsonschema.net",
   "$ref": "http://localhost/system/tenantObject.schema",
   "properties": {
+    "name": {
+      "type": "string"
+    },
     "generalRibbonEnabled": {
       "type": "boolean"
     },
@@ -18,6 +21,24 @@
     },
     "generalRibbonTextColor": {
       "type": "string"
+    },
+    "helpDialogEnabled": {
+      "type": "boolean"
+    },
+    "helpDialogTitleEN": {
+      "type": "string"
+    },
+    "helpDialogTitleFR": {
+      "type": "string"
+    },
+    "helpDialogEN": {
+      "type": "string"
+    },
+    "helpDialogFR": {
+      "type": "string"
+    },
+    "properties" : {
+      "type": "object"
     }
   }
 }

@@ -13,6 +13,18 @@ define(function(require) {
     },
 
     initialize: function() {
+      var self = this;
+      $(document).ajaxError(function (e, xhr, options) {
+        var fragments = Backbone.history.getFragment().split('/');
+        var route = fragments[0] + '/' + fragments[1];
+        console.log('route', route);
+        if(route && route !== 'user/login' && route !== 'user/logout' && route !== 'user/forgot' && route !== 'user/reset'){
+          if(xhr.status === 403 && xhr.responseJSON.statusCode === 'not-authenticated'){
+            console.log('blocking');
+            self.blockUserAccess(Origin.l10n.t('app.errorsessionexpired'), true);
+          }
+        }
+      });
       this.listenTo(Origin, 'origin:initialize', this.onOriginInitialize);
       this.locationKeys = ['module', 'route1', 'route2', 'route3', 'route4'];
       this.resetLocation();
@@ -62,7 +74,8 @@ define(function(require) {
         return false;
       }
       // FIXME routes shouldn't be hard-coded
-      if(!this.isUserAuthenticated()  && (module !== 'user' && route1 !== 'login')) {
+      var route = module + '/' + route1;
+      if(!this.isUserAuthenticated()  && route !== 'user/login' && route !== 'user/forgot' && route !== 'user/reset') {
         this.blockUserAccess(Origin.l10n.t('app.errorsessionexpired'), true);
         return false;
       }
@@ -77,7 +90,7 @@ define(function(require) {
         $('body').addClass('no-ui');
         Origin.trigger('remove:views');
       }
-      var cb = hideUI ? Origin.router.navigateToLogin : Origin.router.navigateToHome;
+      var cb = hideUI ? Origin.router.navigateToLogout : Origin.router.navigateToHome;
 
       Origin.Notify.alert({
         type: 'error',
@@ -130,6 +143,10 @@ define(function(require) {
       Origin.router.navigateTo('user/login');
     },
 
+    navigateToLogout: function() {
+      Origin.sessionModel.logout();
+    },
+    
     navigateToHome: function() {
       if(!Origin.router.homeRoute) {
         console.trace('Router.navigateToHome: cannot load homepage, homeRoute not set');

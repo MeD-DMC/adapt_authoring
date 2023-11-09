@@ -15,6 +15,7 @@ define(function(require) {
         events: {
             'click .asset-management-modal-filter-button': 'onFilterButtonClicked',
             'click .asset-management-modal-filter-clear-search': 'onClearSearchClicked',
+            'click .asset-management-sidebar-filter-createdBy': 'onFilterBySelfClicked',
             'keyup .asset-management-modal-filter-search': 'onSearchKeyDown',
             'click .asset-management-modal-add-tag': 'onAddTagClicked',
             'click .asset-management-modal-add-asset': 'onAddAssetClicked'
@@ -92,6 +93,18 @@ define(function(require) {
         onClearSearchClicked: function(event) {
             event && event.preventDefault();
             this.$('.asset-management-modal-filter-search').val('').trigger('keydown', [true]);
+        },
+
+        onFilterBySelfClicked: function(event) {
+          $currentTarget = $(event.currentTarget);
+          var filterType = $currentTarget.attr('data-filter-type');
+          if ($currentTarget.hasClass('selected')) {
+              $currentTarget.removeClass('selected');
+              Origin.trigger('assetManagement:assetManagementSidebarView:filterBySelf:remove', filterType);
+          } else {
+              $currentTarget.addClass('selected');
+              Origin.trigger('assetManagement:assetManagementSidebarView:filterBySelf:add', filterType);
+          }
         },
 
         onAddTagClicked: function(event) {

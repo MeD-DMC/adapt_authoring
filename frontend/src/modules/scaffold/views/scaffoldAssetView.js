@@ -238,6 +238,9 @@ define([
           this.createCourseAsset(courseAssetObject);
         }
       }, this);
+      Origin.on('assetManagement:rendered', function(){
+        Origin.trigger('assetmodalbuttonclicked');
+      });
     },
 
     onClearButtonClicked: function(event) {

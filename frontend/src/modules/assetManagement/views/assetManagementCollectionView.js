@@ -33,6 +33,7 @@ define(function(require){
       this.initPaging();
       // init lazy scrolling
       $('.asset-management-assets-container').on('scroll', this._doLazyScroll);
+      Origin.trigger('assetManagement:rendered');
       Origin.trigger('assetManagement:sidebarView:applyFilters', this.filters);
       Origin.trigger('assetManagement:sidebarView:applySearchFilters', this.searchFilters);
       Origin.trigger('assetManagement:sidebarView:applySearchKeywords', this.textFilters);
@@ -49,7 +50,8 @@ define(function(require){
         'assetManagement:assetManagementSidebarView:filterByHidden:add': this.filterByHiddenAdd,
         'assetManagement:assetManagementSidebarView:filterByHidden:remove': this.filterByHiddenRemove,
         'assetManagement:assetManagementSidebarView:filterByTags': this.filterByTags,
-        'assetManagement:collection:refresh': this.resetCollection
+        'assetManagement:collection:refresh': this.resetCollection,
+        'assetmodalbuttonclicked': this.clearFilters
       });
       this.listenTo(this.collection, 'add', this.appendAssetItem);
     },
@@ -153,7 +155,7 @@ define(function(require){
       for(i = 0; i <= this.filters.length - 1; i++){
         if(this.filters[i] === filterType){
           this.filters.splice(i, 1);
-        } 
+        }
       }
       this.filterCollection();
     },
@@ -178,7 +180,7 @@ define(function(require){
         var type = Object.keys(this.searchFilters[i])[0];
         if(type === filterText){
           this.searchFilters.splice(i, 1);
-        } 
+        }
       }
       delete this.search[filterText];
       this.filterCollection();
@@ -196,9 +198,17 @@ define(function(require){
         var type = Object.keys(this.searchFilters[i])[0];
         if(type === filterText){
           this.searchFilters.splice(i, 1);
-        } 
+        }
       }
       delete this.search[filterText];
+      this.filterCollection();
+      this.fetchCollection();
+    },
+
+    clearFilters: function() {
+      this.searchFilters = [];
+      this.filters = [];
+      delete this.search['hideAsset'];
       this.filterCollection();
       this.fetchCollection();
     },

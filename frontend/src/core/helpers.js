@@ -5,6 +5,15 @@ define(function(require){
   var Moment = require('moment');
 
   var helpers = {
+    isClosedRoute: function(){
+      var fragments = Backbone.history.getFragment().split('/');
+        var route = fragments[0] + '/' + fragments[1];
+        console.log('route', route);
+        if(route && route !== 'user/login' && route !== 'user/logout' && route !== 'user/forgot' && route !== 'user/reset'){
+          return true
+        }
+        return false
+    },
     console: function(context) {
       return console.log(context);
     },

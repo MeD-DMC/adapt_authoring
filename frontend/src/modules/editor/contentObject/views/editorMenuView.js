@@ -46,7 +46,6 @@ define(function(require){
         }, this),
         error: console.error
       });
-      console.log(this.model.attributes._id);
     },
 
     /**
@@ -85,7 +84,7 @@ define(function(require){
     },
 
     setCourseCount: function(){
-      console.log(this);
+      //console.log(this);
     },
 
     /**

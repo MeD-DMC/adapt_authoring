@@ -208,7 +208,8 @@ define(function(require){
     clearFilters: function() {
       this.searchFilters = [];
       this.filters = [];
-      delete this.search['hideAsset'];
+      this.textFilters = [];
+      this.search = {};
       this.filterCollection();
       this.fetchCollection();
     },

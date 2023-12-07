@@ -54,7 +54,7 @@ define(function(require) {
         url: '#/editor/' + data.page.get('_courseId') + '/page/' + data.page.get('_id')
       });
     }
-    crumbs.push({ title: data.langString });
+    crumbs.push({ title: data.langString, url: `#${Backbone.history.fragment}` });
     return crumbs;
   }
 

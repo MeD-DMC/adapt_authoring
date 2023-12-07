@@ -19,13 +19,22 @@
         max-width: 250px;
         text-overflow: ellipsis;
         white-space: nowrap;
-        overflow: hidden;
         a {
           text-decoration: none;
           color: @secondary-color;
           &:hover {
             color: darken(@secondary-color,15%);
           }
+          &:focus-visible {
+            outline: 1px solid #666;
+            border: 2px solid #666;
+            border-radius: 3px;
+          }
+        }
+        a[aria-current="page"] {
+          pointer-events: none;
+          text-decoration: none;
+          color: inherit;
         }
       }
       .separator {

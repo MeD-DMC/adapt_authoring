@@ -15,9 +15,17 @@ define(function(require){
       'click .button--skip-link': 'skipToLink'
     },
 
+    render: function(data) {
+      var template = Handlebars.templates[this.constructor.template];
+      var showSkipToHelpDialog = !String(window.location).includes('user/login');
+      this.$el.html(template({showSkipToHelpDialog: showSkipToHelpDialog}));
+      _.defer(_.bind(this.postRender, this));
+      return this;
+    },
+
     skipToLink: function(e) {
       e.preventDefault();
-      var href = $(e.target).attr('href').substring(1);
+      var href = String(window.location).includes('user/login') ? 'login-input-username' : $(e.target).attr('href').substring(1);
       $('#' + href).focus();
     }
     

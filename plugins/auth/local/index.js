@@ -42,7 +42,7 @@ LocalAuth.prototype.init = function (app, next) {
 
 LocalAuth.prototype.verifyUser = function (email, password, done) {
   // Retrieve the user and compare details with those provided
-  usermanager.retrieveUser({ email: email, auth: 'local' }, function (error, user) {
+  usermanager.retrieveUser({ email: new RegExp(email, 'i'), auth: 'local' }, function (error, user) {
     if (error) {
       return done(error);
     }

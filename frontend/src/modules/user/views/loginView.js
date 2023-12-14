@@ -22,8 +22,14 @@ define(function(require) {
     },
 
     postRender: function() {
+      $('.contentPane').css('overflow', 'visible');
       this.setViewToReady();
       Origin.trigger('login:loaded');
+    },
+
+    remove: function() {
+      Backbone.View.prototype.remove.apply(this, arguments);
+      $('.contentPane').css({'overflow': '', 'overflow-y': 'auto'});
     },
 
     goHome: function(e) {

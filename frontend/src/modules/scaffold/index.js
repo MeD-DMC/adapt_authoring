@@ -5,6 +5,7 @@ define([
   'backbone-forms',
   'backbone-forms-lists',
   './backboneFormsOverrides',
+  './CKEOverrides',
   './views/scaffoldAssetView',
   './views/scaffoldAssetItemView',
   './views/scaffoldCodeEditorView',
@@ -16,7 +17,7 @@ define([
   './views/scaffoldUsersView',
   './views/scaffoldSingleUserView',
   './views/scaffoldUsersWithEmailView'
-], function(Origin, Helpers, Schemas, BackboneForms, BackboneFormsLists, Overrides, ScaffoldAssetView, ScaffoldAssetItemView, ScaffoldCodeEditorView, ScaffoldColourPickerView, ScaffoldDisplayTitleView, ScaffoldItemsModalView, ScaffoldListView, ScaffoldTagsView, ScaffoldUsersView, ScaffoldSingleUserView, ScaffoldUsersWithEmailView) {
+], function(Origin, Helpers, Schemas, BackboneForms, BackboneFormsLists, BackboneFormsOverrides, CKEOverrides, ScaffoldAssetView, ScaffoldAssetItemView, ScaffoldCodeEditorView, ScaffoldColourPickerView, ScaffoldDisplayTitleView, ScaffoldItemsModalView, ScaffoldListView, ScaffoldTagsView, ScaffoldUsersView, ScaffoldSingleUserView, ScaffoldUsersWithEmailView) {
 
   var Scaffold = {};
   var alternativeModel;

@@ -150,6 +150,15 @@ define([
             }
         })
       });
+      var self = this;
+      _.delay(function(){
+        if(self.editor.status === 'loaded'){
+          console.log('its bugged lets reload');
+          self.editor.destroy();
+          Backbone.Form.editors.TextArea.prototype.remove.call(self);
+          Backbone.Form.editors.TextArea.prototype.render.call(self);
+        }
+      }, 2000);
     }.bind(this), 50);
 
     return this;

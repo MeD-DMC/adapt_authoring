@@ -63,11 +63,13 @@ define([
     }
   };
 
+  Backbone.Form.editors.TextArea.prototype.className = "cke_replace";
+
   // render ckeditor in textarea
   Backbone.Form.editors.TextArea.prototype.render = function() {
     textAreaRender.call(this);
 
-    _.defer(function() {
+    _.delay(function() {
       // ESDC - added current language as editor language and enabled plugin for language of parts
       var language = document.documentElement.lang;
       this.editor = CKEDITOR.replace(this.$el[0], {
@@ -131,7 +133,7 @@ define([
             }
         })
       });
-    }.bind(this));
+    }.bind(this), 50);
 
     return this;
   };

@@ -81,21 +81,21 @@ define(function(require){
     },
 
     remove: function() {
-      if (this.form) {
-        // remove ckeditor instances
-        this.form.$( "textarea" ).each(function () {
-          var editor = CKEDITOR.instances[this.id];
-          try {
-            // check editor is still in the dom (otherwise throws exception)
-            if (editor && editor.window.getFrame()) {
-              editor.destroy(true);
-            }
-          } catch (e) {
-            // do nothing
-          }
-        });
-        this.form.remove();
-      }
+      // if (this.form) {
+      //   // remove ckeditor instances
+      //   this.form.$( "textarea" ).each(function () {
+      //     var editor = CKEDITOR.instances[this.id];
+      //     try {
+      //       // check editor is still in the dom (otherwise throws exception)
+      //       if (editor && editor.window.getFrame()) {
+      //         editor.destroy(true);
+      //       }
+      //     } catch (e) {
+      //       // do nothing
+      //     }
+      //   });
+      //   this.form.remove();
+      // }
       Backbone.View.prototype.remove.apply(this, arguments);
     }
   });

@@ -63,6 +63,8 @@ define([
     }
   };
 
+  Backbone.Form.editors.TextArea.prototype.className = "cke_replace";
+
   // render ckeditor in textarea
   Backbone.Form.editors.TextArea.prototype.render = function() {
     textAreaRender.call(this);
@@ -148,7 +150,7 @@ define([
             }
         })
       });
-    }.bind(this));
+    }.bind(this), 50);
 
     return this;
   };

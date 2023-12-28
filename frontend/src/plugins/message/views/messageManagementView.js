@@ -39,6 +39,34 @@ define(function (require) {
 
     initCKEditor: function (target) {
       var language = document.documentElement.lang;
+      var watchdog = new CKSource.EditorWatchdog();
+      watchdog.setCreator((element, config) => {
+        return CKSource.Editor
+          .create(element, config)
+          .then(editor => {
+            editor.plugins.get('WordCount').on('update', (evt, stats) => {
+              // Prints the current content statistics.
+              console.log(`Characters: ${stats.characters}\nWords:      ${stats.words}`);
+            });
+            return editor;
+          });
+      });
+
+      watchdog
+        .create($(target)[0], {
+          toolbar: {
+            items: [
+              'sourceEditing', 'showBlocks', '|', 'undo', 'redo', '|',
+              'findAndReplace', 'selectAll', '|', 'numberedList', 'bulletedList',
+              'alignment', 'indent', 'outdent', '|', 'blockQuote', '|',
+              'textPartLanguage', '|', 'bold', 'italic', 'underline', 'strikethrough', 'subscript',
+              'superscript', 'removeFormat', '|', 'link', '|',
+              'fontColor', 'fontBackgroundColor', '|', 'specialCharacters'
+            ]
+          }
+        })
+        .catch((error) => { });
+      this.editor = watchdog;
       // CKEDITOR.replace($(target)[0], {
       //   language: language,
       //   language_list: ['fr:Français', 'en:English'],

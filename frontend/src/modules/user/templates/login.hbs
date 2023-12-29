@@ -14,7 +14,7 @@
             <button class="dash btn small secondary">{{t 'app.gotodashboard'}}</button>
         {{else}}
             <div class="login-fields">
-                <div id="loginError" class="display-none">
+                <div id="loginError" class="display-none" role="alert" aria-live="polite">
                     <i class="fa fa-times"></i><span id="loginErrorMessage"/>
                 </div>
                 <input type="email" autocomplete="email" class="login-input-username" value="" id="login-input-username" placeholder="{{t 'app.usernameoremail'}}" />

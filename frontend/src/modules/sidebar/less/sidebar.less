@@ -135,7 +135,7 @@
       color:@sidebar-text-color;
       transition:all 0.3s;
       &:hover {
-        color:@sidebar-item-hover-text-color;
+        color: lighten(@secondary-color, 50%);
       }
     }
   }
@@ -231,9 +231,9 @@
 
 .sidebar input[type="text"] {
   height: 25px;
-  background: @sidebar-input-color;
+  background: @adapt-white;
   border-color: @sidebar-input-border-color;
-  color: @sidebar-input-text-color;
+  color: @adapt-primary-color;
   font-size: @sidebar-input-font-size;
 
   &::-webkit-input-placeholder {
@@ -252,7 +252,7 @@
   ~ button {
     top: 25%;
     i {
-      color: @sidebar-input-button-color;
+      color: @adapt-primary-color;
       margin-right: 0;
       font-size: @font-size;
     }

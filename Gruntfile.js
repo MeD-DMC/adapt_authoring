@@ -51,7 +51,6 @@ module.exports = function(grunt) {
           paths: 'frontend/src/core/less',
           modifyVars: {
             'topbar-bg' : '"assets/top-bar-dev.jpg"',
-            'login-bg': '"assets/login_bg_dev.jpg"',
             'adapt-primary-color': '#bd4646',
             'adapt-secondary-color': '#46bdbd',
             'link-color': 'black',

@@ -5,8 +5,8 @@ html {
 }
 
 body {
-  background-color:@ui-content-color;
-  color: @tertiary-color;
+  background-color: lighten(@adapt-primary-color, 75%);
+  color: @adapt-primary-color;
 }
 
 #app {
@@ -37,7 +37,7 @@ span.error {
   text-align: center;
   opacity:1;
   transition: opacity 0.3s;
-  background-color: @ui-content-color;
+  background-color: @adapt-primary-color;
 
   &.fade-out {
     opacity: 0;
@@ -65,7 +65,7 @@ span.error {
     > div {
       width: @loading-icon-size;
       height: @loading-icon-size;
-      background-color: @tertiary-color;
+      background-color: @white;
       margin: 0 @loading-icon-size/3 0 @loading-icon-size/3;
 
       border-radius: 100%;

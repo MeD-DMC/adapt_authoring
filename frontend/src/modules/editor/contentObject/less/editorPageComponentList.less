@@ -27,7 +27,7 @@
     float: right;
     margin: 3px 10px;
     font-size: 150%;
-    color: #7D7D7D;
+    color: @adapt-primary-color;
 
     &:hover {
       cursor: pointer;
@@ -52,13 +52,13 @@
       left: 380px;
       top: 33px;
       font-size: 130%;
-      color: #B7B4B4;
+      color: @adapt-primary-color;
     }
 
     &-field input {
       margin: 0 0 25px 20px;
       border-radius: 0;
-      background-color: #F2F0F1;
+      background-color: @white;
     }
   }
 
@@ -103,6 +103,9 @@
       color: @white;
     }
   }
+  .editor-component-list-item-icon {
+    filter: saturate(0.2);
+  }
 }
 
 .editor-component-list-item {
@@ -120,9 +123,9 @@
   }
 
   &.selected {
-    background-color: darken(#e9f0fa, 10%);
+    background-color: lighten(@adapt-primary-color, 70%);
     &:hover {
-      background-color: darken(#e9f0fa, 10%);
+      background-color: lighten(@adapt-primary-color, 70%);
     }
     &.restricted {
       color: black;

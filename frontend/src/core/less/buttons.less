@@ -82,8 +82,8 @@ button {
 
 .primary-hollow { 
     background-color:@button-transparent;
-    color: @button-primary-color;
-    border-color:@button-primary-color;
+    color: @adapt-tertiary-color;
+    border-color: darken(@adapt-white, 50%);
     i {
         color:@button-primary-text-color;
         &:hover, &:focus {
@@ -91,10 +91,25 @@ button {
         }
     }
     &:hover, &:focus {
-        color: @button-primary-text-color;
-        background-color: @button-primary-color;
-        border-color:@button-primary-color;
+        color: @adapt-primary-color;
+        background-color: @adapt-white;
+        border-color:@adapt-white;
     }        
+}
+
+button.editor-menu-layer-add-menu.btn.primary-hollow {
+    color: @adapt-primary-color;
+    &:hover, &:focus {
+        color: @button-primary-hover-text-color;
+        background-color: @adapt-primary-color;
+    }        
+}
+
+.field i.fa {
+    color: @adapt-primary-color;
+    &:hover, &:focus {
+        color: lighten(@adapt-primary-color, 20%);
+    }  
 }
 
 .secondary {

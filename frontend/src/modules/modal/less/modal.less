@@ -42,12 +42,12 @@
     }
 
     .modal-popup-toolbar {
-        background-color: @tertiary-color;
+        background-color: @quaternary-color;
         text-align:right;
         color: @white;
         padding: 5px 10px;
         button {
-            color: @primary-color;
+            color: @white;
             padding:0px 10px 0px 10px;
             height:40px;
             display:inline-block;
@@ -57,7 +57,7 @@
             }
             &:hover {
               // background-color: lighten(@adapt-tertiary-color, 10%);
-              color: @white;
+              color: lighten(@secondary-color, 50%);
             }
             &:disabled {
                 color:#666;

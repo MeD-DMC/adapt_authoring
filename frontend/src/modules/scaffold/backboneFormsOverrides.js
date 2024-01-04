@@ -70,6 +70,7 @@ define([
     textAreaRender.call(this);
 
     _.delay(function() {
+      var language = document.documentElement.lang;
       var watchdog = new CKSource.EditorWatchdog();
       watchdog.setCreator((element, config) => {
         return CKSource.Editor
@@ -80,7 +81,31 @@ define([
       });
 
       watchdog
-        .create(this.$el[0], {})
+        .create(this.$el[0], {
+          language: {
+            ui: language,
+            textPartLanguage: [
+              { title: 'English', languageCode: 'en' },
+              { title: 'Français', languageCode: 'fr' }
+            ]
+          },
+          additionalLanguages: ['en', 'fr'],
+          toolbar: {
+            items: [
+              'sourceEditing', 'showBlocks', '|',
+              'undo', 'redo', '|',
+              'findAndReplace', 'selectAll', '|',
+              'numberedList', 'bulletedList', 'alignment', 'indent', 'outdent', '|',
+              'blockQuote', '|',
+              'textPartLanguage', '|',
+              'bold', 'italic', 'underline', 'strikethrough', 'subscript', 'superscript', 'removeFormat', '|',
+              'link', '|',
+              'fontColor', 'fontBackgroundColor', '|',
+              'specialCharacters', 'insertTable'
+            ],
+            shouldNotGroupWhenFull: true
+          }
+        })
         .catch((error) => {});
       this.editor = watchdog;
     }.bind(this), 50);

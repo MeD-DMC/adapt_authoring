@@ -54,15 +54,28 @@ define(function (require) {
 
       watchdog
         .create($(target)[0], {
+          language: {
+            ui: language,
+            textPartLanguage: [
+              { title: 'English', languageCode: 'en' },
+              { title: 'Français', languageCode: 'fr' }
+            ]
+          },
+          additionalLanguages: ['en', 'fr'],
           toolbar: {
             items: [
-              'sourceEditing', 'showBlocks', '|', 'undo', 'redo', '|',
-              'findAndReplace', 'selectAll', '|', 'numberedList', 'bulletedList',
-              'alignment', 'indent', 'outdent', '|', 'blockQuote', '|',
-              'textPartLanguage', '|', 'bold', 'italic', 'underline', 'strikethrough', 'subscript',
-              'superscript', 'removeFormat', '|', 'link', '|',
-              'fontColor', 'fontBackgroundColor', '|', 'specialCharacters'
-            ]
+              'sourceEditing', 'showBlocks', '|',
+              'undo', 'redo', '|',
+              'findAndReplace', 'selectAll', '|',
+              'numberedList', 'bulletedList', 'alignment', 'indent', 'outdent', '|',
+              'blockQuote', '|',
+              'textPartLanguage', '|',
+              'bold', 'italic', 'underline', 'strikethrough', 'subscript', 'superscript', 'removeFormat', '|',
+              'link', '|',
+              'fontColor', 'fontBackgroundColor', '|',
+              'specialCharacters'
+            ],
+            shouldNotGroupWhenFull: true
           }
         })
         .catch((error) => { });

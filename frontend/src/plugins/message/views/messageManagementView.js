@@ -44,10 +44,6 @@ define(function (require) {
         return CKSource.Editor
           .create(element, config)
           .then(editor => {
-            editor.plugins.get('WordCount').on('update', (evt, stats) => {
-              // Prints the current content statistics.
-              console.log(`Characters: ${stats.characters}\nWords:      ${stats.words}`);
-            });
             return editor;
           });
       });
@@ -181,8 +177,8 @@ define(function (require) {
 
       var toChange = {
         generalRibbonEnabled: self.$('#generalRibbonEnable')[0].checked,
-        generalRibbonEN: true,//CKEDITOR.instances['generalRibbonEN'].getData(),
-        generalRibbonFR: false,//CKEDITOR.instances['generalRibbonFR'].getData(),
+        generalRibbonEN: $('.ck-editor__editable_inline')[0].ckeditorInstance.getData(),
+        generalRibbonFR: $('.ck-editor__editable_inline')[1].ckeditorInstance.getData(),
         generalRibbonBgColor: $("#generalRibbonBgColor").spectrum('get').toHexString(),
         generalRibbonTextColor: $("#generalRibbonTextColor").spectrum('get').toHexString(),
       };

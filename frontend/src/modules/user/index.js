@@ -3,6 +3,7 @@ define(function(require) {
 
   var Origin = require('core/origin');
   var LoginView = require('./views/loginView');
+  var LoginNavigationBarView = require('./views/loginNavigationBarView');
   var UserProfileView = require('./views/userProfileView');
   var UserProfileSidebarView = require('./views/userProfileSidebarView');
   var UserProfileModel = require('./models/userProfileModel');
@@ -11,12 +12,22 @@ define(function(require) {
   var ResetPasswordView = require('./views/resetPasswordView');
   var UserPasswordResetModel = require('./models/userPasswordResetModel');
 
+  var $loginNavigationBarEl = new LoginNavigationBarView().$el;
+
   Origin.on('navigation:user:logout', function() {
     Origin.router.navigateToLogout();
   });
 
   Origin.on('navigation:user:profile', function() {
     Origin.router.navigateTo('user/profile');
+  });
+
+  Origin.on('login:loaded', function() {
+    $('#app').before($loginNavigationBarEl);
+  });
+
+  Origin.on('login:changed', function() {
+    $loginNavigationBarEl.remove();
   });
 
   Origin.on('router:user', function(location, subLocation, action) {

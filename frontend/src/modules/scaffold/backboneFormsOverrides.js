@@ -89,6 +89,17 @@ define([
               { title: 'Français', languageCode: 'fr' }
             ]
           },
+          htmlSupport: {
+            allow: [
+              {
+                name: 'abbr',
+                attributes: {
+                  title: true
+                }
+              }
+            ],
+            disallow: [ /* HTML features to disallow. */]
+          },
           additionalLanguages: ['en', 'fr'],
           toolbar: {
             items: [
@@ -101,7 +112,7 @@ define([
               'bold', 'italic', 'underline', 'strikethrough', 'subscript', 'superscript', 'removeFormat', '|',
               'link', '|',
               'fontColor', 'fontBackgroundColor', '|',
-              'specialCharacters', 'insertTable'
+              'specialCharacters', 'insertTable', '|', 'abbreviation'
             ],
             shouldNotGroupWhenFull: true
           }

@@ -108,11 +108,10 @@ define([
               'findAndReplace', 'selectAll', '|',
               'numberedList', 'bulletedList', 'alignment', 'indent', 'outdent', '|',
               'blockQuote', '|',
-              'textPartLanguage', '|',
               'bold', 'italic', 'underline', 'strikethrough', 'subscript', 'superscript', 'removeFormat', '|',
               'link', '|',
               'fontColor', 'fontBackgroundColor', '|',
-              'specialCharacters', 'insertTable', '|', 'abbreviation'
+              'specialCharacters', 'insertTable', '|', 'abbreviation', 'textPartLanguage'
             ],
             shouldNotGroupWhenFull: true
           }

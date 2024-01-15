@@ -57,6 +57,17 @@ define(function (require) {
               { title: 'Français', languageCode: 'fr' }
             ]
           },
+          htmlSupport: {
+            allow: [
+              {
+                name: 'abbr',
+                attributes: {
+                  title: true
+                }
+              }
+            ],
+            disallow: [ /* HTML features to disallow. */]
+          },
           additionalLanguages: ['en', 'fr'],
           toolbar: {
             items: [
@@ -69,7 +80,7 @@ define(function (require) {
               'bold', 'italic', 'underline', 'strikethrough', 'subscript', 'superscript', 'removeFormat', '|',
               'link', '|',
               'fontColor', 'fontBackgroundColor', '|',
-              'specialCharacters'
+              'specialCharacters', '|', 'abbreviation'
             ],
             shouldNotGroupWhenFull: true
           }

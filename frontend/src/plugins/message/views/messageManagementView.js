@@ -76,11 +76,10 @@ define(function (require) {
               'findAndReplace', 'selectAll', '|',
               'numberedList', 'bulletedList', 'alignment', 'indent', 'outdent', '|',
               'blockQuote', '|',
-              'textPartLanguage', '|',
               'bold', 'italic', 'underline', 'strikethrough', 'subscript', 'superscript', 'removeFormat', '|',
               'link', '|',
               'fontColor', 'fontBackgroundColor', '|',
-              'specialCharacters', '|', 'abbreviation'
+              'specialCharacters', '|', 'abbreviation', 'textPartLanguage'
             ],
             shouldNotGroupWhenFull: true
           }

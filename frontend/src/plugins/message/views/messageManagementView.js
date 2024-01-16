@@ -74,9 +74,9 @@ define(function (require) {
               'sourceEditing', 'showBlocks', '|',
               'undo', 'redo', '|',
               'findAndReplace', 'selectAll', '|',
+              'bold', 'italic', 'underline', 'strikethrough', 'subscript', 'superscript', 'removeFormat', '|',
               'numberedList', 'bulletedList', 'alignment', 'indent', 'outdent', '|',
               'blockQuote', '|',
-              'bold', 'italic', 'underline', 'strikethrough', 'subscript', 'superscript', 'removeFormat', '|',
               'link', '|',
               'fontColor', 'fontBackgroundColor', '|',
               'specialCharacters', '|', 'abbreviation', 'textPartLanguage'

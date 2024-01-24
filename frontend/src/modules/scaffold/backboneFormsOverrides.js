@@ -76,6 +76,11 @@ define([
         return CKSource.Editor
           .create(element, config)
           .then(editor => {
+            const textpart = editor.ui.view.toolbar.items.find(button => $(button.element).hasClass('ck-text-fragment-language-dropdown'));
+            if (textpart) {
+              const label = language === 'en' ? 'Language of Parts' : 'Langue d’un passage';
+              $(textpart.element).find('.ck-button__label').text(label);
+            }            
             return editor;
           });
       });

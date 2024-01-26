@@ -80,7 +80,7 @@ define([
             if (textpart) {
               const label = language === 'en' ? 'Language of Parts' : 'Langue d’un passage';
               $(textpart.element).find('.ck-button__label').text(label);
-            }            
+            }
             return editor;
           });
       });
@@ -94,16 +94,23 @@ define([
               { title: 'Français', languageCode: 'fr' }
             ]
           },
+          unsafeElements: false,
           htmlSupport: {
             allow: [
               {
-                name: 'abbr',
-                attributes: {
-                  title: true
-                }
+                // name: /^(div|span|svg|abbr|path)$/,
+                name: /.*/,
+                attributes: true,
+                classes: true,
+                styles: true,
+                content: true
               }
             ],
-            disallow: [ /* HTML features to disallow. */]
+            disallow: [
+              {
+                name: /^(script|video|audio|img|var)$/
+              }
+            ]
           },
           additionalLanguages: ['en', 'fr'],
           toolbar: {

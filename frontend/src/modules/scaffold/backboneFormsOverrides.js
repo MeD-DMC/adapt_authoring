@@ -117,7 +117,7 @@ define([
             items: [
               'sourceEditing', 'showBlocks', '|',
               'undo', 'redo', '|',
-              'findAndReplace', 'selectAll', '|',
+              'pastePlainText', 'findAndReplace', 'selectAll', '|',
               'bold', 'italic', 'underline', 'strikethrough', 'subscript', 'superscript', 'removeFormat', '|',
               'numberedList', 'bulletedList', 'alignment', 'indent', 'outdent', '|',
               'blockQuote', '|',

@@ -68,6 +68,15 @@ define([
   // render ckeditor in textarea
   Backbone.Form.editors.TextArea.prototype.render = function() {
     textAreaRender.call(this);
+    let defaultLanguage;
+    if (Origin.editor.data && Origin.editor.data.config && Origin.editor.data.config.get('_defaultLanguage')) {
+      defaultLanguage = Origin.editor.data.config.get('_defaultLanguage');
+    }
+
+    let textLanguageParts = [
+      defaultLanguage === 'en' ? { title: 'Français', languageCode: 'fr' } : { title: 'English', languageCode: 'en' }
+    ];
+
 
     _.delay(function() {
       var language = document.documentElement.lang;
@@ -89,10 +98,7 @@ define([
         .create(this.$el[0], {
           language: {
             ui: language,
-            textPartLanguage: [
-              { title: 'English', languageCode: 'en' },
-              { title: 'Français', languageCode: 'fr' }
-            ]
+            textPartLanguage: textLanguageParts
           },
           unsafeElements: false,
           htmlSupport: {
@@ -117,7 +123,7 @@ define([
             items: [
               'sourceEditing', 'showBlocks', '|',
               'undo', 'redo', '|',
-              'pastePlainText', 'findAndReplace', 'selectAll', '|',
+              'findAndReplace', 'selectAll', '|',
               'bold', 'italic', 'underline', 'strikethrough', 'subscript', 'superscript', 'removeFormat', '|',
               'numberedList', 'bulletedList', 'alignment', 'indent', 'outdent', '|',
               'blockQuote', '|',

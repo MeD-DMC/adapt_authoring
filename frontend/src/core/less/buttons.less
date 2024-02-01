@@ -64,19 +64,19 @@ button {
 }
 
 .primary {
-    background-color:@button-primary-color;
+    background-color:@adapt-topbar-color;
     color:@button-primary-text-color;
-    border-color: @button-primary-color;
+    border-color: @adapt-topbar-color;
     i {
         color:@button-primary-text-color;
         &:hover, &:focus {
-            color:@button-primary-hover-text-color;
+            color: darken(@adapt-topbar-color, 10%);
         }
     }
     &:hover, &:focus {
-        background-color:@button-primary-hover-color;
+        background-color: darken(@adapt-topbar-color, 10%);
         color:@button-primary-hover-text-color;
-        border-color:@button-primary-hover-color;
+        border-color: darken(@adapt-topbar-color, 10%);
     }
 }
 
@@ -88,10 +88,11 @@ button {
         color:@button-primary-text-color;
         &:hover, &:focus {
             color:@button-primary-hover-text-color;
+            background-color: darken(@adapt-topbar-color, 10%);
         }
     }
     &:hover, &:focus {
-        color: @adapt-primary-color;
+        color: darken(@adapt-topbar-color, 10%);
         background-color: @adapt-white;
         border-color:@adapt-white;
     }        

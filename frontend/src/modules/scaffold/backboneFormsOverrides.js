@@ -119,11 +119,19 @@ define([
             ]
           },
           additionalLanguages: ['en', 'fr'],
+          fontSize: {
+            options: [
+              'default',
+              'big',
+              'huge'
+            ]
+          },
           toolbar: {
             items: [
               'sourceEditing', 'showBlocks', '|',
               'undo', 'redo', '|',
               'findAndReplace', 'selectAll', '|',
+              'fontSize', '|',
               'bold', 'italic', 'underline', 'strikethrough', 'subscript', 'superscript', 'removeFormat', '|',
               'numberedList', 'bulletedList', 'alignment', 'indent', 'outdent', '|',
               'blockQuote', '|',

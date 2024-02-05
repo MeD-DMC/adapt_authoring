@@ -1,7 +1,6 @@
 @import 'colours';
 @import 'fonts';
 @import 'sharedStyles';
-@topbar-bg: 'assets/top-bar-1080.jpg';
 
 .navigation {
   position:fixed;
@@ -10,11 +9,12 @@
   width:100%;
   height:60px;
   z-index:500;
-  background-color: @adapt-primary-color;
+  background-color: @adapt-topbar-color;
   background-position: right;
   border-bottom:1px solid rgba(0,0,0,0.15);
   font-size: 15px;
   font-family: @font-title;
+  box-shadow: 0px 3px 3px -3px #2a2a2a;
 }
 
 .navigation-bg {
@@ -23,10 +23,6 @@
   position: absolute;
   top: 0;
   z-index: -1;
-  background: url('@{topbar-bg}');
-  @media (min-width: 1920px) {
-    background: url('@{topbar-bg}')
-  }
 }
 
 .navigation-inner {

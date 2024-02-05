@@ -68,80 +68,74 @@ define([
   // render ckeditor in textarea
   Backbone.Form.editors.TextArea.prototype.render = function() {
     textAreaRender.call(this);
+    let defaultLanguage;
+    if (Origin.editor.data && Origin.editor.data.config && Origin.editor.data.config.get('_defaultLanguage')) {
+      defaultLanguage = Origin.editor.data.config.get('_defaultLanguage');
+    }
+
+    let textLanguageParts = [
+      defaultLanguage === 'en' ? { title: 'Français', languageCode: 'fr' } : { title: 'English', languageCode: 'en' }
+    ];
+
 
     _.delay(function() {
-      // ESDC - added current language as editor language and enabled plugin for language of parts
       var language = document.documentElement.lang;
-      this.editor = CKEDITOR.replace(this.$el[0], {
-        // ESDC - added support for the editor in multiple languages
-        language: language,
-        language_list: ['fr:Français', 'en:English'],
-        skin: 'moono',
-        dataIndentationChars: '',
-        disableNativeSpellChecker: false,
-        enterMode: CKEDITOR[Origin.constants.ckEditorEnterMode],
-        entities: false,
-        extraAllowedContent: Origin.constants.ckEditorExtraAllowedContent,
-        removePlugins: 'exportpdf',
-        on: {
-          change: function() {
-            this.trigger('change', this);
-          }.bind(this),
-          instanceReady: function() {
-            var writer = this.dataProcessor.writer;
-            var elements = Object.keys(CKEDITOR.dtd.$block);
+      var watchdog = new CKSource.EditorWatchdog();
+      watchdog.setCreator((element, config) => {
+        return CKSource.Editor
+          .create(element, config)
+          .then(editor => {
+            const textpart = editor.ui.view.toolbar.items.find(button => $(button.element).hasClass('ck-text-fragment-language-dropdown'));
+            if (textpart) {
+              const label = language === 'en' ? 'Language of Parts' : 'Langue d’un passage';
+              $(textpart.element).find('.ck-button__label').text(label);
+            }
+            return editor;
+          });
+      });
 
-            var rules = {
-              indent: false,
-              breakBeforeOpen: false,
-              breakAfterOpen: false,
-              breakBeforeClose: false,
-              breakAfterClose: false,
-              defaultLanguage: 'fr'
-            };
-
-            writer.indentationChars = '';
-            writer.lineBreakChars = '';
-            elements.forEach(function(element) { writer.setRules(element, rules); });
+      watchdog
+        .create(this.$el[0], {
+          language: {
+            ui: language,
+            textPartLanguage: textLanguageParts
+          },
+          unsafeElements: false,
+          htmlSupport: {
+            allow: [
+              {
+                // name: /^(div|span|svg|abbr|path)$/,
+                name: /.*/,
+                attributes: true,
+                classes: true,
+                styles: true,
+                content: true
+              }
+            ],
+            disallow: [
+              {
+                name: /^(script|video|audio|img|var)$/
+              }
+            ]
+          },
+          additionalLanguages: ['en', 'fr'],
+          toolbar: {
+            items: [
+              'sourceEditing', 'showBlocks', '|',
+              'undo', 'redo', '|',
+              'findAndReplace', 'selectAll', '|',
+              'bold', 'italic', 'underline', 'strikethrough', 'subscript', 'superscript', 'removeFormat', '|',
+              'numberedList', 'bulletedList', 'alignment', 'indent', 'outdent', '|',
+              'blockQuote', '|',
+              'link', '|',
+              'fontColor', 'fontBackgroundColor', '|',
+              'specialCharacters', 'insertTable', '|', 'abbreviation', 'textPartLanguage'
+            ],
+            shouldNotGroupWhenFull: true
           }
-        },
-        toolbar: [
-          { name: 'document', groups: [ 'mode', 'document', 'doctools' ], items: [ 'Source', '-', 'ShowBlocks' ] },
-          { name: 'clipboard', groups: [ 'clipboard', 'undo' ], items: [ 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo' ] },
-          { name: 'editing', groups: [ 'find', 'selection', 'spellchecker' ], items: [ 'Find', 'Replace', '-', 'SelectAll' ] },
-          { name: 'paragraph', groups: [ 'list', 'indent', 'blocks', 'align', 'bidi' ], items: [ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote', 'CreateDiv' ] },
-          { name: 'direction', items: [ 'BidiLtr', 'BidiRtl', 'Language' ] },
-          '/',
-          { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ], items: [ 'Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat'] },
-          { name: 'styles', items: [ 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock' ] },
-          { name: 'links', items: [ 'Link', 'Unlink' ] },
-          { name: 'colors', items: [ 'TextColor', 'BGColor' ] },
-          { name: 'insert', items: [ 'SpecialChar', 'Table' ] },
-          { name: 'tools', items: [] },
-          { name: 'others', items: [ '-' ] }
-        ]
-      });
-      CKEDITOR.on("instanceReady", function(event) {
-        event.editor.on("beforeCommandExec", function(event) {
-            // Show the paste dialog for the paste buttons and right-click paste
-            if (event.data.name == "paste") {
-                event.editor._.forcePasteDialog = true;
-            }
-            // Don't show the paste dialog for Ctrl+Shift+V
-            if (event.data.name == "pastetext" && event.data.commandData.from == "keystrokeHandler") {
-                event.cancel();
-            }
         })
-      });
-      var self = this;
-      _.delay(function(){
-        if(self.editor.status === 'loaded'){
-          console.log('its bugged lets reload');
-          self.editor.destroy();
-          Backbone.Form.editors.TextArea.prototype.remove.call(self);
-          Backbone.Form.editors.TextArea.prototype.render.call(self);
-        }
-      }, 2000);
+        .catch((error) => {});
+      this.editor = watchdog;
     }.bind(this), 50);
 
     return this;
@@ -149,22 +143,25 @@ define([
 
   // get data from ckeditor in textarea
   Backbone.Form.editors.TextArea.prototype.getValue = function() {
-    return this.editor.getData();
+    return this.editor && this.editor.editor ? this.editor.editor.getData() : null;
   };
 
   // set value in ckeditor
   Backbone.Form.editors.TextArea.prototype.setValue = function(value) {
     textAreaSetValue.call(this, value);
 
-    if (this.editor) {
-      this.editor.setData(value);
+    if (this.editor && this.editor.editor) {
+      this.editor.editor.setData(value);
     }
   };
 
   // ckeditor removal
   Backbone.Form.editors.TextArea.prototype.remove = function() {
-    this.editor.removeAllListeners();
-    CKEDITOR.remove(this.editor);
+    if (this.editor) {
+      this.editor.destroy()
+        .then(() => {})
+        .catch(error => {});
+    }
   };
 
 

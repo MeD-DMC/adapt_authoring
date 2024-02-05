@@ -13,7 +13,7 @@ define(function (require) {
     preRender: function () {
       this.listenTo(Origin, 'messageManagementSidebar:views:save', this.saveMessage);
       this.listenTo(this.model, 'invalid', this.handleValidationError);
-      CKEDITOR.plugins.addExternal('wordcount', `${location.pathname || '/'}wordcount/`, 'plugin.js');
+      // CKEDITOR.plugins.addExternal('wordcount', `${location.pathname || '/'}wordcount/`, 'plugin.js');
     },
 
     postRender: function () {
@@ -39,87 +39,134 @@ define(function (require) {
 
     initCKEditor: function (target) {
       var language = document.documentElement.lang;
-      CKEDITOR.replace($(target)[0], {
-        language: language,
-        language_list: ['fr:Français', 'en:English'],
-        skin: 'moono',
-        dataIndentationChars: '',
-        disableNativeSpellChecker: false,
-        enterMode: CKEDITOR.ENTER_DIV,
-        entities: false,
-        extraAllowedContent: Origin.constants.ckEditorExtraAllowedContent,
-        removePlugins: 'exportpdf',
-        extraPlugins: 'notification, wordcount',
-        wordcount: {
-          showRemaining: true,
-          showParagraphs: false,
-          showWordCount: false,
-          showCharCount: true,
-          countBytesAsChars: false,
-          countSpacesAsChars: true,
-          countHTML: false,
-          countLineBreaks: false,
-          hardLimit: true,
-          warnOnLimitOnly: false,
-          maxWordCount: -1,
-          maxCharCount: 345,
-          maxParagraphs: -1,
-          pasteWarningDuration: 0,
-          filter: new CKEDITOR.htmlParser.filter({
-            elements: {
-              div: function (element) {
-                if (element.attributes.class == 'mediaembed') {
-                  return false;
+      var watchdog = new CKSource.EditorWatchdog();
+      watchdog.setCreator((element, config) => {
+        return CKSource.Editor
+          .create(element, config)
+          .then(editor => {
+            return editor;
+          });
+      });
+
+      watchdog
+        .create($(target)[0], {
+          language: {
+            ui: language,
+            textPartLanguage: [
+              { title: 'English', languageCode: 'en' },
+              { title: 'Français', languageCode: 'fr' }
+            ]
+          },
+          htmlSupport: {
+            allow: [
+              {
+                name: 'abbr',
+                attributes: {
+                  title: true
                 }
               }
-            }
-          })
-        },
-        on: {
-          change: function () {
-            this.trigger('change', this);
-          }.bind(this),
-          instanceReady: function () {
-            var writer = this.dataProcessor.writer;
-            var elements = Object.keys(CKEDITOR.dtd.$block);
-
-            var rules = {
-              indent: false,
-              breakBeforeOpen: false,
-              breakAfterOpen: false,
-              breakBeforeClose: false,
-              breakAfterClose: false,
-              defaultLanguage: 'fr'
-            };
-
-            writer.indentationChars = '';
-            writer.lineBreakChars = '';
-            elements.forEach(function (element) { writer.setRules(element, rules); });
+            ],
+            disallow: [ /* HTML features to disallow. */]
+          },
+          additionalLanguages: ['en', 'fr'],
+          toolbar: {
+            items: [
+              'sourceEditing', 'showBlocks', '|',
+              'undo', 'redo', '|',
+              'findAndReplace', 'selectAll', '|',
+              'bold', 'italic', 'underline', 'strikethrough', 'subscript', 'superscript', 'removeFormat', '|',
+              'numberedList', 'bulletedList', 'alignment', 'indent', 'outdent', '|',
+              'blockQuote', '|',
+              'link', '|',
+              'fontColor', 'fontBackgroundColor', '|',
+              'specialCharacters', '|', 'abbreviation', 'textPartLanguage'
+            ],
+            shouldNotGroupWhenFull: true
           }
-        },
-        toolbar: [
-          { name: 'document', groups: [ 'mode', 'document', 'doctools' ], items: [ 'Source', '-', 'ShowBlocks' ] },
-          { name: 'clipboard', groups: [ 'clipboard', 'undo' ], items: [ 'PasteText', '-', 'Undo', 'Redo' ] },
-          { name: 'editing', groups: [ 'find', 'selection', 'spellchecker' ], items: [ 'Find', 'Replace', '-', 'SelectAll' ] },
-          { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ], items: [ 'Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat'] },
-          { name: 'links', items: [ 'Link', 'Unlink' ] },
-          { name: 'insert', items: [ 'SpecialChar' ] },
-          { name: 'tools', items: [] },
-          { name: 'others', items: [ '-' ] }
-        ]
-      });
-      CKEDITOR.on("instanceReady", function(event) {
-        event.editor.on("beforeCommandExec", function(event) {
-            // Show the paste dialog for the paste buttons and right-click paste
-            if (event.data.name == "paste") {
-                event.editor._.forcePasteDialog = true;
-            }
-            // Don't show the paste dialog for Ctrl+Shift+V
-            if (event.data.name == "pastetext" && event.data.commandData.from == "keystrokeHandler") {
-                event.cancel();
-            }
         })
-      });
+        .catch((error) => { });
+      this.editor = watchdog;
+      // CKEDITOR.replace($(target)[0], {
+      //   language: language,
+      //   language_list: ['fr:Français', 'en:English'],
+      //   skin: 'moono',
+      //   dataIndentationChars: '',
+      //   disableNativeSpellChecker: false,
+      //   enterMode: CKEDITOR.ENTER_DIV,
+      //   entities: false,
+      //   extraAllowedContent: Origin.constants.ckEditorExtraAllowedContent,
+      //   removePlugins: 'exportpdf',
+      //   extraPlugins: 'notification, wordcount',
+      //   wordcount: {
+      //     showRemaining: true,
+      //     showParagraphs: false,
+      //     showWordCount: false,
+      //     showCharCount: true,
+      //     countBytesAsChars: false,
+      //     countSpacesAsChars: true,
+      //     countHTML: false,
+      //     countLineBreaks: false,
+      //     hardLimit: true,
+      //     warnOnLimitOnly: false,
+      //     maxWordCount: -1,
+      //     maxCharCount: 345,
+      //     maxParagraphs: -1,
+      //     pasteWarningDuration: 0,
+      //     filter: new CKEDITOR.htmlParser.filter({
+      //       elements: {
+      //         div: function (element) {
+      //           if (element.attributes.class == 'mediaembed') {
+      //             return false;
+      //           }
+      //         }
+      //       }
+      //     })
+      //   },
+      //   on: {
+      //     change: function () {
+      //       this.trigger('change', this);
+      //     }.bind(this),
+      //     instanceReady: function () {
+      //       var writer = this.dataProcessor.writer;
+      //       var elements = Object.keys(CKEDITOR.dtd.$block);
+
+      //       var rules = {
+      //         indent: false,
+      //         breakBeforeOpen: false,
+      //         breakAfterOpen: false,
+      //         breakBeforeClose: false,
+      //         breakAfterClose: false,
+      //         defaultLanguage: 'fr'
+      //       };
+
+      //       writer.indentationChars = '';
+      //       writer.lineBreakChars = '';
+      //       elements.forEach(function (element) { writer.setRules(element, rules); });
+      //     }
+      //   },
+      //   toolbar: [
+      //     { name: 'document', groups: [ 'mode', 'document', 'doctools' ], items: [ 'Source', '-', 'ShowBlocks' ] },
+      //     { name: 'clipboard', groups: [ 'clipboard', 'undo' ], items: [ 'PasteText', '-', 'Undo', 'Redo' ] },
+      //     { name: 'editing', groups: [ 'find', 'selection', 'spellchecker' ], items: [ 'Find', 'Replace', '-', 'SelectAll' ] },
+      //     { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ], items: [ 'Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat'] },
+      //     { name: 'links', items: [ 'Link', 'Unlink' ] },
+      //     { name: 'insert', items: [ 'SpecialChar' ] },
+      //     { name: 'tools', items: [] },
+      //     { name: 'others', items: [ '-' ] }
+      //   ]
+      // });
+      // CKEDITOR.on("instanceReady", function(event) {
+      //   event.editor.on("beforeCommandExec", function(event) {
+      //       // Show the paste dialog for the paste buttons and right-click paste
+      //       if (event.data.name == "paste") {
+      //           event.editor._.forcePasteDialog = true;
+      //       }
+      //       // Don't show the paste dialog for Ctrl+Shift+V
+      //       if (event.data.name == "pastetext" && event.data.commandData.from == "keystrokeHandler") {
+      //           event.cancel();
+      //       }
+      //   })
+      // });
     },
 
     handleValidationError: function (model, error) {
@@ -140,8 +187,8 @@ define(function (require) {
 
       var toChange = {
         generalRibbonEnabled: self.$('#generalRibbonEnable')[0].checked,
-        generalRibbonEN: CKEDITOR.instances['generalRibbonEN'].getData(),
-        generalRibbonFR: CKEDITOR.instances['generalRibbonFR'].getData(),
+        generalRibbonEN: $('.ck-editor__editable_inline')[0].ckeditorInstance.getData(),
+        generalRibbonFR: $('.ck-editor__editable_inline')[1].ckeditorInstance.getData(),
         generalRibbonBgColor: $("#generalRibbonBgColor").spectrum('get').toHexString(),
         generalRibbonTextColor: $("#generalRibbonTextColor").spectrum('get').toHexString(),
       };

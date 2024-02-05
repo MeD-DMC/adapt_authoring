@@ -30,7 +30,7 @@ define(function (require) {
     preRender: function () {
       this.listenTo(Origin, 'helpDialogManagementSidebar:views:save', this.saveHelpDialog);
       this.listenTo(this.model, 'invalid', this.handleValidationError);
-      CKEDITOR.plugins.addExternal('wordcount', `${location.pathname || '/'}wordcount/`, 'plugin.js');
+      // CKEDITOR.plugins.addExternal('wordcount', `${location.pathname || '/'}wordcount/`, 'plugin.js');
     },
 
     postRender: function () {
@@ -60,8 +60,10 @@ define(function (require) {
       var helpDialogEnabledVal = this.form.fields['helpDialogEnabled'].editor.getValue();
       var helpDialogTitleENVal = this.form.fields['helpDialogTitleEN'].editor.getValue();
       var helpDialogTitleFRVal = this.form.fields['helpDialogTitleFR'].editor.getValue();
-      var helpDialogENVal = CKEDITOR.instances[this.form.fields['helpDialogEN'].$el.attr('data-editor-id')].getData();
-      var helpDialogFRVal = CKEDITOR.instances[this.form.fields['helpDialogFR'].$el.attr('data-editor-id')].getData();
+      var helpDialogENVal = true;
+      // CKEDITOR.instances[this.form.fields['helpDialogEN'].$el.attr('data-editor-id')].getData();
+      var helpDialogFRVal = false;
+      // CKEDITOR.instances[this.form.fields['helpDialogFR'].$el.attr('data-editor-id')].getData();
       var propertiesVal = this.form.fields['properties'].editor.getValue();
       propertiesVal.name = "help_dialog";
 

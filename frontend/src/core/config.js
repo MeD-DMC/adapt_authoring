@@ -5,6 +5,8 @@ require.config({
     backbone: 'libraries/backbone',
     'backbone-forms': 'libraries/backbone-forms',
     'backbone-forms-lists': 'libraries/backbone-forms-lists',
+    ckeditor: 'libraries/ckeditor',
+    ckeditorTranslationFr: 'libraries/ckeditorTranslationFr',
     handlebars: 'libraries/handlebars',
     imageReady: 'libraries/imageReady',
     inview: 'libraries/inview',

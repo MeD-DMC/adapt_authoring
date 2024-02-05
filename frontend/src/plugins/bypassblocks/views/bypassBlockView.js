@@ -25,10 +25,12 @@ define(function(require){
 
     skipToLink: function(e) {
       e.preventDefault();
-      var href = String(window.location).includes('user/login') ? 'login-input-username' : $(e.target).attr('href').substring(1);
+      var href = $(e.target).attr('href').substring(1);
+      $(e.target).attr('tabindex', 0)
       $('#' + href).focus();
+      $(e.target).attr('tabindex', 1)
     }
-    
+
   }, {
     template: 'bypassBlock'
   });

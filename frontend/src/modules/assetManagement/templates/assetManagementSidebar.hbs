@@ -27,7 +27,8 @@
     {{!-- inline search field with close button --}}
     <div class="sidebar-row">
         <div class="sidebar-row-input">
-            <input type="text" class="asset-management-sidebar-filter-search" placeholder="{{t 'app.searchbyname'}}"/>
+            <label for="asset-management-sidebar-search" class="sr-only">{{t 'app.searchbyname'}}</label>
+            <input type="text" id="asset-management-sidebar-search" class="asset-management-sidebar-filter-search" placeholder="{{t 'app.searchbyname'}}"/>
             <button class="sidebar-filter-clear">
                 <i class="fa fa-times"></i>
             </button>

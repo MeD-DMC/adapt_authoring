@@ -5,7 +5,6 @@ define([
   'backbone-forms',
   'backbone-forms-lists',
   './backboneFormsOverrides',
-  './CKEOverrides',
   './views/scaffoldAssetView',
   './views/scaffoldAssetItemView',
   './views/scaffoldCodeEditorView',
@@ -17,7 +16,7 @@ define([
   './views/scaffoldUsersView',
   './views/scaffoldSingleUserView',
   './views/scaffoldUsersWithEmailView'
-], function(Origin, Helpers, Schemas, BackboneForms, BackboneFormsLists, BackboneFormsOverrides, CKEOverrides, ScaffoldAssetView, ScaffoldAssetItemView, ScaffoldCodeEditorView, ScaffoldColourPickerView, ScaffoldDisplayTitleView, ScaffoldItemsModalView, ScaffoldListView, ScaffoldTagsView, ScaffoldUsersView, ScaffoldSingleUserView, ScaffoldUsersWithEmailView) {
+], function(Origin, Helpers, Schemas, BackboneForms, BackboneFormsLists, BackboneFormsOverrides, ScaffoldAssetView, ScaffoldAssetItemView, ScaffoldCodeEditorView, ScaffoldColourPickerView, ScaffoldDisplayTitleView, ScaffoldItemsModalView, ScaffoldListView, ScaffoldTagsView, ScaffoldUsersView, ScaffoldSingleUserView, ScaffoldUsersWithEmailView) {
 
   var Scaffold = {};
   var alternativeModel;
@@ -120,13 +119,13 @@ define([
       if(parent === '_items'){
         parent = options.model.attributes._component;
       }
-      
+
       if(key === '_items'){
         key = `${key}.${options.model.attributes._component}`
       }
-      
+
       var level = options.level || 'all';
-      
+
       return {key: key, level: level, parent: parent, type: type, fallback: fallback}
     }
 
@@ -189,10 +188,10 @@ define([
   function buildSchema(schema, options, type) {
 
     var scaffoldSchema = {};
-    
+
     for (var key in schema) {
       if (!schema.hasOwnProperty(key)) continue;
-    
+
       var field = schema[key];
       var nestedProps = field.properties;
 
@@ -225,7 +224,7 @@ define([
       if (!schema.hasOwnProperty(key) || key === '_extensions') continue;
 
       var value = schema[key];
-     
+
       if (value.isSetting) {
         fieldsets.settings.fields.push(key);
         continue;
@@ -303,7 +302,7 @@ define([
     alternativeAttribute = options.alternativeAttributeToSave;
     currentModel = options.model;
     currentForm = new Backbone.Form(options).render();
-   
+
     return currentForm;
   };
 

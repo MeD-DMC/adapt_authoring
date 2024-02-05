@@ -11,7 +11,9 @@
                 <div id="loginError" class="display-none" role="alert" aria-live="polite">
                     <i class="fa fa-times"></i><span id="loginErrorMessage"/>
                 </div>
+                <label for="login-input-username" class="sr-only">{{ 'app.usernameoremail' }}</label>
                 <input type="email" autocomplete="email" class="login-input-username" value="" id="login-input-username" placeholder="{{t 'app.usernameoremail'}}" />
+                <label for="login-input-password" class="sr-only">{{ 'app.password' }}</label>
                 <input type="password" autocomplete="current-password" class="login-input-password" value="" id="login-input-password" placeholder="{{t 'app.password'}}" />
                 <button type="submit" class="btn secondary login-form-submit">{{t 'app.login'}}</button>
             </div>

@@ -112,6 +112,7 @@
   .sidebar-filter-clear {
     display:inline;
     position: absolute;
+    width: auto;
     left: 205px;
     top: 25px;
     padding: 0;
@@ -140,6 +141,9 @@
   }
 
   .sidebar-row {
+    button:focus-visible {
+      outline: -webkit-focus-ring-color auto 1px;
+    }
     .error {
       position: inherit;
       top: inherit;

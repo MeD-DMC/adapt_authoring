@@ -2,24 +2,18 @@
     <div class="login-logo"></div>
 
     <form class="login-form" autocomplete="off">
-        {{! ESDC - added language switcher link }}
-        <div class="language-switcher">
-            <a href="#"  class="langspot navigation-item aut" onclick="togglelang()">
-                <span lang="{{t 'app.langswitcherCode'}}">{{t 'app.langswitcher'}}</span>
-            </a>
-        </div>
         <div class="login-title">{{t 'app.signin'}}</div>
         {{#if isAuthenticated}}
             {{t 'app.alreadyloggedin'}}
             <button class="dash btn small secondary">{{t 'app.gotodashboard'}}</button>
         {{else}}
             <div class="login-fields">
-                <div id="loginError" class="display-none">
+                <div id="loginError" class="display-none" role="alert" aria-live="polite">
                     <i class="fa fa-times"></i><span id="loginErrorMessage"/>
                 </div>
-                <input type="email" autocomplete="email" class="login-input-username" value="" id="login-input-username" placeholder="{{t 'app.usernameoremail'}}" tabindex="1" />
-                <input type="password" autocomplete="current-password" class="login-input-password" value="" id="login-input-password" placeholder="{{t 'app.password'}}" tabindex="2" />
-                <button type="submit" class="btn secondary login-form-submit" tabindex="3">{{t 'app.login'}}</button>
+                <input type="email" autocomplete="email" class="login-input-username" value="" id="login-input-username" placeholder="{{t 'app.usernameoremail'}}" />
+                <input type="password" autocomplete="current-password" class="login-input-password" value="" id="login-input-password" placeholder="{{t 'app.password'}}" />
+                <button type="submit" class="btn secondary login-form-submit">{{t 'app.login'}}</button>
             </div>
             <div class="login-remember-me">
                 <input id="remember-me" class="remember-me-checkbox" name="remember-me" type="checkbox"/>

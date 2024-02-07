@@ -37,7 +37,7 @@ span.error {
   text-align: center;
   opacity:1;
   transition: opacity 0.3s;
-  background-color: @white;
+  background-color: @adapt-primary-color;
 
   &.fade-out {
     opacity: 0;
@@ -55,6 +55,7 @@ span.error {
     margin-bottom: @loading-icon-size;
     img {
       height: 50px;
+      filter: invert(100%);
     }
   }
 

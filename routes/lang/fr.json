@@ -1631,5 +1631,6 @@
     "app.selectrepresentativefromaccessibilityalliesnetwork": "Sélectionnez votre représentant du Réseau des alliés de l'accessibilité",
     "app.helpdialog.closebutton.label": "Fermer la boîte de dialogue d'aide",
     "skip-to-help-dialog": "Passer au dialogue d'aide",
-    "skip-to-main": "Sauter au contenu principal"
+    "skip-to-main": "Sauter au contenu principal",
+    "app.ckhelp": "Besoin d'aide avec le nouvel éditeur? Consultez cette <a href=\"https://lit-eia.github.io/fr/adapt/ckeditor/\" target=\"_blank\">visite guidée</a>."
 }

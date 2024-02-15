@@ -142,12 +142,23 @@ define([
             shouldNotGroupWhenFull: true
           }
         })
+        .then(() => {
+          this.postRender();
+        })
         .catch((error) => {});
       this.editor = watchdog;
     }.bind(this), 50);
-
     return this;
   };
+
+  Backbone.Form.editors.TextArea.prototype.postRender = function() {
+    var currentDate = new Date();
+    var targetDate = new Date('2024-06-01');
+    if (currentDate < targetDate) {
+      var editorWrapper = this.$el.parent();
+      editorWrapper.append(`<span class="ck-help">${Origin.l10n.t('app.ckhelp')}</span>`);
+    }
+  }
 
   // get data from ckeditor in textarea
   Backbone.Form.editors.TextArea.prototype.getValue = function() {

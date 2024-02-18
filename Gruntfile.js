@@ -341,7 +341,7 @@ module.exports = function(grunt) {
 });
 
   /**
-  * Accepts 'build' and 'prod' params
+  * Accepts 'build', 'translate' and 'prod' params
   * e.g. grunt build:prod
   */
   grunt.registerTask('build', 'Running build', function(mode) {
@@ -349,6 +349,19 @@ module.exports = function(grunt) {
 
     var isProduction = mode === 'prod' ? true : false;
     var compilation = isProduction ? 'compile' : 'dev';
+
+    if(mode === 'translate'){
+      var configFile = 'conf/config.json';
+      var config = grunt.file.readJSON(configFile);
+      config.translating = true;
+      grunt.file.write(configFile, JSON.stringify(config, null, 2));
+      var compilation = 'compile';
+    } else {
+      var configFile = 'conf/config.json';
+      var config = grunt.file.readJSON(configFile);
+      config.translating = false;
+      grunt.file.write(configFile, JSON.stringify(config, null, 2));
+    }
 
     try {
       // add flag to config

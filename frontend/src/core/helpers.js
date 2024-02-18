@@ -50,6 +50,10 @@ define(function(require){
       if(Origin.l10n.has(l10nKey)) {
         return Origin.l10n.t(l10nKey);
       }
+
+      if(Origin.constants.translating){
+        return l10nKey;
+      }
       // fall-back: remove all _ and capitalise
       var string = key.replace(/_/g, '').replace(/[A-Z]/g, ' $&').toLowerCase();
       return this.capitalise(string);
@@ -76,6 +80,9 @@ define(function(require){
         return Origin.l10n.t(l10nKey);
       }
       // fall-back: remove all _ and capitalise
+      if(Origin.constants.translating){
+        return l10nKey;
+      }
       return options.fallback;
     },
 

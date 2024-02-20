@@ -140,7 +140,9 @@ define([
       titleHTML: field.titleHTML,
       titleLabel: Helpers.keyToTranslatedString(buildTranslationKey('label', getTitle())) || getTitle(),
       type: getType(),
-      validators: getValidators()
+      validators: getValidators(),
+      a11y: field.a11y,
+      secondaryLabel: field.secondaryLabel
     };
 
     if (_.isObject(inputType)) {

@@ -50,7 +50,8 @@ module.exports = function(grunt) {
           ],
           paths: 'frontend/src/core/less',
           modifyVars: {
-            'adapt-primary-color': '#7c0f0f'
+            'adapt-topbar-color': '#9a3434',
+            'adapt-secondary-color': '#9a3434'
           },
           generateSourceMaps: true,
           compress: false,

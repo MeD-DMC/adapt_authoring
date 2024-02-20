@@ -8,6 +8,14 @@
     <div class="tooltip">{{helpLabel}}</div>
   </div>
   {{/if}}
+
+  {{#if a11y}}
+  <div class="field-help">
+    <i class="fa fa-universal-access"></i>
+    <div class="tooltip">{{a11y}}</div>
+  </div>
+  {{/if}}
+
   <button class="field-default" data-action="default" title="{{t 'app.reset'}}">
     <i class="fa fa-undo"></i>
   </button>
@@ -18,8 +26,12 @@
   </div>
   {{/if}}
   {{/if}}
+
   <div class="field-editor{{#unless title}}{{#if legend}} collapsed{{/if}}{{/unless}}">
     <div class="field-error" data-error></div>
     <span data-editor></span>
   </div>
+  {{#if secondaryLabel}}
+  <span class="field-secondary-info">{{{secondaryLabel}}}</span>
+  {{/if}}
 </div>

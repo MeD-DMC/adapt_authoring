@@ -21,7 +21,8 @@
     "server": "%node12% server",
     "build:prod": "grunt build:prod",
     "build": "grunt build",
-    "build:dev": "grunt build:dev"
+    "build:dev": "grunt build:dev",
+    "build:translate": "grunt build:translate"
   },
   "dependencies": {
     "@babel/core": "^7.19.6",

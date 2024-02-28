@@ -138,7 +138,6 @@ define([
       }
       return type
     }
-    console.log(getTypeLabel());
       var fieldObject = {
         confirmDelete: itemsProperties ? confirmDelete : field.confirmDelete,
         default: field.default,
@@ -159,11 +158,9 @@ define([
         type: getType(),
         fieldType: getTypeLabel(),
         validators: getValidators(),
-        a11y: field.a11y,
-        secondaryLabel: field.secondaryLabel
+        a11y: field.a11y ? (Helpers.keyToTranslatedString(buildTranslationKey('a11y', field.a11y)) || field.a11y) : '',
+        secondaryLabel: field.secondaryLabel ? (Helpers.keyToTranslatedString(buildTranslationKey('secondaryLabel', field.secondaryLabel)) || field.secondaryLabel) : '',
       };
-
-      //console.log(fieldObject);
 
       if (_.isObject(inputType)) {
         // merge nested inputType attributes into fieldObject

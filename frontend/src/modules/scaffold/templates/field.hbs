@@ -22,7 +22,9 @@
     <i class="fa fa-undo"></i>
   </button>
   {{#ifEquals fieldType "Object"}}
-  <span class="field-secondary-info">{{{secondaryLabel}}}</span>
+    {{#if secondaryLabel}}
+    <span class="field-secondary-info">{{{secondaryLabel}}}</span>
+    {{/if}}
   {{/ifEquals}}
   {{else}}
   {{#if legend}}

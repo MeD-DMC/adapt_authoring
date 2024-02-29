@@ -59,8 +59,8 @@ define(function (require) {
       var helpDialogEnabledVal = this.form.fields['helpDialogEnabled'].editor.getValue();
       var helpDialogTitleENVal = this.form.fields['helpDialogTitleEN'].editor.getValue();
       var helpDialogTitleFRVal = this.form.fields['helpDialogTitleFR'].editor.getValue();
-      var helpDialogENVal = true;
-      var helpDialogFRVal = false;
+      var helpDialogENVal = $('.ck-editor__editable_inline')[0].ckeditorInstance.getData();
+      var helpDialogFRVal = $('.ck-editor__editable_inline')[1].ckeditorInstance.getData();
       var propertiesVal = this.form.fields['properties'].editor.getValue();
       propertiesVal.name = "help_dialog";
 

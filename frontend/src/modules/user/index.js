@@ -26,6 +26,7 @@ define(function(require) {
     var settings = {};
 
     settings.authenticate = false;
+    $('.bypass-block-content').remove();
 
     switch (location) {
       case 'login':

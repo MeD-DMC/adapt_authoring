@@ -158,9 +158,11 @@ define(function(require){
     },
 
     buildErrorMessage: function(errorObjs, message) {
+      var self = this;
       _.each(errorObjs, function(item, key) {
+        var label = self.form.$el.find(`label[title="${key}"]`).text();
         if(item.hasOwnProperty('message')) {
-          message += '<span class="key">' + (item.title || key) + '</span>: ' + item.message + '<br/>';
+          message += '<span class="key">' + (label || item.title || key) + '</span>: ' + item.message + '<br/>';
         } else if(_.isObject(item)) { // recurse
           message = this.buildErrorMessage(item, message);
         }

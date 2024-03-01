@@ -1,8 +1,9 @@
 define([
   'core/origin',
   'backbone-forms',
+  'backbone-forms-lists',
   'core/helpers'
-], function(Origin, BackboneForms, Helpers) {
+], function(Origin, BackboneForms, BackboneFormsList, Helpers) {
 
   var templates = Handlebars.templates;
   var fieldTemplate = templates.field;
@@ -328,18 +329,27 @@ define([
 
   Backbone.Form.validators = (function() {
 
+    var translateValidator = function(key){
+      var translatedKey = Origin.l10n.t(key);
+      if (Origin.constants.translating) {
+        return translatedKey !== key ? translatedKey : key;
+      } else {
+        return translatedKey !== key ? translatedKey : undefined;
+      }
+    }
+
     var validators = {};
 
     //need to use translation here
     validators.errMessages = {
-      required: 'Required',
-      regexp: 'Invalid',
-      number: 'Must be a number',
-      range: _.template('Must be a number between <%= min %> and <%= max %>', null, Backbone.Form.templateSettings),
-      email: 'Invalid email address',
-      url: 'Invalid URL',
-      match: _.template('Must match field "<%= field %>"', null, Backbone.Form.templateSettings),
-      minimumItems2: 'You need at least two items'
+      required: translateValidator('app.forms.validators.required') || 'Required',
+      regexp: translateValidator('app.forms.validators.invalid') || 'Invalid',
+      number: translateValidator('app.forms.validators.number') || 'Must be a number',
+      range: _.template((translateValidator('app.forms.validators.range') || 'Must be a number between <%= min %> and <%= max %>'), null, Backbone.Form.templateSettings),
+      email: translateValidator('app.forms.validators.email') || 'Invalid email address',
+      url: translateValidator('app.forms.validators.url') || 'Invalid URL',
+      match: _.template((translateValidator('app.forms.validators.match') || 'Must match field "<%= field %>"'), null, Backbone.Form.templateSettings),
+      minimumItems2: translateValidator('app.forms.validators.minimumItems2') || 'You need at least two items'
     };
 
     validators.required = function(options) {

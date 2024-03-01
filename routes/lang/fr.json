@@ -1567,5 +1567,13 @@
     "app.helpdialog.closebutton.label": "Fermer la boîte de dialogue d'aide",
     "skip-to-help-dialog": "Passer au dialogue d'aide",
     "skip-to-main": "Sauter au contenu principal",
-    "app.ckhelp": "Besoin d'aide avec le nouvel éditeur? Consultez cette <a href=\"https://lit-eia.github.io/fr/adapt/ckeditor/\" target=\"_blank\">visite guidée</a>."
+    "app.ckhelp": "Besoin d'aide avec le nouvel éditeur? Consultez cette <a href=\"https://lit-eia.github.io/fr/adapt/ckeditor/\" target=\"_blank\">visite guidée</a>.",
+    "app.forms.validators.url": "URL invalide",
+    "app.forms.validators.required": "Requis",
+    "app.forms.validators.range": "Doit être un nombre entre <%= min %> et <%= max %>",
+    "app.forms.validators.number": "Doit être un nombre",
+    "app.forms.validators.minimumItems2": "Vous avez besoin d'au moins deux éléments",
+    "app.forms.validators.match": "Doit correspondre au champ \"<%= field %>\"",
+    "app.forms.validators.invalid": "Invalide",
+    "app.forms.validators.email": "Adresse e-mail invalide"
 }

@@ -70,9 +70,9 @@ define(function (require) {
           additionalLanguages: ['en', 'fr'],
           link: {
             decorators: {
-              addTargetToExternalLinks: {
-                mode: 'automatic',
-                callback: url => /^(https?:)?\/\//.test(url),
+              openInNewTab: {
+                mode: 'manual',
+                label: 'Open in a new tab',
                 attributes: {
                   target: '_blank',
                   rel: 'noopener noreferrer'

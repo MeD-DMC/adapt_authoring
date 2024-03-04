@@ -122,6 +122,18 @@ define([
               'huge'
             ]
           },
+          link: {
+            decorators: {
+              addTargetToExternalLinks: {
+                mode: 'automatic',
+                callback: url => /^(https?:)?\/\//.test(url),
+                attributes: {
+                  target: '_blank',
+                  rel: 'noopener noreferrer'
+                }
+              }
+            }
+          },
           toolbar: {
             items: [
               'sourceEditing', 'showBlocks', '|',

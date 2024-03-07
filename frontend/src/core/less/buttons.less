@@ -195,19 +195,19 @@ button.btn.tertiary.changePassword {
 }
 
 .tertiary-hollow { 
-    background-color:@button-transparent;
-    color:@button-tertiary-color;
-    border-color:@button-tertiary-color;
+    background-color:@adapt-topbar-color;
+    color:@button-primary-text-color;
+    border-color: @adapt-topbar-color;
     i {
-        color:@button-tertiary-text-color;
+        color:@button-primary-text-color;
         &:hover, &:focus {
-            color:@button-tertiary-hover-text-color;
+            color: darken(@adapt-topbar-color, 10%);
         }
     }
     &:hover, &:focus {
-        color: @button-tertiary-text-color;
-        background-color: @button-tertiary-color;
-        border-color:@button-tertiary-color;
+        background-color: darken(@adapt-topbar-color, 10%);
+        color:@button-primary-hover-text-color;
+        border-color: darken(@adapt-topbar-color, 10%);
     }        
 }    
 

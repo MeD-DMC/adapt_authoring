@@ -34,6 +34,23 @@ define(function(require){
     },
 
     postRender: function () {
+      var componentWidthRatio = '50';
+      if (this.$el.hasClass('component-left') || this.$el.hasClass('component-right')) {
+        var componentWidthRatio = '50';
+        var that = this;
+        $.ajax({
+          url: 'api/content/block/' + this.model.get('_parentId'),
+          type: 'GET',
+          async: false,
+          success: function (result) {
+            if (result && result.componentWidthRatio) {
+              componentWidthRatio = that.$el.hasClass('component-right') ? 100 - parseInt(result.componentWidthRatio) : parseInt(result.componentWidthRatio);
+            }
+          }
+        });
+        this.$el.css('width', `${parseInt(componentWidthRatio) - 1}%`);
+      }
+
       this.setupDragDrop();
       _.defer(_.bind(function(){
         this.trigger('componentView:postRender');

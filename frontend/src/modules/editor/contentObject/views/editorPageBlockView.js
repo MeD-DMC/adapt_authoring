@@ -234,6 +234,9 @@ define(function(require){
       if(layout === 'left') className = 'right';
       if(layout === 'right') className = 'left';
       this.$('.add-component').addClass(className);
+      var componentWidthRatio = this.model.get('componentWidthRatio');
+      var componentWidthPercentage = className === 'right' ? 100 - parseInt(componentWidthRatio) : parseInt(componentWidthRatio);
+      this.$('.add-component').css('width', `${componentWidthPercentage -1}%`);
     },
 
     loadBlockEdit: function (event) {

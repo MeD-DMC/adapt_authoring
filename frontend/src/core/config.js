@@ -18,6 +18,7 @@ require.config({
     moment: 'libraries/moment.min',
     pikaday: 'libraries/pikaday/js/pikaday',
     polyglot: 'libraries/polyglot.min',
+    rangeslider: 'libraries/rangeslider',
     scrollTo: 'libraries/scrollTo',
     selectize: 'libraries/selectize/js/selectize',
     sweetalert: 'libraries/sweetalert.min',

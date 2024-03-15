@@ -19,6 +19,7 @@ require.config({
     pikaday: 'libraries/pikaday/js/pikaday',
     polyfill: 'libraries/polyfill.min',
     polyglot: 'libraries/polyglot.min',
+    rangeslider: 'libraries/rangeslider',
     scrollTo: 'libraries/scrollTo',
     selectize: 'libraries/selectize/js/selectize',
     sweetalert: 'libraries/sweetalert.min',

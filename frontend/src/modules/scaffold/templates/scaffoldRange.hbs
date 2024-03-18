@@ -2,10 +2,6 @@
   <div
     class="slider-widget component-widget">
     <div class="slider-holder clearfix">
-      <div class="slider-scale-labels">
-        <div class="slider-scale-start" aria-label="Start">Start</div>
-        <div class="slider-scale-end" aria-label="End">End</div>
-      </div>
       <div class="slider-scale-numbers clearfix">
         {{#each _items}}
         <div class="base slider-scale-number" data-id="{{value}}" aria-hidden="true">{{value}}</div>
@@ -17,9 +13,9 @@
       </div>
       <div class="slider-scaler-wrapper clearfix">
         <div class="slider-scaler component-item-color">
-          <div class="slider-scale-start-marker slider-line component-item-color"></div>
+          <div class="slider-scale-start-marker slider-line component-item-color" style="width: 21px; background-color: #ccced1;"></div>
           <div class="slider-markers"></div>
-          <div class="slider-scale-end-marker slider-line component-item-color"></div>
+          <div class="slider-scale-end-marker slider-line component-item-color" style="background-color: #ccced1;"></div>
         </div>
       </div>
 

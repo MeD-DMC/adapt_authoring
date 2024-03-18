@@ -3,15 +3,30 @@ define(['rangeslider', 'core/origin', 'backbone-forms'], function (rangeslider, 
 
     className: 'scaffold-range-editor',
 
+    events: {
+      'click .slider-scale-number': 'onNumberSelected',
+      'focus input[type="range"]': 'onHandleFocus',
+      'blur input[type="range"]': 'onHandleBlur'
+    },
+
     initialize: function (options) {
       Backbone.Form.editors.Base.prototype.initialize.call(this, options);
       this.template = options.template || this.constructor.template;
+      this.start = options.start || 0;
+      this.min = options.min || 20;
+      this.end = options.end || 100;
+      this.max = options.max || 80;
+      this.step = options.step || 5;
+      this.scaleMinWidth = options.scaleMinWidth || 411;
+      this.defaultValue = options.defaultValue || 50;
+      this.handleDimension = 40;
+      this.rangeDimension = 460;
       this._items = this.getRangeItems();
     },
 
     render: function() {
       this.$el.append(Handlebars.templates[this.constructor.template]({
-        initValue: this.value || 50,
+        initValue: this.value || this.defaultValue,
         _items: this._items
       }));
       this.setValue(this.value);
@@ -27,9 +42,9 @@ define(['rangeslider', 'core/origin', 'backbone-forms'], function (rangeslider, 
 
     getRangeItems: function () {
       var items = [];
-      var start = 0;
-      var end = 100;
-      var step = 5;
+      var start = this.start;
+      var end = this.end;
+      var step = this.step;
 
       var dp = this.getDecimalPlaces(step);
 
@@ -58,10 +73,12 @@ define(['rangeslider', 'core/origin', 'backbone-forms'], function (rangeslider, 
     setupRangeslider: function () {
       this.$sliderScaleMarker = this.$('.slider-scale-marker');
       this.$slider = this.$('input[type="range"]');
-      this.$slider.attr({ "step": 5 });
+      this.$slider.attr({ "step": this.step });
 
       this.$slider.rangeslider({
         polyfill: false,
+        handleDimension: this.handleDimension,
+        rangeDimension: this.rangeDimension,
         onSlide: _.bind(this.handleSlide, this)
       });
       this.oldValue = this.value;
@@ -117,8 +134,8 @@ define(['rangeslider', 'core/origin', 'backbone-forms'], function (rangeslider, 
 
     // this shoud give the index of item using given slider value
     getIndexFromValue: function (itemValue) {
-      var scaleStart = 0;
-      var scaleEnd = 100;
+      var scaleStart = this.start;
+      var scaleEnd = this.end;
       var val = Math.round(this.mapValue(itemValue, scaleStart, scaleEnd, 0, this._items.length - 1));
       return val;
     },
@@ -131,7 +148,7 @@ define(['rangeslider', 'core/origin', 'backbone-forms'], function (rangeslider, 
     mapIndexToPixels: function (value, $widthObject) {
       var numberOfItems = this._items.length;
       // var width = $widthObject ? $widthObject.width() : this.$('.slider-scaler').width();
-      var width = 411;
+      var width = this.scaleMinWidth;
 
       var val = Math.round(this.mapValue(value, 0, numberOfItems - 1, 0, width));
       return val;
@@ -139,7 +156,7 @@ define(['rangeslider', 'core/origin', 'backbone-forms'], function (rangeslider, 
 
     mapPixelsToIndex: function (value) {
       var numberOfItems = this._items.length;
-      var width = 411;
+      var width = this.scaleMinWidth;
 
       return Math.round(this.mapValue(value, 0, width, 0, numberOfItems - 1));
     },
@@ -210,23 +227,27 @@ define(['rangeslider', 'core/origin', 'backbone-forms'], function (rangeslider, 
 
     resetControlStyles: function () {
       this.$('.slider-handle').empty();
-      this.showScaleMarker(false);
+      // this.showScaleMarker(false);
       this.$('.slider-bar').animate({ width: '0px' });
       this.setSliderValue(this._items[0].value);
     },
 
     // according to given item index this should make the item as selected
     selectItem: function (itemIndex, noFocus) {
+      var allowedItem = false;
+      var that = this;
       _.each(this._items, function (item, index) {
         item.selected = (index === itemIndex);
-        if (item.selected) {
+        allowedItem = item.value >= that.min || item.value <= that.max;
+        if (item.selected && allowedItem) {
           this.$('input').attr({
             "value": item.value,
             "aria-valuenow": item.value
           });
         }
       }, this);
-      this.showNumber(true);
+      this.showScaleMarker(true);
+      // this.showNumber(true);
     },
 
     setScalePositions: function () {
@@ -238,11 +259,23 @@ define(['rangeslider', 'core/origin', 'backbone-forms'], function (rangeslider, 
     },
 
     showScale: function () {
+      var that = this;
       var $markers = this.$('.slider-markers').empty();
 
       var $scaler = this.$('.slider-scaler');
       for (var i = 1, count = this._items.length - 1; i < count; i++) {
-        $markers.append("<div class='slider-line component-item-color' style='left: " + this.mapIndexToPixels(i, $scaler) + "px'>");
+        var sliderHTML = `<div class='slider-line component-item-color'
+          style='left: ${this.mapIndexToPixels(i, $scaler)}px;'></div>`;
+
+        if (that._items[i].value < that.min || that._items[i].value >= that.max) {
+          sliderHTML += (`<div class='slider-line component-item-color'
+            style="left: ${parseInt(that.mapIndexToPixels(i, $scaler)) + 2}px; width: ${parseInt(that.mapIndexToPixels(1, $scaler)) - 2 }px;background-color: #ccced1;"
+          `);
+        }
+
+        sliderHTML = `<div>${sliderHTML}</div>`;
+
+        $markers.append(sliderHTML);
       }
       // Do we show scale numbers
       this.showScaleNumbers();
@@ -251,7 +284,7 @@ define(['rangeslider', 'core/origin', 'backbone-forms'], function (rangeslider, 
     showScaleNumbers: function () {
       var $numbers = this.$('.slider-scale-number');
 
-      var scaleWidth = 411;
+      var scaleWidth = this.scaleMinWidth;
       this._items.forEach(function (item, index) {
         var $number = $numbers.eq(index);
         var newLeft = Math.round($number.data('normalisedPosition') * scaleWidth);
@@ -264,10 +297,16 @@ define(['rangeslider', 'core/origin', 'backbone-forms'], function (rangeslider, 
 
     },
 
+    setSliderValue: function (value) {
+      if (this.$slider) {
+        this.$slider.val(value).change();
+      }
+    },
+
     remapSliderBar: function () {
       var $scaler = this.$('.slider-scaler');
       var selectedItem = this._items.filter(item => item.selected === true)[0] || this._items[0];
-      var currentIndex = this.getIndexFromValue(selectedItem ? selectedItem.value : 20);
+      var currentIndex = this.getIndexFromValue(selectedItem ? selectedItem.value : this.min);
       var left = this.mapIndexToPixels(currentIndex, $scaler);
       this.$('.slider-handle').css({ left: left + 'px' });
       this.$('.slider-scale-marker').css({ left: left + 'px' });
@@ -301,7 +340,7 @@ define(['rangeslider', 'core/origin', 'backbone-forms'], function (rangeslider, 
       var $scaleMarker = this.$('.slider-scale-marker');
       var selectedItem = this._items.filter(item => item.selected === true)[0];
       if (show) {
-        $scaleMarker.html(selectedItem ? selectedItem.value : 20);
+        $scaleMarker.html(selectedItem ? selectedItem.value : this.min);
       } else {
         $scaleMarker.html = "";
       }

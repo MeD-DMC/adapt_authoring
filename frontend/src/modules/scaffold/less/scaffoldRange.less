@@ -1,8 +1,8 @@
-@item-text-color: #616161;
+@item-text-color: #f3f3f3;
 @background-color: #e6ecf3;
 @foreground-color: #000000;
-@item-color: #90CAF9;
-@item-hover-color: #388E3C;
+@item-color: #105067;
+@item-hover-color: #008055;
 @icon-correct-color: #A5D6A7;
 @icon-incorrect-color: #f41b1b;
 @item-text-disabled-color: #F57C00;
@@ -177,7 +177,7 @@ input[type="range"]:focus+.rangeslider .rangeslider__handle {
     .slider-scale-labels {
         margin: 2px 0;
         height: 20px;
-        width: 460px;
+        min-width: 460px;
     }
 
     .slider-scale-start {
@@ -207,7 +207,7 @@ input[type="range"]:focus+.rangeslider .rangeslider__handle {
         min-height: 50px;
 
         .slider-scaler {
-            width: 411px;
+            min-width: 411px;
             height: 2px;
             background-color: @foreground-color;
             float: left;

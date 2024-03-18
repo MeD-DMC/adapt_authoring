@@ -237,6 +237,8 @@
     this.$element = $(element);
     this.options = $.extend({}, defaults, options);
     this.polyfill = this.options.polyfill;
+    this.handleDimension = this.options.handleDimension || 40;
+    this.rangeDimension = this.options.rangeDimension || 460;
     this.orientation = this.$element[0].getAttribute('data-orientation') || this.options.orientation;
     this.dir = getDirection(this.$element, this.orientation);
     this.onInit = this.options.onInit;
@@ -317,8 +319,8 @@
       this.step = tryParseFloat(this.$element[0].getAttribute('step'), 1);
     }
 
-    this.handleDimension = 40;//getDimension(this.$handle[0], 'offset' + ucfirst(this.DIMENSION));
-    this.rangeDimension = 460;//getDimension(this.$range[0], 'offset' + ucfirst(this.DIMENSION));
+    this.handleDimension = this.handleDimension || getDimension(this.$handle[0], 'offset' + ucfirst(this.DIMENSION));
+    this.rangeDimension = this.rangeDimension || getDimension(this.$range[0], 'offset' + ucfirst(this.DIMENSION));
     this.maxHandlePos = this.rangeDimension - this.handleDimension;
     this.grabPos = this.handleDimension / 2;
     this.position = this.getPositionFromValue(this.value);

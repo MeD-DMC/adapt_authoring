@@ -240,6 +240,8 @@
     this.handleDimension = this.options.handleDimension || 40;
     this.rangeDimension = this.options.rangeDimension || 460;
     this.orientation = this.$element[0].getAttribute('data-orientation') || this.options.orientation;
+    this.allowedMin = this.options.allowedMin || 0;
+    this.allowedMax = this.options.allowedMax || 100;
     this.dir = getDirection(this.$element, this.orientation);
     this.onInit = this.options.onInit;
     this.onSlide = this.options.onSlide;
@@ -398,6 +400,12 @@
 
     // Snapping steps
     value = this.getValueFromPosition(this.cap(pos, 0, this.maxHandlePos));
+    if (value < this.allowedMin) {
+      value = this.allowedMin;
+    }
+    else if (value > this.allowedMax) {
+      value = this.allowedMax;
+    }
     newPos = this.getPositionFromValue(value);
 
     // Update ui

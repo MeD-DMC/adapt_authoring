@@ -27,7 +27,11 @@ define(['rangeslider', 'core/origin', 'backbone-forms'], function (rangeslider, 
     render: function() {
       this.$el.append(Handlebars.templates[this.constructor.template]({
         initValue: this.value || this.defaultValue,
-        _items: this._items
+        _items: this._items,
+        start: this.start,
+        end: this.end,
+        min: this.min,
+        max: this.max
       }));
       this.setValue(this.value);
       this.setupRangeslider();
@@ -79,6 +83,8 @@ define(['rangeslider', 'core/origin', 'backbone-forms'], function (rangeslider, 
         polyfill: false,
         handleDimension: this.handleDimension,
         rangeDimension: this.rangeDimension,
+        allowedMin: this.min,
+        allowedMax: this.max,
         onSlide: _.bind(this.handleSlide, this)
       });
       this.oldValue = this.value;
@@ -184,8 +190,12 @@ define(['rangeslider', 'core/origin', 'backbone-forms'], function (rangeslider, 
     onKeyDown: function (event) {
       if (event.which === 9) return; // tab key
       event.preventDefault();
-      var selectedItem = this._items.filter(item => item.selected === true)[0];
-      var newItemIndex = this.getIndexFromValue(selectedItem ? selectedItem.value : 20);
+      var item = this._items.filter(item => item.selected === true)[0];
+      var itemValue = item ? item.value : 20;
+      var minIndex = this.getIndexFromValue(this.min)
+      var maxIndex = this.getIndexFromValue(this.max);
+
+      var newItemIndex = this.getIndexFromValue(itemValue);
 
       switch (event.which) {
         case 40: // ↓ down
@@ -196,6 +206,13 @@ define(['rangeslider', 'core/origin', 'backbone-forms'], function (rangeslider, 
         case 39: // → right
           newItemIndex = Math.min(newItemIndex + 1, this._items.length - 1);
           break;
+      }
+
+      if (newItemIndex < minIndex) {
+        newItemIndex = minIndex;
+      }
+      else if (newItemIndex > maxIndex) {
+        newItemIndex = maxIndex;
       }
 
       this.selectItem(newItemIndex);
@@ -214,6 +231,12 @@ define(['rangeslider', 'core/origin', 'backbone-forms'], function (rangeslider, 
       }
 
       var itemValue = parseFloat($(event.currentTarget).attr('data-id'));
+      if (itemValue < this.min) {
+        itemValue = this.min;
+      }
+      else if (itemValue > this.max) {
+        itemValue = this.max;
+      }
       var index = this.getIndexFromValue(itemValue);
       this.selectItem(index);
       this.animateToPosition(this.mapIndexToPixels(index));

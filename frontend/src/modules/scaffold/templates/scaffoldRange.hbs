@@ -23,9 +23,9 @@
         <div
           class="slider-item component-item">
           <input type="range" role="slider" value="{{ initValue }}"
-            min="0" max="100"
+            min="{{ start }}" max="{{ end }}"
             aria-valuenow="{{ initValue }}"
-            aria-valuemin="20" aria-valuemax="80" data-rangeslider
+            aria-valuemin="{{ min }}" aria-valuemax="{{ max }}" data-rangeslider
             data-direction="ltr">
         </div>
       </div>

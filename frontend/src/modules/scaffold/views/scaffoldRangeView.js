@@ -32,7 +32,8 @@ define(['rangeslider', 'core/origin', 'backbone-forms'], function (rangeslider, 
         end: this.end,
         min: this.min,
         max: this.max,
-        scaleMinWidth: this.scaleMinWidth
+        scaleMinWidth: this.scaleMinWidth,
+        rangeDimension: this.rangeDimension
       }));
       this.setValue(this.value);
       this.setupRangeslider();

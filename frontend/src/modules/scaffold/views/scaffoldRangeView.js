@@ -31,7 +31,8 @@ define(['rangeslider', 'core/origin', 'backbone-forms'], function (rangeslider, 
         start: this.start,
         end: this.end,
         min: this.min,
-        max: this.max
+        max: this.max,
+        scaleMinWidth: this.scaleMinWidth
       }));
       this.setValue(this.value);
       this.setupRangeslider();
@@ -293,10 +294,12 @@ define(['rangeslider', 'core/origin', 'backbone-forms'], function (rangeslider, 
         if (that._items[i].value < that.min || that._items[i].value >= that.max) {
           sliderHTML += (`<div class='slider-line component-item-color'
             style="left: ${parseInt(that.mapIndexToPixels(i, $scaler)) + 2}px; width: ${parseInt(that.mapIndexToPixels(1, $scaler)) - 2 }px;background-color: #ccced1;"
-          `);
+          ></div>`);
         }
 
-        sliderHTML = `<div>${sliderHTML}</div>`;
+        sliderHTML = `<div>
+          ${sliderHTML}
+        </div>`;
 
         $markers.append(sliderHTML);
       }

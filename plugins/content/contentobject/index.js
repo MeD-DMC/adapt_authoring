@@ -12,7 +12,7 @@ var contentmanager = require('../../../lib/contentmanager'),
     usermanager = require('../../../lib/usermanager'),
     util = require('util'),
     path = require('path'),
-    helpers = require('../../../lib/helpers'),    
+    helpers = require('../../../lib/helpers'),
     async = require('async');
 
 function ContentObject () {
@@ -34,6 +34,15 @@ ContentObject.prototype.hasPermission = function (action, userId, tenantId, cont
     }
     return next(null, isAllowed);
   });
+};
+
+/**
+ * implements ContentObject#getSchemaExtensions
+ *
+ * @return {string}
+ */
+ContentObject.prototype.hasSchemaExtensions = function () {
+  return false;
 };
 
 /**
@@ -258,7 +267,7 @@ ContentObject.prototype.destroy = function (search, force, next) {
           return next(new ContentPermissionError());
         }
 
-        
+
 
         async.eachSeries(
           docs,

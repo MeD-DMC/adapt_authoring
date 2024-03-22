@@ -302,6 +302,10 @@ input[type="range"]:focus+.rangeslider .rangeslider__handle {
             border: none;
             background-color: @item-color;
 
+            &.hovered {
+                background-color: @item-hover-color;
+            }
+
             &:after {
                 content: none;
             }

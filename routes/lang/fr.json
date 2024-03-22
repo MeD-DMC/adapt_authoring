@@ -1568,6 +1568,8 @@
     "skip-to-help-dialog": "Passer au dialogue d'aide",
     "skip-to-main": "Sauter au contenu principal",
     "app.ckhelp": "Besoin d'aide avec le nouvel éditeur? Consultez cette <a href=\"https://lit-eia.github.io/fr/adapt/ckeditor/\" target=\"_blank\">visite guidée</a>.",
+    "app.scaffold.block.general.componentWidthRatio.label": "Rapport de largeur des composants",
+    "app.scaffold.block.general.componentWidthRatio.help": "Le rapport de largeur en pourcentage entre les composants de gauche et de droite dans le bloc. Ce paramètre ne s'applique qu'en cas d'utilisation de deux composants.",
     "app.forms.validators.url": "URL invalide",
     "app.forms.validators.required": "Requis",
     "app.forms.validators.range": "Doit être un nombre entre <%= min %> et <%= max %>",

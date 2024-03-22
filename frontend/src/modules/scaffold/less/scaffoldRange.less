@@ -2,7 +2,7 @@
 @background-color: #e6ecf3;
 @foreground-color: #000000;
 @item-color: #105067;
-@item-hover-color: #008055;
+@item-hover-color: #0a3443;
 @icon-correct-color: #A5D6A7;
 @icon-incorrect-color: #f41b1b;
 @item-text-disabled-color: #F57C00;
@@ -306,7 +306,7 @@ input[type="range"]:focus+.rangeslider .rangeslider__handle {
                 content: none;
             }
 
-            &:hover {
+            &:hover, :focus-visible {
                 .no-touch & {
                     background-color: @item-hover-color;
                 }
@@ -398,4 +398,12 @@ input[type="range"]:focus+.rangeslider .rangeslider__handle {
         color: @item-text-disabled-color;
         background-color: @item-disabled-color;
     }
+}
+
+.scale-wrapper {
+    background: #ccced1;
+    height: 20px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    padding: 5px 0px;
 }

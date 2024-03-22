@@ -31,6 +31,15 @@ util.inherits(BlockContent, ContentObject);
  *
  * @return {string}
  */
+BlockContent.prototype.hasSchemaExtensions = function () {
+  return true;
+};
+
+/**
+ * implements ContentObject#getModelName
+ *
+ * @return {string}
+ */
 BlockContent.prototype.getModelName = function () {
   return 'block';
 };
@@ -41,7 +50,7 @@ BlockContent.prototype.getModelName = function () {
  * @return string
  */
 BlockContent.prototype.getChildType = function () {
-  return 'component'; 
+  return 'component';
 };
 
 /**

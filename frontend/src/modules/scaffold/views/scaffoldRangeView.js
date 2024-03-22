@@ -182,11 +182,13 @@ define(['rangeslider', 'core/origin', 'backbone-forms'], function (rangeslider, 
     onHandleFocus: function (event) {
       event.preventDefault();
       this.$slider.on('keydown', _.bind(this.onKeyDown, this));
+      this.$el.find('.rangeslider__handle').addClass('hovered');
     },
 
     onHandleBlur: function (event) {
       event.preventDefault();
       this.$slider.off('keydown');
+      this.$el.find('.rangeslider__handle').removeClass('hovered');
     },
 
     onKeyDown: function (event) {

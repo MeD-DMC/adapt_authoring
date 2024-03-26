@@ -139,6 +139,8 @@
     "app.scaffold.block.general.displayTitle.help": "Titre qui s’affiche sur la page lorsqu’un bloc est consulté.",
     "app.scaffold.block.general.body.label": "Corps",
     "app.scaffold.block.general.instruction.label": "Texte des instructions",
+    "app.scaffold.block.general.componentWidthRatio.label": "Rapport de largeur des composants",
+    "app.scaffold.block.general.componentWidthRatio.help": "Le rapport de largeur en pourcentage entre les composants de gauche et de droite dans le bloc. Ce paramètre ne s'applique qu'en cas d'utilisation de deux composants.",
     "app.scaffold.block.settings._classes.label": "Classes",
     "app.scaffold.block.settings._classes.help": "Fonction permettant de styliser ou de modifier l’aspect et la convivialité du composant. Ces éléments sont prédéfinis dans le thème ou ajoutés aux paramètres du projet et au code CSS ou LESS personnalisé.",
     "app.scaffold.block.settings._isOptional.label": "Bloc facultatif?",

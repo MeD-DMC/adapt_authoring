@@ -10,6 +10,8 @@
     "app.scaffold.component.properties._items.accordion.label": "Éléments",
     "app.scaffold.component.properties._shouldCollapseItems.label": "Les éléments devraient se réduire automatiquement",
     "app.scaffold.component.properties._shouldCollapseItems.help": "Si cette fonction est désactivée, les éléments agrandis d’un accordéon ne se réduiront pas lorsqu’un nouvel élément est agrandi.",
+    "app.scaffold.component.properties.narrativeWidthRatio.label": "Rapport de largeur de la narration",
+    "app.scaffold.component.properties.narrativeWidthRatio.help": "Le rapport de largeur en pourcentage entre le texte narratif et l'image de la narration.",
     "app.scaffold.component.settings._classes.label": "Classes",
     "app.scaffold.component.settings._classes.help": "Fonction permettant de styliser ou de modifier l’aspect et la convivialité du composant. Ces éléments sont prédéfinis dans le thème ou ajoutés aux paramètres du projet et au code CSS ou LESS personnalisé.",
     "app.scaffold.component.settings._isOptional.label": "Composant facultatif?",

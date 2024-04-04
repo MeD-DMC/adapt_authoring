@@ -360,6 +360,7 @@ define([
       range: _.template((translateValidator('app.forms.validators.range') || 'Must be a number between <%= min %> and <%= max %>'), null, Backbone.Form.templateSettings),
       email: translateValidator('app.forms.validators.email') || 'Invalid email address',
       url: translateValidator('app.forms.validators.url') || 'Invalid URL',
+      urlSaba: translateValidator('app.forms.validators.urlSaba') || 'URL must be a Saba Profile',
       match: _.template((translateValidator('app.forms.validators.match') || 'Must match field "<%= field %>"'), null, Backbone.Form.templateSettings),
       minimumItems2: translateValidator('app.forms.validators.minimumItems2') || 'You need at least two items'
     };
@@ -463,6 +464,16 @@ define([
         type: 'url',
         message: this.errMessages.url,
         regexp: /^((http|https):\/\/)?(([A-Z0-9][A-Z0-9_\-]*)(\.[A-Z0-9][A-Z0-9_\-]*)+)(:(\d+))?\/?/i
+      }, options);
+
+      return validators.regexp(options);
+    };
+
+    validators.urlSaba = function(options) {
+      options = _.extend({
+        type: 'urlSaba',
+        message: this.errMessages.urlSaba,
+        regexp: /^https:\/\/esdc\.sabacloud\.com\/.*$/g
       }, options);
 
       return validators.regexp(options);

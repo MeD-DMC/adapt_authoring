@@ -1387,7 +1387,7 @@
     "app.stopsharingwithyourself": "Vous ne pouvez pas retirer votre nom de cette liste.<br/><br/>Si vous souhaitez que ce cours ne soit plus partagé avec vous, veuillez utiliser un autre compte utilisateur.",
     "app.searchByMail": "Effectuer une recherche par adresse courriel.",
     "app.maxfileuploadsize": "Taille maximale du fichier à téléverser : %{size}.",
-    "app.uploadsizeerror": "La taille limite du fichier est dépassée. Taille maximum : %{max}; taille du fichier reçu : %{size}.",
+    "app.uploadsizeerror": "La taille limite du fichier est dépassée.",
     "app.fileuploaderror": "Le téléversement du fichier a échoué.",
     "app.cannotfindbower": "Impossible de trouver le fichier bower.json attendu dans la racine du module d’extension; veuillez vérifier la structure du fichier zip, puis réessayez.",
     "app.unrecognisedplugin": "Module d’extension non reconnu – un module d’extension doit comporter un fichier bower.json.",

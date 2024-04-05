@@ -93,7 +93,7 @@ define(function(require){
       }
       var title = this.$('.asset-title').val();
       var description = this.$('.asset-description').val();
-      var privateAsset = this.$('.asset-hide')[0].checked;   
+      var privateAsset = this.$('.asset-hide')[0].checked;
         // If model is new then uploadFile
         if (this.model.isNew()) {
           this.uploadFile();
@@ -137,7 +137,7 @@ define(function(require){
         error: function(xhr, status, error) {
           Origin.Notify.alert({
             type: 'error',
-            text: xhr.responseJSON.message
+            text: xhr.status === 413 ? Origin.l10n.t('app.uploadsizeerror') : xhr.responseJSON.message
           });
         },
         success: _.bind(function(data, status, xhr) {

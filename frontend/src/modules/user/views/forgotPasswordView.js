@@ -17,6 +17,7 @@ define(function(require) {
     },
 
     postRender: function() {
+      $('.general-ribbon').hide();
       this.setViewToReady();
     },
 

@@ -24,6 +24,7 @@ define(function(require) {
     },
 
     postRender: function() {
+      $('.general-ribbon').hide();
       var passwordFieldsView = PasswordFieldsView({ model: this.model }).el;
       this.$('#passwordField').append(passwordFieldsView);
       this.setViewToReady();

@@ -13,6 +13,9 @@ const mime = require('mime');
 const path = require("path");
 const { promisify } = require('util');
 
+
+mime.define({'application/vnd.openxmlformats-officedocument.wordprocessingml.document': ['docx', force=true]});
+
 function ImportSource(req, done) {
   var dbInstance;
 

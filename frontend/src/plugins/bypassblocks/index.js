@@ -6,6 +6,7 @@ define(function (require) {
 
   Origin.on('origin:dataReady login:changed location:title:update', function() {
     $('.bypass-block-content').remove();
+    $('.general-ribbon').show();
     var bypassBlockView = new BypassBlockView().$el;
     var bypassBlockTopHeight = $('.general-ribbon').length > 0 ? $('.general-ribbon').height() + 13 : 13
     bypassBlockView.find('.bypass-block-btn').css('top', `${bypassBlockTopHeight}px`);

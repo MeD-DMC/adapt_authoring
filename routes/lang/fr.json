@@ -1579,5 +1579,6 @@
     "app.forms.validators.email": "Adresse e-mail invalide",
     "app.forms.validators.url": "URL invalide",
     "app.forms.validators.match": "Doit correspondre au champ \"<%= field %>\"",
-    "app.forms.validators.minimumItems2": "Vous avez besoin d'au moins deux éléments"
+    "app.forms.validators.minimumItems2": "Vous avez besoin d'au moins deux éléments",
+    "app.forms.validators.urlSaba": "L'URL doit être un profil Saba"
 }

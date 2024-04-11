@@ -134,6 +134,13 @@ define([
               }
             }
           },
+          table: {
+            contentToolbar: [
+              'toggleTableCaption',
+              'tableColumn', 'tableRow', 'mergeTableCells',
+              'tableCellProperties', 'tableProperties'
+            ]
+          },
           toolbar: {
             items: [
               'sourceEditing', 'showBlocks', '|',

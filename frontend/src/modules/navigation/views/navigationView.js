@@ -13,10 +13,13 @@ define(function(require){
     },
 
     events: {
-      'click a.navigation-item':'onNavigationItemClicked'
+      'click a.navigation-item':'onNavigationItemClicked',
+      'click .profile-dropbtn':'showProfileDropdown',
+      'focusout .profile-dropdown-menu':'hideProfileDropdown'
     },
 
     render: function() {
+      console.log('origin session model: ', Origin.sessionModel);
       var data = this.model ? this.model.toJSON() : null;
       var template = Handlebars.templates[this.constructor.template];
       this.$el.html(template(data));
@@ -31,6 +34,23 @@ define(function(require){
       event.preventDefault();
       event.stopPropagation();
       Origin.trigger('navigation:' + $(event.currentTarget).attr('data-event'));
+    },
+
+    showProfileDropdown: function (event) {
+      event.preventDefault();
+      event.stopPropagation();
+      this.$el.find("#profile-dropdown").show();
+    },
+
+    hideProfileDropdown: function (event) {
+      event.preventDefault();
+      event.stopPropagation();
+
+      if ($(event.relatedTarget).hasClass('navigation-item')) {
+        Origin.trigger('navigation:' + $(event.relatedTarget).attr('data-event'));
+      }
+
+      this.$el.find("#profile-dropdown").hide();
     }
   }, {
     template: 'navigation'

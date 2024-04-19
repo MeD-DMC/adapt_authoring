@@ -20,12 +20,17 @@
       {{! ESDC - added translation handler for language name}}
       <span lang="{{t 'app.langswitcherCode'}}">{{t 'app.langswitcher'}}</span>
     </a>
-    <a href="#" class="navigation-item navigation-profile" data-event="user:profile">
-      {{t 'app.loggedinas'}}: <span>{{email}}</span>
-    </a>
-    <a href="#" class="navigation-item navigation-user-logout btn white-hollow" data-event="user:logout">
-      <span>{{t 'app.logout'}}</span>
-    </a>
+    <div class="profile-dropdown-menu">
+      <button class="profile-dropbtn">Dropdown</button>
+      <div id="profile-dropdown" class="dropdown-content">
+        <a href="#" class="navigation-item navigation-profile" data-event="user:profile">
+          {{t 'app.loggedinas'}}: <span>{{email}}</span>
+        </a>
+        <a href="#" class="navigation-item navigation-user-logout btn white-hollow" data-event="user:logout">
+          <span>{{t 'app.logout'}}</span>
+        </a>
+      </div>
+    </div>
     {{/if}}
   </div>
 </div>

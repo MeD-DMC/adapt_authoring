@@ -22,11 +22,11 @@
     <div class="profile-dropdown-menu">
       <button class="profile-dropbtn">PC</button>
       <div id="profile-dropdown" class="dropdown-content">
-        <div><span>{{t 'app.loggedinas'}}:{{email}}</span></div>
+        <div class="profile-user-info"><span>{{t 'app.loggedinas'}}:</span><span>{{email}}</span></div>
         <a href="#" class="navigation-item navigation-profile" data-event="user:profile">
-          My profile
+          <span>{{t 'app.editprofiletitle'}}</span>
         </a>
-        <a href="#" class="navigation-item navigation-user-logout btn white-hollow" data-event="user:logout">
+        <a href="#" class="navigation-item navigation-user-logout" data-event="user:logout">
           <span>{{t 'app.logout'}}</span>
         </a>
       </div>

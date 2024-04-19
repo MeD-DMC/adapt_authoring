@@ -14,11 +14,25 @@ define(function(require){
 
     events: {
       'click a.navigation-item':'onNavigationItemClicked',
-      'click .profile-dropbtn':'showProfileDropdown'
+      'click .profile-dropbtn':'showProfileDropdown',
+      'blur .profile-dropbtn':'hideProfileDropdown',
+      'blur .navigation-profile':'hideProfileDropdown',
+      'blur .navigation-user-logout':'hideProfileDropdown'
     },
 
     render: function() {
       console.log('origin session model: ', Origin.sessionModel);
+      this.model.set('userInitials', 'NA');
+      if (Origin.sessionModel) {
+        try {
+          var firstInitial = (Origin.sessionModel.get('firstName')[0]).toUpperCase();
+          var lastInitial = (Origin.sessionModel.get('lastName')[0]).toUpperCase();
+          this.model.set('userInitials', firstInitial + lastInitial);
+        }
+        catch (error) {
+          console.log('error getting the user initials: ', error);
+        }
+      }
       var data = this.model ? this.model.toJSON() : null;
       var template = Handlebars.templates[this.constructor.template];
       this.$el.html(template(data));
@@ -32,6 +46,7 @@ define(function(require){
     onNavigationItemClicked: function(event) {
       event.preventDefault();
       event.stopPropagation();
+      this.$el.find("#profile-dropdown").hide();
       Origin.trigger('navigation:' + $(event.currentTarget).attr('data-event'));
     },
 
@@ -44,12 +59,9 @@ define(function(require){
     hideProfileDropdown: function (event) {
       event.preventDefault();
       event.stopPropagation();
-
-      if ($(event.relatedTarget).hasClass('navigation-item')) {
-        Origin.trigger('navigation:' + $(event.relatedTarget).attr('data-event'));
+      if (!($(event.relatedTarget).parent() && $($(event.relatedTarget).parent()).hasClass('dropdown-content'))) {
+        this.$el.find("#profile-dropdown").hide();
       }
-
-      this.$el.find("#profile-dropdown").hide();
     }
   }, {
     template: 'navigation'

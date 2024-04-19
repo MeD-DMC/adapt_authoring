@@ -21,10 +21,13 @@ define(['require', 'backbone', 'core/origin'], function(require, Backbone, Origi
         shouldPersist: shouldPersist
       };
       $.post('api/login', postData, _.bind(function (jqXHR, textStatus, errorThrown) {
+        console.log('jqXHR: ', jqXHR);
         this.set({
           id: jqXHR.id,
           tenantId: jqXHR.tenantId,
           email: jqXHR.email,
+          firstName: jqXHR.firstName,
+          lastName: jqXHR.lastName,
           isAuthenticated: true,
           permissions: jqXHR.permissions
         });

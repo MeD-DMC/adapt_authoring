@@ -14,8 +14,7 @@ define(function(require){
 
     events: {
       'click a.navigation-item':'onNavigationItemClicked',
-      'click .profile-dropbtn':'showProfileDropdown',
-      'focusout .profile-dropdown-menu':'hideProfileDropdown'
+      'click .profile-dropbtn':'showProfileDropdown'
     },
 
     render: function() {

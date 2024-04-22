@@ -14,8 +14,8 @@ define(function(require){
 
     events: {
       'click a.navigation-item':'onNavigationItemClicked',
-      'click .profile-dropbtn':'showProfileDropdown',
-      'blur .profile-drop-element':'hideProfileDropdown'
+      'click .profile-dropbtn':'toggleProfileDropdown',
+      'blur .profile-dropdown-menu':'onDropdownBlur'
     },
 
     render: function() {
@@ -30,9 +30,10 @@ define(function(require){
             console.log('error user me:', error);
           },
           success: function(result){
-            if (result) {
+            if (result && result.firstName && result.lastName) {
               var firstInitial = (result['firstName'])[0].toUpperCase();
               var lastInitial = (result['lastName'])[0].toUpperCase();
+              that.model.set('userFullName', `${result['firstName']} ${result['lastName']}`)
               that.model.set('userInitials', firstInitial + lastInitial);
             }
           }
@@ -51,22 +52,35 @@ define(function(require){
     onNavigationItemClicked: function(event) {
       event.preventDefault();
       event.stopPropagation();
-      this.$el.find("#profile-dropdown").hide();
+      this.hideProfileDropdown();
       Origin.trigger('navigation:' + $(event.currentTarget).attr('data-event'));
     },
 
-    showProfileDropdown: function (event) {
-      event.preventDefault();
-      event.stopPropagation();
-      this.$el.find("#profile-dropdown").show();
+    onDropdownBlur: function(event){
+      var parent = $(event.relatedTarget).parents('.profile-dropdown-menu')
+      if(parent && parent.length === 0){
+        this.hideProfileDropdown();
+      }
     },
 
-    hideProfileDropdown: function (event) {
-      event.preventDefault();
-      event.stopPropagation();
-      if (!($(event.relatedTarget).parent() && $($(event.relatedTarget).parent()).hasClass('dropdown-content'))) {
-        this.$el.find("#profile-dropdown").hide();
+    toggleProfileDropdown: function(event){
+      if($(event.currentTarget).attr('aria-expanded') === 'true'){
+        this.hideProfileDropdown();
+      } else {
+        this.showProfileDropdown();
       }
+    },
+
+    showProfileDropdown: function () {
+      this.$el.find("#profile-dropdown").show();
+      Origin.trigger('startkeyboardtrap', {$el: this.$el.find(".profile-dropdown-menu")});
+      this.$el.find('.profile-dropbtn').attr('aria-expanded', "true");
+    },
+
+    hideProfileDropdown: function () {
+      Origin.trigger('stopkeyboardtrap', {$el: this.$el.find(".profile-dropdown-menu")});
+      this.$el.find("#profile-dropdown").hide();
+      this.$el.find('.profile-dropbtn').attr('aria-expanded', "false")
     }
   }, {
     template: 'navigation'

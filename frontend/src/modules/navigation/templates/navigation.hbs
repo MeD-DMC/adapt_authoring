@@ -20,7 +20,7 @@
       <span lang="{{t 'app.langswitcherCode'}}">{{t 'app.langswitcher'}}</span>
     </a>
     <div class="profile-dropdown-menu">
-      <button class="profile-dropbtn profile-drop-element">{{userInitials}}</button>
+      <button class="profile-dropbtn profile-drop-element" aria-expanded="false" aria-label="{{t 'app.accountmanager'}}{{userFullName}}">{{userInitials}}</button>
       <div id="profile-dropdown" class="dropdown-content">
         <div class="profile-user-info"><span>{{t 'app.loggedinas'}}:</span><span>{{email}}</span></div>
         <a href="#" class="navigation-item navigation-profile profile-drop-element" data-event="user:profile">

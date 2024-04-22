@@ -21,7 +21,7 @@ define(function(require){
     render: function() {
       this.model.set('userInitials', 'NA');
       var that = this;
-      if (Origin.sessionModel) {
+      if (Origin.sessionModel && Origin.sessionModel.get('isAuthenticated')) {
         $.ajax({
           url: 'api/user/me',
           method: 'GET',

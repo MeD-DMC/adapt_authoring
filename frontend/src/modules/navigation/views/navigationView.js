@@ -15,23 +15,28 @@ define(function(require){
     events: {
       'click a.navigation-item':'onNavigationItemClicked',
       'click .profile-dropbtn':'showProfileDropdown',
-      'blur .profile-dropbtn':'hideProfileDropdown',
-      'blur .navigation-profile':'hideProfileDropdown',
-      'blur .navigation-user-logout':'hideProfileDropdown'
+      'blur .profile-drop-element':'hideProfileDropdown'
     },
 
     render: function() {
-      console.log('origin session model: ', Origin.sessionModel);
       this.model.set('userInitials', 'NA');
+      var that = this;
       if (Origin.sessionModel) {
-        try {
-          var firstInitial = (Origin.sessionModel.get('firstName')[0]).toUpperCase();
-          var lastInitial = (Origin.sessionModel.get('lastName')[0]).toUpperCase();
-          this.model.set('userInitials', firstInitial + lastInitial);
-        }
-        catch (error) {
-          console.log('error getting the user initials: ', error);
-        }
+        $.ajax({
+          url: 'api/user/me',
+          method: 'GET',
+          async: false,
+          error: function(error) {
+            console.log('error user me:', error);
+          },
+          success: function(result){
+            if (result) {
+              var firstInitial = (result['firstName'])[0].toUpperCase();
+              var lastInitial = (result['lastName'])[0].toUpperCase();
+              that.model.set('userInitials', firstInitial + lastInitial);
+            }
+          }
+        });
       }
       var data = this.model ? this.model.toJSON() : null;
       var template = Handlebars.templates[this.constructor.template];

@@ -20,13 +20,13 @@
       <span lang="{{t 'app.langswitcherCode'}}">{{t 'app.langswitcher'}}</span>
     </a>
     <div class="profile-dropdown-menu">
-      <button class="profile-dropbtn">{{userInitials}}</button>
+      <button class="profile-dropbtn profile-drop-element">{{userInitials}}</button>
       <div id="profile-dropdown" class="dropdown-content">
         <div class="profile-user-info"><span>{{t 'app.loggedinas'}}:</span><span>{{email}}</span></div>
-        <a href="#" class="navigation-item navigation-profile" data-event="user:profile">
+        <a href="#" class="navigation-item navigation-profile profile-drop-element" data-event="user:profile">
           <span>{{t 'app.editprofiletitle'}}</span>
         </a>
-        <a href="#" class="navigation-item navigation-user-logout" data-event="user:logout">
+        <a href="#" class="navigation-item navigation-user-logout profile-drop-element" data-event="user:logout">
           <span>{{t 'app.logout'}}</span>
         </a>
       </div>

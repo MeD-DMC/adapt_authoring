@@ -1,13 +1,18 @@
 @import 'colours';
 
+@media (max-width: 780px) {
+    .options {
+      display: none;
+    }
+  }
+
 .options {
-  position: absolute;
   right: 0;
   // FIXME fix this and .location-title so we don't a z-index
   z-index: 5;
 
   &-inner {
-    display: flex;
+    display: inline-flex;
   }
 
   &-group {
@@ -50,7 +55,7 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-     
+
     }
   }
 }

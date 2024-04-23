@@ -2,10 +2,14 @@
 define(function(require) {
   var Origin = require('core/origin');
   var OptionsView = require('./views/optionsView');
+  var OptionsDropdownView = require('./views/optionsDropdownView');
+
 
   var Options = {
     addItems: function(items) {
-      $('#app').prepend(new OptionsView({ collection: new Backbone.Collection(items) }).$el);
+      var collection = new Backbone.Collection(items);
+      $('.location-options').append(new OptionsView({ collection: collection }).$el);
+      $('.location-options').append(new OptionsDropdownView({ collection: collection }).$el);
     }
   };
 

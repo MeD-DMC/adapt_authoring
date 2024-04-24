@@ -15,83 +15,6 @@ define(function (require) {
     featurePermissions: ["{{tenantid}}/messages/*:create", "{{tenantid}}/messages/*:read", "{{tenantid}}/messages/*:update"]
   };
 
-  function generateGeneralRibbonCSS(message) {
-    var increment = 17;
-    if (message.length >= (210)) {
-      var generalRibbonHeight = 55;
-      var sidebarTop = 61 + generalRibbonHeight;
-      var generalRibbonPaddingTop = 5.5;
-      var ribbonDisplay = 'inline-block';
-      var breakpoints = {
-        first: 1180,
-        second: 1179,
-        third: 830
-      }
-    } else {
-      var generalRibbonHeight = 35;
-      var sidebarTop = 61 + generalRibbonHeight;
-      generalRibbonPaddingTop = 3.5;
-      var breakp = Math.floor(message.length * 6.28) + 90;
-      var ribbonDisplay = 'flex';
-      var breakpoints = {
-        first: breakp,
-        second: breakp - 1,
-        third: breakp < 610 ? '' : 610
-      }
-    }
-    var generalRibbonCSS = `
-    <style class="general-ribbon-css">
-    @media only screen and (min-width: ${breakpoints.first}px) {
-        .sidebar {
-          top: ${sidebarTop}px;
-        }
-      
-        .navigation {
-            top: ${generalRibbonHeight}px;
-        }
-
-        .general-ribbon {
-          height: ${generalRibbonHeight}px;
-        }
-    }
-
-    @media only screen and (max-width: ${breakpoints.second}px) {
-      .sidebar {
-        top: ${sidebarTop + increment}px;
-      }
-    
-      .navigation {
-          top: ${generalRibbonHeight + increment}px;
-      }
-
-      .general-ribbon {
-        height: ${generalRibbonHeight + increment}px;
-      }
-    }
-    @media only screen and (max-width: ${breakpoints.third}px) {
-      .sidebar {
-        top: ${sidebarTop + increment * 2}px;
-      }
-    
-      .navigation {
-          top: ${generalRibbonHeight + increment * 2}px;
-      }
-
-      .general-ribbon {
-        height: ${generalRibbonHeight + increment * 2}px;
-      }
-    }
-    .ribbon-msg {
-      padding-top: ${generalRibbonPaddingTop}px;
-    }
-    .ribbon-icon {
-      display: ${ribbonDisplay};
-    }
-    </style>
-    `;
-    return generalRibbonCSS;
-  }
-
   Origin.on('location:change', function(){
     if(((new Date) - dateTime) > TEN_MINUTES){
       dateTime = Date.now();
@@ -100,18 +23,13 @@ define(function (require) {
         success: function () {
           if (messages.attributes.generalRibbonEnabled) {
             messages.attributes.generalRibbon = $('html').attr('lang') === 'en' ? messages.attributes.generalRibbonEN : messages.attributes.generalRibbonFR;
-            var message = Helpers.removeHTMLTags(messages.attributes.generalRibbon).replace(/\&nbsp;/g, '');
-            var generalRibbonCSS = generateGeneralRibbonCSS(message);
             if($('.general-ribbon').length !== 0){
               $('.general-ribbon').html(new MessageManagementGeneralRibbonView({ model: messages }).$el)
             } else {
               $('.navigation').before(new MessageManagementGeneralRibbonView({ model: messages }).$el);
             }
-              $('.general-ribbon-css').remove();
-              $('head').append(generalRibbonCSS);
           } else {
               $('.general-ribbon').remove();
-              $('.general-ribbon-css').remove();
           }
         }
       });
@@ -124,18 +42,13 @@ define(function (require) {
       success: function () {
         if (messages.attributes.generalRibbonEnabled) {
           messages.attributes.generalRibbon = $('html').attr('lang') === 'en' ? messages.attributes.generalRibbonEN : messages.attributes.generalRibbonFR;
-          var message = Helpers.removeHTMLTags(messages.attributes.generalRibbon).replace(/\&nbsp;/g, '');
-          var generalRibbonCSS = generateGeneralRibbonCSS(message);
           if($('.general-ribbon').length !== 0){
             $('.general-ribbon').html(new MessageManagementGeneralRibbonView({ model: messages }).$el)
           } else {
             $('.navigation').before(new MessageManagementGeneralRibbonView({ model: messages }).$el);
           }
-            $('.general-ribbon-css').remove();
-            $('head').append(generalRibbonCSS);
         } else {
             $('.general-ribbon').remove();
-            $('.general-ribbon-css').remove();
         }
       }
     });

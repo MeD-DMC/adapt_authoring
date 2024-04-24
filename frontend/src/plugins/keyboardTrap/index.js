@@ -5,7 +5,7 @@ define(function (require) {
 
   Origin.on('startkeyboardtrap', function(keyboardTrapObject) {
     if (keyboardTrapObject && keyboardTrapObject.$el) {
-      var focusableItems = $(`.${keyboardTrapObject.$el.attr('class')} :focusable:not(.trap-wrapper)`);
+      var focusableItems = $(`.${keyboardTrapObject.$el.attr('class').replace(' ', '.')} :focusable:not(.trap-wrapper)`);
       if (focusableItems && focusableItems.length > 0) {
         focusableItems.first().on('keydown', function(e) {
           var keyCode = e.keyCode || e.which;

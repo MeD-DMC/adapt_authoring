@@ -57,9 +57,9 @@ define(function(require) {
         $('#app, .sidebar').off('click');
         // Toggle between displaying and removing the menu
         if (_isActive === true) {
-            closeGlobalMenu();
+          closeGlobalMenu();
         } else {
-            openGlobalMenu();
+          openGlobalMenu();
         }
     });
 
@@ -78,25 +78,31 @@ define(function(require) {
     });
 
     function openGlobalMenu() {
-        _isActive = true;
+      _isActive = true;
+      $('.navigation-global-menu').attr("aria-expanded", "true");
 
-        // Add new view to the .navigation element passing in the GlobalMenuStore as the collection
-        $('.navigation').append(new GlobalMenuView({collection: GlobalMenuStore}).$el);
-        // Setup listeners to #app to remove menu when main page is clicked
-        // Cheeky little defer here to stop it creating a closing loop
-        _.defer(function() {
-            $('#app, .sidebar, .navigation').one('click', _.bind(function(event) {
-                Origin.trigger('globalMenu:close');
-            }, this));
-        });
+      // Add new view to the .navigation element passing in the GlobalMenuStore as the collection
+      $('.global-menu-container').html(new GlobalMenuView({collection: GlobalMenuStore}).$el);
+      // Setup listeners to #app to remove menu when main page is clicked
+      // Cheeky little defer here to stop it creating a closing loop
+      _.defer(function() {
+          $('#app, .sidebar, .navigation').one('click', _.bind(function(event) {
+              Origin.trigger('globalMenu:close');
+          }, this));
+      });
+      setTimeout(function(){
+        Origin.trigger('startkeyboardtrap', { $el: $('.global-menu-content-wrapper') });
+      }, 1000);
 
     }
 
     function closeGlobalMenu() {
-        _isActive = false;
-        // Trigger event to remove the globalMenuView
-        Origin.trigger('globalMenu:globalMenuView:remove');
-        // Remove body click event
+      Origin.trigger('stopkeyboardtrap', { $el: $('.global-menu-content-wrapper') });
+      _isActive = false;
+      $('.navigation-global-menu').attr("aria-expanded", "false");
+      // Trigger event to remove the globalMenuView
+      Origin.trigger('globalMenu:globalMenuView:remove');
+      // Remove body click event
     }
 
     Origin.globalMenu = GlobalMenu;

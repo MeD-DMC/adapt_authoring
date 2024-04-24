@@ -3,8 +3,9 @@
 @sidebar-input-font-size: 110%;
 
 .sidebar {
+  position: relative;
   width: 250px;
-  height: calc(~"100vh - 61px");
+  height: auto;
   overflow-y: auto;
   overflow-x: hidden;
   background-color: @sidebar-color;
@@ -163,7 +164,11 @@
 }
 
 .sidebar-inner {
-  padding: 0;
+    padding: 0;
+    height: auto;
+    position: absolute;
+    left: 0;
+    top: 0;
 }
 
 .sidebar-breadcrumb {

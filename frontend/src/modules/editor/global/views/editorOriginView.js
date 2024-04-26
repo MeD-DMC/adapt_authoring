@@ -183,6 +183,7 @@ define(function(require){
         e.stopPropagation();
         e.preventDefault();
       }
+      Origin.trigger('reinitializeContextMenu');
       Origin.trigger('contextMenu:open', this, e);
     },
 

@@ -20,6 +20,7 @@ define(function(require) {
   };
 
   Origin.on('origin:dataReady login:changed', init);
+  Origin.on('reinitializeContextMenu', reinitializeContextMenu);
 
   // Privates
 
@@ -33,6 +34,11 @@ define(function(require) {
     if(view) view.remove();
     view = new ContextMenuView({ collection: menuItems });
   };
+
+  function reinitializeContextMenu() {
+    if (view) view.remove();
+    view = new ContextMenuView({ collection: menuItems });
+  }
 
   function setUpMenuItems() {
     ContextMenu.addItem('article', getDefaultItems(['transferCourse']));

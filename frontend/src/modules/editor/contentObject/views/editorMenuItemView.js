@@ -18,6 +18,20 @@ define(function(require){
       'mousedown .handle': 'enableDrag'
     },
 
+    openContextMenu: function (e) {
+      if (e) {
+        e.stopPropagation();
+        e.preventDefault();
+      }
+      if ($(e.currentTarget).attr('aria-expanded') === 'true') {
+        Origin.trigger('contextMenu:closeContextMenu');
+      }
+      else {
+        Origin.trigger('reinitializeContextMenu');
+        Origin.trigger('contextMenu:open', this, e, { containerClassName: `context-menu-content-container-${this.model.id}`});
+      }
+    },
+
     preRender: function() {
       this.setupClasses();
     },
@@ -121,7 +135,6 @@ define(function(require){
 
       this.model.destroy({
         success: _.bind(function(model) {
-          console.log('success: ', model);
           Origin.trigger('editorView:itemDeleted', model);
           this.remove()
         }, this),

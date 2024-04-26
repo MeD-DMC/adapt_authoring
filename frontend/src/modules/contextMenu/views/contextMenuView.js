@@ -34,13 +34,15 @@ define(function(require) {
       }, this);
     },
 
-    toggleMenu: function(view, e) {
+    toggleMenu: function(view, e, opts) {
+      this.view = view;
+      this.containerClassName = opts ? opts.containerClassName : null;
       var isSameType = view && (view.model.get('_type')) === (this.contextView.model && this.contextView.model.get('_type'));
       var isSameModel = view && (view.model.get('_id')) === (this.contextView.model && this.contextView.model.get('_id'));
       var isSameView = view.cid === this.contextView.cid; // to make sure we don't break listeners
       // new view, update the menu items
       if(!isSameType || !isSameModel || !isSameView) {
-        this.setMenu(view, $(e.currentTarget));
+        this.setMenu(opts && opts.fakeView ? opts.fakeView : view, $(e.currentTarget));
         return this.showMenu();
       }
       (this._isVisible) ? this.hideMenu() : this.showMenu();
@@ -63,9 +65,26 @@ define(function(require) {
       this.$el.removeClass('display-none');
       this._isVisible = true;
       Origin.trigger('contextMenu:opened');
+      if (this.view && this.containerClassName) {
+        this.view.$el.find('.open-context-menu-icon').attr('aria-expanded', 'true');
+        this.view.$el.find('.context-menu-container').html(this.$el);
+        this.$el.css({
+          left: '30px',
+          top: 0
+        });
+        var self = this;
+        setTimeout(function () {
+          Origin.trigger('startkeyboardtrap', { $el: self.view.$el.find(`.${self.containerClassName}`) });
+        }, 1000);
+      }
     },
 
     hideMenu: function() {
+      if (this.view && this.containerClassName) {
+        this.view.$el.find('.open-context-menu-icon').off('keydown');
+        Origin.trigger('stopkeyboardtrap', { $el: this.view.$el.find(`.${this.containerClassName}`) });
+        this.view.$el.find('.open-context-menu-icon').attr('aria-expanded', 'false');
+      }
       this.$el.addClass('display-none');
       this._isVisible = false;
       Origin.trigger('contextMenu:closed');

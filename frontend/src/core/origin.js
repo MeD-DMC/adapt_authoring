@@ -70,7 +70,7 @@ define(['require', 'underscore', 'backbone'], function(require, _, Backbone){
 
   function initLoading() {
     $loading = $('.loading');
-    hideLoading();
+    //_.delay(hideLoading, 1000);
 
     Origin.on('origin:hideLoading', hideLoading, Origin);
     Origin.on('origin:showLoading', showLoading, Origin);

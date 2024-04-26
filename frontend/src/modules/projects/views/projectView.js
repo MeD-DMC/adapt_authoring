@@ -46,7 +46,13 @@ define(function(require) {
         event.stopPropagation();
         event.preventDefault();
       }
-      Origin.trigger('contextMenu:open', this, event);
+      if ($(event.currentTarget).attr('aria-expanded') === 'true') {
+        Origin.trigger('contextMenu:closeContextMenu');
+      }
+      else {
+        Origin.trigger('reinitializeContextMenu');
+        Origin.trigger('contextMenu:open', this, event, { containerClassName: `context-menu-content-container-${this.model.id}`});
+      }
     },
 
     editProjectSettings: function(event) {

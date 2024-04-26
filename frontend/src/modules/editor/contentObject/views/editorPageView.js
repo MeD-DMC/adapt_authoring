@@ -165,7 +165,13 @@ define(function(require){
         'contextMenu:page-min:edit': this.loadPageEdit,
         'contextMenu:page-min:copyID': this.onCopyID
       });
-      Origin.trigger('contextMenu:open', fakeView, event);
+      if ($(event.currentTarget).attr('aria-expanded') === 'true') {
+        Origin.trigger('contextMenu:closeContextMenu');
+      }
+      else {
+        Origin.trigger('reinitializeContextMenu');
+        Origin.trigger('contextMenu:open', this, event, { fakeView: fakeView, containerClassName: `context-menu-content-container-${this.model.id}`});
+      }
     },
 
     onCutArticle: function(view) {

@@ -1,5 +1,7 @@
-.open-context-contentObject {
-    color: @white;
+.context-menu-content-container {
+    .open-context-icon {
+        color: @adapt-quaternary-color;
+    }
 }
 
 .editor-menu-item {
@@ -13,13 +15,13 @@
     }
 
     &-inner {
-        overflow:hidden;
+        overflow:visible;
         border-radius:3px;
         position: relative;
         background-color: @white;
         cursor: pointer;
         transition:background-color 0.3s;
-        &:hover {   
+        &:hover {
             .editor-menu-item-settings {
                 top:0;
                 opacity:1;
@@ -48,7 +50,7 @@
         .editor-menu-item-icon.menu i:before {
             content: "\f115";
         }
-        
+
         .editor-menu-item-icon {
             color: @white;
         }
@@ -90,6 +92,7 @@
     transition:all 0.3s;
     &-inner {
         display: flex;
+        padding: 5px 10px;
         button {
             padding: 5px 10px;
             font-size: 15px;
@@ -98,6 +101,7 @@
 
     .editor-delete-contentobject-element {
         margin-left: auto;
+        color: @adapt-quaternary-color;
     }
 }
 
@@ -107,8 +111,8 @@
     right: -10px;
     top: 50%;
     margin-top: -5px;
-    width: 0; 
-    height: 0; 
+    width: 0;
+    height: 0;
     border-top: 10px solid transparent;
-    border-bottom: 10px solid transparent; 
+    border-bottom: 10px solid transparent;
 }

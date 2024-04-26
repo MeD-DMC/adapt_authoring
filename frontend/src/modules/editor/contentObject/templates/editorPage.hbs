@@ -1,7 +1,10 @@
 <div class="page-inner">
   <div class="page-detail">
     <h4 class="page-name title">
-      <button class="page-edit-button" title="{{t 'app.clicktoedit'}}"><i class="fa fa-cog fa-fw"></i></button>
+      <div class="context-menu-content-container context-menu-content-container-{{_id}}">
+        <a href="#" class="open-context-menu-icon page-edit-button" title="{{t 'app.clicktoedit'}}" aria-expanded="false"><i class="fa fa-cog fa-fw"></i></a>
+        <div class="context-menu-container" style="position:relative;"></div>
+      </div>
       {{#if displayTitle}}{{displayTitle}}{{else}}{{title}}{{/if}}
     </h4>
     <div class="page-body">{{body}}</div>

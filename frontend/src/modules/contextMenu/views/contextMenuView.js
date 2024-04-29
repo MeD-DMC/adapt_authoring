@@ -36,6 +36,7 @@ define(function(require) {
 
     toggleMenu: function(view, e, opts) {
       this.view = view;
+      this.contextMenuType = opts && opts.type ? opts.type : '';
       this.containerClassName = opts ? opts.containerClassName : null;
       var isSameType = view && (view.model.get('_type')) === (this.contextView.model && this.contextView.model.get('_type'));
       var isSameModel = view && (view.model.get('_id')) === (this.contextView.model && this.contextView.model.get('_id'));
@@ -64,10 +65,12 @@ define(function(require) {
     showMenu: function() {
       this.$el.removeClass('display-none');
       this._isVisible = true;
+      var contextMenuIconClassName = this.contextMenuType ? `open-${this.contextMenuType}-context-menu-icon` : 'open-context-menu-icon';
+      var contextMenuContainerClassName = this.contextMenuType ? `${this.contextMenuType}-context-menu-container` : 'context-menu-container';
       Origin.trigger('contextMenu:opened');
       if (this.view && this.containerClassName) {
-        this.view.$el.find('.open-context-menu-icon').attr('aria-expanded', 'true');
-        this.view.$el.find('.context-menu-container').html(this.$el);
+        this.view.$el.find(`.${contextMenuIconClassName}`).attr('aria-expanded', 'true');
+        this.view.$el.find(`.${contextMenuContainerClassName}`).html(this.$el);
         this.$el.css({
           left: '30px',
           top: 0
@@ -80,10 +83,11 @@ define(function(require) {
     },
 
     hideMenu: function() {
+      var contextMenuIconClassName = this.contextMenuType ? `open-${this.contextMenuType}-context-menu-icon` : 'open-context-menu-icon';
       if (this.view && this.containerClassName) {
-        this.view.$el.find('.open-context-menu-icon').off('keydown');
+        this.view.$el.find(`.${contextMenuIconClassName}`).off('keydown');
         Origin.trigger('stopkeyboardtrap', { $el: this.view.$el.find(`.${this.containerClassName}`) });
-        this.view.$el.find('.open-context-menu-icon').attr('aria-expanded', 'false');
+        this.view.$el.find(`.${contextMenuIconClassName}`).attr('aria-expanded', 'false');
       }
       this.$el.addClass('display-none');
       this._isVisible = false;

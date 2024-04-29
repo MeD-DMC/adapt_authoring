@@ -170,7 +170,7 @@ define(function(require){
       }
       else {
         Origin.trigger('reinitializeContextMenu');
-        Origin.trigger('contextMenu:open', this, event, { fakeView: fakeView, containerClassName: `context-menu-content-container-${this.model.id}`});
+        Origin.trigger('contextMenu:open', this, event, { type: 'page', fakeView: fakeView, containerClassName: `context-menu-page-content-container-${this.model.id}`});
       }
     },
 

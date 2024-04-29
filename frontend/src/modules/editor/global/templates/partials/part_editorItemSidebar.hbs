@@ -1,12 +1,16 @@
 <div class="editor-item-settings handle">
   <div class="editor-item-settings-inner">
 
-    <button class="open-context-icon open-context-{{_type}}" title="{{t 'app.clicktoedit'}}">
-      <i class="fa fa-cog fa-fw"></i>
-    </button>
-    <button class="{{_type}}-delete editor-delete-page-element" title="{{ t 'app.clicktodelete'}}">
+    <span class="context-menu-content-container context-menu-{{_type}}-content-container-{{_id}}">
+      <a href="#" class="open-{{_type}}-context-menu-icon open-context-icon open-context-{{_type}}" title="{{t 'app.clicktoedit'}}"
+        aria-expanded="false">
+        <i class="fa fa-cog fa-fw"></i>
+      </a>
+      <span class="{{_type}}-context-menu-container" style="position:relative;"></span>
+    </span>
+    <a href="#" class="{{_type}}-delete editor-delete-page-element" title="{{ t 'app.clicktodelete'}}">
       <i class="fa fa-trash-o"></i>
-    </button>
+    </a>
 
     {{#if _movePositions}}
       {{#if _movePositions.left}}

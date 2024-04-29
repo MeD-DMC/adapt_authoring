@@ -116,7 +116,8 @@
     }
 
     &-inner {
-      button {
+      context-menu-content-container a,
+      a, button {
         padding: 10px;
         font-size: 16px;
         line-height: 16px;
@@ -132,6 +133,7 @@
 
       .editor-delete-page-element {
         order: 2;
+        color: @adapt-topbar-color;
       }
       .editor-page-element-detail-inner {
         width: 100%;
@@ -154,6 +156,10 @@
       }
       .editor-collapse-article {
         order: 2;
+      }
+
+      .context-menu-content-container {
+        margin: auto;
       }
     }
 }

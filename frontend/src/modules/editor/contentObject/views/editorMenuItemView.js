@@ -28,7 +28,7 @@ define(function(require){
       }
       else {
         Origin.trigger('reinitializeContextMenu');
-        Origin.trigger('contextMenu:open', this, e, { containerClassName: `context-menu-content-container-${this.model.id}`});
+        Origin.trigger('contextMenu:open', this, e, { type: 'menuitem', containerClassName: `context-menu-menuitem-content-container-${this.model.id}`});
       }
     },
 

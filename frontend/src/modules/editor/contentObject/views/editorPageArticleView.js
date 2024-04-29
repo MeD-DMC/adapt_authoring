@@ -22,7 +22,7 @@ define(function(require){
       this.listenToEvents();
       Origin.editor.data._collapsedArticles = Origin.editor.data._collapsedArticles || {};
     },
-    
+
     postRender: function() {
       if (!this._skipRender) {
         this.addBlockViews();
@@ -175,6 +175,20 @@ define(function(require){
       Origin.router.navigateTo('editor/' + courseId + '/' + type + '/' + id + '/edit');
     },
 
+    openContextMenu: function (e) {
+      if (e) {
+        e.stopPropagation();
+        e.preventDefault();
+      }
+      if ($(e.currentTarget).attr('aria-expanded') === 'true') {
+        Origin.trigger('contextMenu:closeContextMenu');
+      }
+      else {
+        Origin.trigger('reinitializeContextMenu');
+        Origin.trigger('contextMenu:open', this, e, { type: this.model.get('_type'), containerClassName: `context-menu-${this.model.get('_type') }-content-container-${this.model.id}` });
+      }
+    },
+
     setupDragDrop: function() {
       var view = this;
       var autoScrollTimer = false;
@@ -266,12 +280,12 @@ define(function(require){
     },
 
     collapseAllArticles: function() {
-      if (this.model.get('_isCollapsed') === true) return; 
+      if (this.model.get('_isCollapsed') === true) return;
       this.model.set('_isCollapsed', true);
     },
 
     expandAllArticles: function() {
-      if (this.model.get('_isCollapsed') === false) return; 
+      if (this.model.get('_isCollapsed') === false) return;
       this.model.set('_isCollapsed', false);
     },
 

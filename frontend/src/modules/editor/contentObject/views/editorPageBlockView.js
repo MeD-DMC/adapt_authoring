@@ -144,6 +144,20 @@ define(function(require){
       });
     },
 
+    openContextMenu: function (e) {
+      if (e) {
+        e.stopPropagation();
+        e.preventDefault();
+      }
+      if ($(e.currentTarget).attr('aria-expanded') === 'true') {
+        Origin.trigger('contextMenu:closeContextMenu');
+      }
+      else {
+        Origin.trigger('reinitializeContextMenu');
+        Origin.trigger('contextMenu:open', this, e, { type: this.model.get('_type'), containerClassName: `context-menu-${this.model.get('_type')}-content-container-${this.model.id}` });
+      }
+    },
+
     setupDragDrop: function() {
       var view = this;
       var autoScrollTimer = false;

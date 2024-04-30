@@ -4,7 +4,7 @@ define(function(require) {
   var SidebarContainerView = require('./views/sidebarView');
 
   Origin.once('origin:dataReady', function() {
-    $('#sidebar_container').replaceWith(new SidebarContainerView().$el);
+    $('#sidebar_container').replaceWith(new SidebarContainerView({model: new Backbone.Model()}).$el);
   });
 
   Origin.sidebar = {

@@ -187,11 +187,7 @@ define(function(require){
         Origin.trigger('reinitializeContextMenu');
         Origin.trigger('contextMenu:open', this, e, {
           type: this.model.get('_type'),
-          containerClassName: `context-menu-${this.model.get('_type') }-content-container-${this.model.id}`,
-          menuCss: {
-            left: 0,
-            top: 0
-          }
+          containerClassName: `context-menu-${this.model.get('_type') }-content-container-${this.model.id}`
         });
       }
     },

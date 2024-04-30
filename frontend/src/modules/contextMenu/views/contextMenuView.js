@@ -57,7 +57,7 @@ define(function(require) {
       this.renderItems();
 
       this.$el.css({
-        position: 'absolute',
+        position: 'fixed',
         left: $parent.offset().left + $parent.width() + 10,
         top: $parent.offset().top - ($parent.height()/2)
       });
@@ -72,10 +72,10 @@ define(function(require) {
       if (this.view && this.containerClassName) {
         this.view.$el.find(`.${contextMenuIconClassName}`).attr('aria-expanded', 'true');
         this.view.$el.find(`.${contextMenuContainerClassName}`).html(this.$el);
-        this.$el.css(this.menuCss ? this.menuCss : {
-          left: '30px',
-          top: 0
-        });
+
+        if (this.menuCss) {
+          this.$el.css(this.menuCss);
+        }
         var self = this;
         setTimeout(function () {
           Origin.trigger('startkeyboardtrap', { $el: self.view.$el.find(`.${self.containerClassName}`) });

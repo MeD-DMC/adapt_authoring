@@ -48,7 +48,7 @@ define(function(require){
 
     animateIn: function() {
       this.$el.velocity({
-        scale: [1, 0.95],
+        // scale: [1, 0.95],
         opacity: [1, 0.4]
       }, {
         duration: 400,
@@ -156,11 +156,7 @@ define(function(require){
         Origin.trigger('reinitializeContextMenu');
         Origin.trigger('contextMenu:open', this, e, {
           type: this.model.get('_type'),
-          containerClassName: `context-menu-${this.model.get('_type')}-content-container-${this.model.id}`,
-          menuCss: {
-            left: 0,
-            top: '-20px'
-          }
+          containerClassName: `context-menu-${this.model.get('_type')}-content-container-${this.model.id}`
         });
       }
     },

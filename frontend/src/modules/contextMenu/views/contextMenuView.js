@@ -37,6 +37,7 @@ define(function(require) {
     toggleMenu: function(view, e, opts) {
       this.view = view;
       this.contextMenuType = opts && opts.type ? opts.type : '';
+      this.menuCss = opts && opts.menuCss ? opts.menuCss : null;
       this.containerClassName = opts ? opts.containerClassName : null;
       var isSameType = view && (view.model.get('_type')) === (this.contextView.model && this.contextView.model.get('_type'));
       var isSameModel = view && (view.model.get('_id')) === (this.contextView.model && this.contextView.model.get('_id'));
@@ -71,7 +72,7 @@ define(function(require) {
       if (this.view && this.containerClassName) {
         this.view.$el.find(`.${contextMenuIconClassName}`).attr('aria-expanded', 'true');
         this.view.$el.find(`.${contextMenuContainerClassName}`).html(this.$el);
-        this.$el.css({
+        this.$el.css(this.menuCss ? this.menuCss : {
           left: '30px',
           top: 0
         });

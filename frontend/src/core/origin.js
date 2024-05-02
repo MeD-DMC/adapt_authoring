@@ -70,7 +70,7 @@ define(['require', 'underscore', 'backbone'], function(require, _, Backbone){
 
   function initLoading() {
     $loading = $('.loading');
-    //_.delay(hideLoading, 1000);
+    _.delay(hideLoading, 1000);
 
     Origin.on('origin:hideLoading', hideLoading, Origin);
     Origin.on('origin:showLoading', showLoading, Origin);
@@ -90,12 +90,15 @@ define(['require', 'underscore', 'backbone'], function(require, _, Backbone){
   }
 
   function hideLoading() {
-    $loading.addClass('fade-out');
-    _.delay(_.bind(function() {
-      $loading
-        .addClass('display-none')
-        .removeClass('cover-top-bar');
-    }, this), 300);
+    var that = this;
+    _.delay(function(){
+      $loading.addClass('fade-out');
+      _.delay(_.bind(function() {
+        $loading
+          .addClass('display-none')
+          .removeClass('cover-top-bar');
+      }, that), 300);
+    }, 300);
   }
 
   /**

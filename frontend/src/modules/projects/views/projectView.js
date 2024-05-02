@@ -53,7 +53,11 @@ define(function(require) {
         Origin.trigger('reinitializeContextMenu');
         Origin.trigger('contextMenu:open', this, event, {
           type: 'project',
-          containerClassName: `context-menu-project-content-container-${this.model.id}`
+          containerClassName: `context-menu-project-content-container-${this.model.id}`,
+          menuCss: {
+            left: '-85px',
+            top: '-20px'
+          }
         });
       }
     },

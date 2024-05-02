@@ -30,7 +30,11 @@ define(function(require){
         Origin.trigger('reinitializeContextMenu');
         Origin.trigger('contextMenu:open', this, e, {
           type: 'menuitem',
-          containerClassName: `context-menu-menuitem-content-container-${this.model.id}`
+          containerClassName: `context-menu-menuitem-content-container-${this.model.id}`,
+          menuCss: {
+            left: '5px',
+            top: '-20px'
+          }
         });
       }
     },

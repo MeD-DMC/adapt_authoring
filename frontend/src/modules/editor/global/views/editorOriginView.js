@@ -8,9 +8,7 @@ define(function(require){
     events: {
       'click .paste-cancel': 'onPasteCancel',
       'click .field-object .legend': 'onFieldObjectClicked',
-      'dblclick .editor-item-settings-inner > button': 'onDbClick',
-      'dblclick .editor-item-settings-inner > span': 'onDbClick',
-      'dblclick .editor-item-settings-inner > a': 'onDbClick'
+      'dblclick .editor-item-settings-inner > button': 'onDbClick'
     },
 
     attributes: function() {

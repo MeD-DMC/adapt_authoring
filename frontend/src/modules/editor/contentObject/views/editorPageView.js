@@ -173,7 +173,11 @@ define(function(require){
         Origin.trigger('contextMenu:open', this, event, {
           type: 'page',
           fakeView: fakeView,
-          containerClassName: `context-menu-page-content-container-${this.model.id}`
+          containerClassName: `context-menu-page-content-container-${this.model.id}`,
+          menuCss: {
+            left: '-15px',
+            top: '-10px'
+          }
         });
       }
     },

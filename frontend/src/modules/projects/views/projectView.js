@@ -55,8 +55,8 @@ define(function(require) {
           type: 'project',
           containerClassName: `context-menu-project-content-container-${this.model.id}`,
           menuCss: {
-            left: '-85px',
-            top: '-20px'
+            left: '-75px',
+            top: '-10px'
           }
         });
       }

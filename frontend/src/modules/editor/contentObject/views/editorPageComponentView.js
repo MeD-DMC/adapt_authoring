@@ -219,16 +219,18 @@ define(function(require){
         e.preventDefault();
       }
       if ($(e.currentTarget).attr('aria-expanded') === 'true') {
+        $(e.currentTarget).parents('.block').removeClass('expanded-context-menu');
         Origin.trigger('contextMenu:closeContextMenu');
       }
       else {
+        $(e.currentTarget).parents('.block').addClass('expanded-context-menu');
         Origin.trigger('reinitializeContextMenu');
         Origin.trigger('contextMenu:open', this, e, {
           type: this.model.get('_type'),
           containerClassName: `context-menu-${this.model.get('_type')}-content-container-${this.model.id}`,
           menuCss: {
             left: 0,
-            top: '-70px'
+            top: '-10px'
           }
         });
       }

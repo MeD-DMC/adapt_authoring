@@ -77,9 +77,7 @@ define(function(require) {
           top: 0
         });
         var self = this;
-        setTimeout(function () {
-          Origin.trigger('startkeyboardtrap', { $el: self.view.$el.find(`.${self.containerClassName}`) });
-        }, 1000);
+        Origin.trigger('startkeyboardtrap', { $el: self.view.$el.find(`.${self.containerClassName}`) });
       }
     },
 

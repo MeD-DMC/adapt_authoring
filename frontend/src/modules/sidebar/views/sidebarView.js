@@ -88,6 +88,7 @@ define(function (require) {
 
     toggleSidebar: function (type) {
       var contentWrapper = $('#content_wrapper');
+      var collapseButton = $('.collapse-sidebar');
       var collapseIcon = $('.collapse-sidebar i');
       var sidebarInner = $('.sidebar-inner');
 
@@ -98,8 +99,10 @@ define(function (require) {
       if (isFolded) {
         sidebarInner.removeClass('display-none');
         contentWrapper.removeClass('folded');
+        collapseButton.attr('aria-expanded', 'true');
       } else if (!isFolded) {
         contentWrapper.addClass('folded');
+        collapseButton.attr('aria-expanded', 'false');
       }
       collapseIcon.removeClass('fa-chevron-circle-left fa-chevron-circle-right').addClass(newIconClass);
 

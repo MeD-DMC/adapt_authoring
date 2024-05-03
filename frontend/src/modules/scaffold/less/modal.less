@@ -9,13 +9,25 @@
   &.show {
     right: 0;
   }
+  & + & > .scaffold-items-modal-sidebar {
+    width: 712px;
+    background: #f9fbfc;
+  }
+
+  > .scaffold-items-modal-sidebar {
+    background: #ffffff;
+  }
+
+  & + & > .scaffold-items-modal-sidebar .fieldset-object {
+    background: #f9fbfc;
+  }
 }
 
 .scaffold-items-modal-sidebar {
   float: right;
   background-color: @white;
   height: 100%;
-  width: 440px;
+  width: 750px;
   border-left: 1px solid #ccc;
   overflow-y: scroll;
   -webkit-overflow-scrolling: touch;

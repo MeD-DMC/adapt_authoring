@@ -25,7 +25,7 @@
     <div class="profile-dropdown-menu">
       <button class="profile-dropbtn profile-drop-element" aria-expanded="false" aria-label="{{t 'app.accountmanager'}}{{userFullName}}"><p class="circle-inner">{{userInitials}}</p></button>
       <div id="profile-dropdown" class="dropdown-content">
-        <div class="profile-user-info"><span>{{t 'app.loggedinas'}}:</span><span>{{email}}</span></div>
+        <div tabindex="-1" class="profile-user-info"><span>{{t 'app.loggedinas'}}:</span><span>{{email}}</span></div>
         <a href="#" class="navigation-item navigation-profile profile-drop-element" data-event="user:profile">
           <span>{{t 'app.editprofiletitle'}}</span>
         </a>

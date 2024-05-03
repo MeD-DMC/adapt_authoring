@@ -100,7 +100,7 @@ define(function (require) {
         sidebarInner.removeClass('display-none');
         contentWrapper.removeClass('folded');
         collapseButton.attr('aria-expanded', 'true');
-      } else if (!isFolded) {
+      } else {
         contentWrapper.addClass('folded');
         collapseButton.attr('aria-expanded', 'false');
       }

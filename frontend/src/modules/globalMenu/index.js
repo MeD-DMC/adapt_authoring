@@ -90,10 +90,7 @@ define(function(require) {
               Origin.trigger('globalMenu:close');
           }, this));
       });
-      setTimeout(function(){
-        Origin.trigger('startkeyboardtrap', { $el: $('.global-menu-content-wrapper') });
-      }, 1000);
-
+      Origin.trigger('startkeyboardtrap', { $el: $('.global-menu-content-wrapper') }, { userMutationObserver: true });
     }
 
     function closeGlobalMenu() {

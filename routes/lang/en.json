@@ -380,6 +380,8 @@
   "app.editormenu": "Course structure",
   "app.backtomenu": "Back to course structure",
   "app.backtopage": "Back to page structure",
+  "app.editpagestructure": "Edit page structure",
+  "app.editpagesettings": "Edit page settings",
   "app.editorpage": "Page structure",
   "app.editorpagesettings": "Page settings",
   "app.editorarticle": "Article settings",

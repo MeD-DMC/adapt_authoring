@@ -139,7 +139,12 @@ define([
               'toggleTableCaption',
               'tableColumn', 'tableRow', 'mergeTableCells',
               'tableCellProperties', 'tableProperties'
-            ]
+            ],
+            tableProperties: {
+              defaultProperties: {
+                width: '100%'
+              }
+            }
           },
           toolbar: {
             items: [

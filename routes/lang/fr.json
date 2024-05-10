@@ -408,6 +408,8 @@
     "app.adapt-contrib-assessment.displayName": "Évaluation",
     "app.adapt-close.displayName": "Fermer",
     "app.adapt-contrib-languagePicker.displayName": "Sélecteur de langue",
+    "app.scaffold.component.cc.trackLabel.label": "Étiquette de la piste",
+    "app.scaffold.component.cc.trackLabel.help": "Entrez le nom complet de la langue lorsque vous utilisez une langue autre que l'anglais ou le français.",
     "app.scaffold.component.properties.mobileBody.label": "Corps mobile",
     "app.scaffold.component.properties.mobileBody.help": "Ce corps de texte s’affiche sur les appareils mobiles lorsque ce composant devient un composant de texte narratif.",
     "app.scaffold.component.properties.mobileInstruction.label": "Instruction mobile",

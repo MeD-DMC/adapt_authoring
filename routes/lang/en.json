@@ -380,6 +380,8 @@
   "app.editormenu": "Course structure",
   "app.backtomenu": "Back to course structure",
   "app.backtopage": "Back to page structure",
+  "app.editpagestructure": "Edit page structure",
+  "app.editpagesettings": "Edit page settings",
   "app.editorpage": "Page structure",
   "app.editorpagesettings": "Page settings",
   "app.editorarticle": "Article settings",
@@ -552,6 +554,8 @@
   "app.ckhelp": "Need help with the new editor? Consult this <a href=\"https://lit-eia.github.io/en/adapt/ckeditor/\" target=\"_blank\">guided tour</a>.",
   "app.accountmanager": "Account manager for: ",
   "app.optionsmenu": "Options Menu",
-  "app.editpagestructure": "Edit page structure",
-  "app.editpagesettings": "Edit page settings"
+  "app.scaffold._items._pin.top.label": "Step Position - Top",
+  "app.scaffold._items._pin.left.label": "Step Position - Left",
+  "app.scaffold._items._pin.bubbledirection.label": "Bubble Direction",
+  "app.scaffold._items._pin.bordercolor.label": "Border Color"
 }

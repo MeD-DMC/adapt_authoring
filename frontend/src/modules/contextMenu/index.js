@@ -44,7 +44,19 @@ define(function(require) {
     ContextMenu.addItem('article', getDefaultItems(['transferCourse']));
     ContextMenu.addItem('block', getDefaultItems(['transferCourse']));
     ContextMenu.addItem('component', getDefaultItems(['transferCourse']));
-    ContextMenu.addItem('page', getDefaultItems(['transferCourse']));
+    ContextMenu.addItem('page', [
+      {
+        title: Origin.l10n.t('app.editpagestructure'),
+        className: 'context-menu-item',
+        callbackEvent: "pageStructure"
+      },
+      {
+        title: Origin.l10n.t('app.editpagesettings'),
+        className: 'context-menu-item',
+        callbackEvent: "edit"
+      },
+      ...getDefaultItems(['edit', 'transferCourse'])]
+    );
     ContextMenu.addItem('menu', getDefaultItems(['copy','transferCourse']));
     ContextMenu.addItem('page-min', getDefaultItems(['copy','delete','colorLabel','transferCourse']));
     ContextMenu.addItem('course', getDefaultItems(['colorLabel']));

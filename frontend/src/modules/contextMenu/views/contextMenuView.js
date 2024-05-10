@@ -88,6 +88,7 @@ define(function(require) {
         Origin.trigger('stopkeyboardtrap', { $el: this.view.$el.find(`.${this.containerClassName}`) });
         this.view.$el.find(`.${contextMenuIconClassName}`).attr('aria-expanded', 'false');
       }
+      $('.block').removeClass('expanded-context-menu')
       this.$el.addClass('display-none');
       this._isVisible = false;
       Origin.trigger('contextMenu:closed');

@@ -1363,6 +1363,8 @@
     "app.editormenu": "Structure du cours",
     "app.backtomenu": "Retour à la structure du cours",
     "app.backtopage": "Retour à la structure de la page",
+    "app.editpagestructure": "Modifier la structure de la page",
+    "app.editpagesettings": "Modifier les paramètres des pages",
     "app.editorpage": "Structure de la page",
     "app.editorpagesettings": "Paramètres des pages",
     "app.editorarticle": "Paramètres des articles",

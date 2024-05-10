@@ -57,6 +57,7 @@ define(function(require){
 
       var type = this.model.get('_type');
 
+      this.on('contextMenu:' + type + ':pageStructure', this.pageStructure);
       this.on('contextMenu:' + type + ':edit', this.editMenuItem);
       this.on('contextMenu:' + type + ':copy', this.copyMenuItem);
       this.on('contextMenu:' + type + ':copyID', this.copyID);
@@ -87,6 +88,13 @@ define(function(require){
     onMenuItemDoubleClicked: function(event) {
       event && event.preventDefault();
       this.trigger('dblclick', this);
+    },
+
+    pageStructure: function() {
+      var courseId = Origin.editor.data.course.get('_id');
+      var type = this.model.get('_type');
+      var menuItemId = this.model.get('_id');
+      Origin.router.navigateTo('editor/' + courseId + '/' + type + '/' + menuItemId);
     },
 
     editMenuItem: function() {

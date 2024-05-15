@@ -19,6 +19,7 @@ define(function(require){
     }),
 
     preRender: function() {
+      this.model.set('_arialabel', Origin.l10n.t('app.componentmenu'));
       this.$el.addClass('component-' + this.model.get('_layout'));
       this.listenTo(Origin, 'editorView:removeSubViews editorPageView:removePageSubViews', this.remove);
       this.on({

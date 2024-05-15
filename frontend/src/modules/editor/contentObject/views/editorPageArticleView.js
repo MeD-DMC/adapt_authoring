@@ -20,6 +20,7 @@ define(function(require){
 
     preRender: function() {
       this.listenToEvents();
+      this.model.set('_arialabel', Origin.l10n.t('app.articlemenu'));
       Origin.editor.data._collapsedArticles = Origin.editor.data._collapsedArticles || {};
     },
 

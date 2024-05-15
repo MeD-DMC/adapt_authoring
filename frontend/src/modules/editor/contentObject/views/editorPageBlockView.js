@@ -27,6 +27,7 @@ define(function(require){
     preRender: function() {
       this.listenToEvents();
       this.model.set('componentTypes', Origin.editor.data.componenttypes.toJSON());
+      this.model.set('_arialabel', Origin.l10n.t('app.blockmenu'));
       this.render();
     },
 

@@ -557,5 +557,10 @@
   "app.scaffold._items._pin.left.label": "Step Position - Left",
   "app.scaffold._items._pin.top.label": "Step Position - Top",
   "app.scaffold._items._pin.bubbledirection.label": "Bubble Direction",
-  "app.scaffold._items._pin.bordercolor.label": "Border Color"
+  "app.scaffold._items._pin.bordercolor.label": "Border Color",
+  "app.coursemenu": "Course menu",
+  "app.pagemenu": "Page menu",
+  "app.articlemenu": "Article menu",
+  "app.blockmenu": "Block menu",
+  "app.componentmenu": "Component menu"
 }

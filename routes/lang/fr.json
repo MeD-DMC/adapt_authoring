@@ -1692,5 +1692,10 @@
     "app.forms.validators.urlSaba": "L'URL doit être un profil Saba",
     "app.accountmanager": "Gestionnaire de compte pour:",
     "app.optionsmenu": "Menu d'options",
-    "app.guidedtour._componentTypeDisplayName": "Visite guidée"
+    "app.guidedtour._componentTypeDisplayName": "Visite guidée",
+    "app.coursemenu": "Menu du cours",
+    "app.pagemenu": "Menu de la page",
+    "app.articlemenu": "Menu de l'article",
+    "app.blockmenu": "Menu du bloc",
+    "app.componentmenu": "Menu du composant"
 }

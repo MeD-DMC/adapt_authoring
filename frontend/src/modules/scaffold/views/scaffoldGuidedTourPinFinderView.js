@@ -4,6 +4,7 @@ define(['core/origin', 'backbone-forms'], function (Origin, BackboneForms) {
     className: 'scaffold-guided-tour-pinfinder-editor',
 
     events: {
+      "click .edit-pin-position": "editPinPosition"
     },
 
     initialize: function (options) {
@@ -15,6 +16,12 @@ define(['core/origin', 'backbone-forms'], function (Origin, BackboneForms) {
       this.$el.append(Handlebars.templates[this.constructor.template]({}));
 
       return this;
+    },
+
+    editPinPosition: function(e){
+      e.preventDefault();
+      console.log('editing position');
+      Origin.trigger('guidedtourpinfinder:open', this);
     }
 
   }, { template: 'scaffoldGuidedTourPinFinder' });

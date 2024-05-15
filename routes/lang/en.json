@@ -554,8 +554,13 @@
   "app.ckhelp": "Need help with the new editor? Consult this <a href=\"https://lit-eia.github.io/en/adapt/ckeditor/\" target=\"_blank\">guided tour</a>.",
   "app.accountmanager": "Account manager for: ",
   "app.optionsmenu": "Options Menu",
-  "app.scaffold._items._pin.top.label": "Step Position - Top",
   "app.scaffold._items._pin.left.label": "Step Position - Left",
+  "app.scaffold._items._pin.top.label": "Step Position - Top",
   "app.scaffold._items._pin.bubbledirection.label": "Bubble Direction",
-  "app.scaffold._items._pin.bordercolor.label": "Border Color"
+  "app.scaffold._items._pin.bordercolor.label": "Border Color",
+  "app.pagemenu": "Page menu",
+  "app.coursemenu": "Course menu",
+  "app.componentmenu": "Component menu",
+  "app.blockmenu": "Block menu",
+  "app.articlemenu": "Article menu"
 }

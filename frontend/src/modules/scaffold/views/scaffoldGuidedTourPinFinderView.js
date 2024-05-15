@@ -14,13 +14,11 @@ define(['core/origin', 'backbone-forms'], function (Origin, BackboneForms) {
 
     render: function () {
       this.$el.append(Handlebars.templates[this.constructor.template]({}));
-
       return this;
     },
 
     editPinPosition: function(e){
       e.preventDefault();
-      console.log('editing position');
       Origin.trigger('guidedtourpinfinder:open', this);
     }
 

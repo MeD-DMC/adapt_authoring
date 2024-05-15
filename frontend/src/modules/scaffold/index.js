@@ -16,8 +16,9 @@ define([
   './views/scaffoldUsersView',
   './views/scaffoldSingleUserView',
   './views/scaffoldUsersWithEmailView',
-  './views/scaffoldRangeView'
-], function (Origin, Helpers, Schemas, BackboneForms, BackboneFormsLists, BackboneFormsOverrides, ScaffoldAssetView, ScaffoldAssetItemView, ScaffoldCodeEditorView, ScaffoldColourPickerView, ScaffoldDisplayTitleView, ScaffoldItemsModalView, ScaffoldListView, ScaffoldTagsView, ScaffoldUsersView, ScaffoldSingleUserView, ScaffoldUsersWithEmailView, ScaffoldRangeView) {
+  './views/scaffoldRangeView',
+  './views/scaffoldGuidedTourPinFinderView',
+], function (Origin, Helpers, Schemas, BackboneForms, BackboneFormsLists, BackboneFormsOverrides, ScaffoldAssetView, ScaffoldAssetItemView, ScaffoldCodeEditorView, ScaffoldColourPickerView, ScaffoldDisplayTitleView, ScaffoldItemsModalView, ScaffoldListView, ScaffoldTagsView, ScaffoldUsersView, ScaffoldSingleUserView, ScaffoldUsersWithEmailView, ScaffoldRangeView, ScaffoldGuidedTourPinFinderView) {
 
   var Scaffold = {};
   var alternativeModel;

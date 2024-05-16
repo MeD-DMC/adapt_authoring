@@ -14,6 +14,7 @@
       'polyfill',
       'scrollTo',
       'selectize',
+      'shepherd',
       'sweetalert',
       'sweetalert2',
       'velocity'

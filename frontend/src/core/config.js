@@ -21,6 +21,7 @@ require.config({
     rangeslider: 'libraries/rangeslider',
     scrollTo: 'libraries/scrollTo',
     selectize: 'libraries/selectize/js/selectize',
+    shepherd: 'libraries/shepherd/shepherd',
     sweetalert: 'libraries/sweetalert.min',
     sweetalert2: 'libraries/sweetalert2.min',
     typeahead: 'libraries/typeahead',

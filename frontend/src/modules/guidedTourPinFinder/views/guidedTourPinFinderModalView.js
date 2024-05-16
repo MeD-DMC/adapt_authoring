@@ -15,9 +15,13 @@ define(function (require) {
 
     initialize: function () {
       const form = this.model.get('form');
+      const pinLeft = form.$el.find('#_pin__left').val();
+      const pinTop = form.$el.find('#_pin__top').val();
       const src = form.$el.find('#_graphic_src img').attr('src');
       const imageId = src.substring(src.lastIndexOf('/') + 1);
       this.model.set('src', `api/asset/serve/${imageId}`);
+      this.model.set('pinLeft', pinLeft);
+      this.model.set('pinTop', pinTop);
       this.render();
     },
 
@@ -49,9 +53,31 @@ define(function (require) {
         console.log('dragstart!');
         return false
       });
+      var that = this;
       image.on('load', function(){
         console.log('image loaded');
+        const target = document.getElementById('target');
+        var imageCtn = $('.pin-finder-image-wrapper img');
+        const imageContainer = imageCtn[0];
+        if (!imageContainer) return;
+        const containerRect = imageContainer.getBoundingClientRect();
 
+        var percentageX = parseFloat(that.model.get('pinLeft') || 0);
+        var percentageY = parseFloat(that.model.get('pinTop') || 0);
+        var x = percentageX / 100 * containerRect.width;
+        var y = percentageY / 100 * containerRect.height;
+
+        const clientX = x + imageCtn.offset().left;
+        const clientY = y + imageCtn.offset().top;
+
+        $('.pin-finder-controls .left').html(percentageX.toFixed(2));
+        $('.pin-finder-controls .top').html(percentageY.toFixed(2));
+
+        target.style.left = `${clientX}px`;
+        target.style.top = `${clientY}px`;
+
+        $('.pin-finder-controls .left').html(percentageX.toFixed(2));
+        $('.pin-finder-controls .top').html(percentageY.toFixed(2));
       });
       this.tour = new Shepherd.Tour({
         defaultStepOptions: {
@@ -115,6 +141,7 @@ define(function (require) {
     },
     stopDragging: function () {
       window.isDragging = false;
+      if (Shepherd && Shepherd.activeTour) Shepherd.activeTour.show();
       document.removeEventListener('mousemove', this.dragTarget);
       document.removeEventListener('mouseup', this.stopDragging);
     },

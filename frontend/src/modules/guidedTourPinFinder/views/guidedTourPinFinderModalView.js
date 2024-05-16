@@ -28,9 +28,16 @@ define(function (require) {
       return this;
     },
 
+    remove: function(){
+      $('#target').remove();
+      this.tour.cancel();
+      Backbone.View.prototype.remove.apply(this, arguments);
+    },
+
     postRender: function () {
       console.log('postRender');
       console.log(this);
+      var data = this.model.get('form').data;
       var image = this.$el.find('img');
       $('.module-editor').append('<div id="target"></div>');
       var self = this;
@@ -44,27 +51,30 @@ define(function (require) {
       });
       image.on('load', function(){
         console.log('image loaded');
-        var tour = new Shepherd.Tour({
-          defaultStepOptions: {
-            scrollTo: false
-          }
-        });
-        tour.addStep({
-          id: 'target',
-          title: 'Pin Position Finder',
-          text: 'content',
-          attachTo: {
-            element: '#target',
-            on: 'right'
-          },
-          classes: 'border'
-        });
-        tour.start();
-      })
+
+      });
+      this.tour = new Shepherd.Tour({
+        defaultStepOptions: {
+          scrollTo: false
+        }
+      });
+      this.tour.addStep({
+        id: 'target',
+        title: data.title,
+        text: data.body,
+        attachTo: {
+          element: '#target',
+          on: 'right'
+        },
+        classes: 'border'
+      });
+      this.tour.start();
 
     },
 
     applyToForm: function () {
+      console.log(this.getCoordinates());
+      this.applyToPinFields(this.getCoordinates());
       this.remove();
     },
 
@@ -78,13 +88,13 @@ define(function (require) {
     },
 
     startDragging: function (event) {
-      isDragging = true;
+      window.isDragging = true;
       document.addEventListener('mousemove', this.dragTarget);
       document.addEventListener('mouseup', this.stopDragging);
     },
 
     dragTarget: function (event) {
-      if (isDragging) {
+      if (window.isDragging) {
         const target = document.getElementById('target');
         var imageCtn = $('.pin-finder-image-wrapper img');
         const imageContainer = imageCtn[0];
@@ -95,27 +105,24 @@ define(function (require) {
         var percentageX = (x / containerRect.width) * 100;
         var percentageY = (y / containerRect.height) * 100;
 
-        console.log(`left: ${percentageX}, top: ${percentageY}`);
-
+        $('.pin-finder-controls .left').html(percentageX.toFixed(2));
+        $('.pin-finder-controls .top').html(percentageY.toFixed(2));
 
         target.style.left = `${event.clientX}px`;
         target.style.top = `${event.clientY}px`;
 
-        //console.log(event.clientX);
-        //console.log(event.clientY);
-
-        //left.textContent = `Left: ${getCoordinates().left}%`;
-        //top.textContent = `Top:  ${getCoordinates().top}%`;
       }
     },
     stopDragging: function () {
-      isDragging = false;
+      window.isDragging = false;
       document.removeEventListener('mousemove', this.dragTarget);
       document.removeEventListener('mouseup', this.stopDragging);
     },
 
     getCoordinates: function () {
-      return { left: this.percentageX.toFixed(2), top: this.percentageY.toFixed(2) }
+      var left = $('.pin-finder-controls .left').html();
+      var top = $('.pin-finder-controls .top').html();
+      return {left: left, top: top}
     },
 
 

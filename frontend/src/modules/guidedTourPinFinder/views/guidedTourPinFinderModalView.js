@@ -15,91 +15,134 @@ define(function (require) {
 
     initialize: function () {
       const form = this.model.get('form');
-      const pinLeft = form.$el.find('#_pin__left').val();
-      const pinTop = form.$el.find('#_pin__top').val();
       const src = form.$el.find('#_graphic_src img').attr('src');
       const imageId = src.substring(src.lastIndexOf('/') + 1);
       this.model.set('src', `api/asset/serve/${imageId}`);
-      this.model.set('pinLeft', pinLeft);
-      this.model.set('pinTop', pinTop);
+      var data = {
+        title: form.fields.title.$el.find('input#title').val() || 'Sample Title',
+        body: form.fields.body.$el.find('.ck-content').html(),
+        left: form.fields._pin.$el.find('input#_pin__left').val(),
+        top: form.fields._pin.$el.find('input#_pin__top').val(),
+        direction: form.fields._pin.$el.find('select#_pin__bubbledirection').val(),
+        borderColor: form.fields._pin.$el.find('.sp-preview-inner').css('background-color')
+      }
+      this.model.set('stepData', data);
       this.render();
     },
 
+    preRender: function(){
+      this.listenTo(Origin, 'window:resize', this.repositionTarget);
+    },
+
     render: function () {
+      this.preRender();
       var template = Handlebars.templates['guidedTourPinFinderModal'];
       this.$el.html(template(this.model.attributes));
       this.postRender();
       return this;
     },
 
-    remove: function(){
+    remove: function () {
       $('#target').remove();
       this.tour.cancel();
       Backbone.View.prototype.remove.apply(this, arguments);
     },
 
     postRender: function () {
-      console.log('postRender');
-      console.log(this);
-      var data = this.model.get('form').data;
-      var image = this.$el.find('img');
-      $('.module-editor').append('<div id="target"></div>');
       var self = this;
-      $('.module-editor #target').on('mousedown', function(event){
-        console.log('mousedown!');
+      var data = this.model.get('stepData');
+      var image = this.$el.find('img');
+
+      $('.module-editor').append('<div id="target" class="display-none"></div>');
+
+      $('.module-editor #target').on('mousedown', function (event) {
         self.startDragging(event);
       });
-      $('.module-editor #target').on('dragstart', function(event){
-        console.log('dragstart!');
+      $('.module-editor #target').on('dragstart', function () {
         return false
       });
-      var that = this;
+
       image.on('load', function(){
-        console.log('image loaded');
-        const target = document.getElementById('target');
-        var imageCtn = $('.pin-finder-image-wrapper img');
-        const imageContainer = imageCtn[0];
-        if (!imageContainer) return;
-        const containerRect = imageContainer.getBoundingClientRect();
-
-        var percentageX = parseFloat(that.model.get('pinLeft') || 0);
-        var percentageY = parseFloat(that.model.get('pinTop') || 0);
-        var x = percentageX / 100 * containerRect.width;
-        var y = percentageY / 100 * containerRect.height;
-
-        const clientX = x + imageCtn.offset().left;
-        const clientY = y + imageCtn.offset().top;
-
-        $('.pin-finder-controls .left').html(percentageX.toFixed(2));
-        $('.pin-finder-controls .top').html(percentageY.toFixed(2));
-
-        target.style.left = `${clientX}px`;
-        target.style.top = `${clientY}px`;
-
-        $('.pin-finder-controls .left').html(percentageX.toFixed(2));
-        $('.pin-finder-controls .top').html(percentageY.toFixed(2));
+        self.repositionTarget();
       });
+
+      var templateTitle = Handlebars.templates['guidedTourPinFinderStepTitle'];
+
+      var templateOptions = {
+        title: data.title,
+        ariaLevel: 4,
+        hidePagination: false,
+        paginationLabel: '1 / 1',
+        paginationAria: 'Step 1 of 1'
+      };
+
       this.tour = new Shepherd.Tour({
         defaultStepOptions: {
-          scrollTo: false
+          scrollTo: false,
+          classes: 'display-none'
         }
       });
+
       this.tour.addStep({
         id: 'target',
-        title: data.title,
+        title: templateTitle(templateOptions),
         text: data.body,
+        buttons: [
+          {
+            action() { return false },
+            classes: 'shepherd-button-secondary',
+            text: 'Previous'
+          },
+          {
+            action() { return false },
+            text: 'Next'
+          }
+        ],
         attachTo: {
           element: '#target',
-          on: 'right'
+          on: data.direction
         },
-        classes: 'border'
+        classes: 'border',
+        when: {
+          show: function () {
+            $(":root")[0].style.setProperty("--shepherd-border-color", data.borderColor);
+          }
+        }
       });
-      this.tour.start();
 
+      this.tour.start();
+    },
+
+    repositionTarget: function () {
+      var data = this.model.get('stepData');
+      const target = document.getElementById('target');
+      var imageCtn = $('.pin-finder-image-wrapper img');
+      const imageContainer = imageCtn[0];
+      if (!imageContainer) return;
+      const containerRect = imageContainer.getBoundingClientRect();
+
+      var percentageX = parseFloat(data.left || 0);
+      var percentageY = parseFloat(data.top || 0);
+      var x = percentageX / 100 * containerRect.width;
+      var y = percentageY / 100 * containerRect.height;
+
+      const clientX = x + imageCtn.offset().left;
+      const clientY = y + imageCtn.offset().top;
+
+      $('.pin-finder-controls .left').html(percentageX.toFixed(2));
+      $('.pin-finder-controls .top').html(percentageY.toFixed(2));
+
+      target.style.left = `${clientX}px`;
+      target.style.top = `${clientY}px`;
+
+      $('.shepherd-element').removeClass('display-none');
+      $('#target').removeClass('display-none');
+
+      $('.pin-finder-controls .left').html(percentageX.toFixed(2));
+      $('.pin-finder-controls .top').html(percentageY.toFixed(2));
     },
 
     applyToForm: function () {
-      console.log(this.getCoordinates());
       this.applyToPinFields(this.getCoordinates());
       this.remove();
     },
@@ -125,8 +168,8 @@ define(function (require) {
         var imageCtn = $('.pin-finder-image-wrapper img');
         const imageContainer = imageCtn[0];
         const containerRect = imageContainer.getBoundingClientRect();
-        const x = event.clientX - imageCtn.offset().left ;
-        const y = event.clientY - imageCtn.offset().top ;
+        const x = event.clientX - imageCtn.offset().left;
+        const y = event.clientY - imageCtn.offset().top;
 
         var percentageX = (x / containerRect.width) * 100;
         var percentageY = (y / containerRect.height) * 100;
@@ -141,20 +184,18 @@ define(function (require) {
     },
     stopDragging: function () {
       window.isDragging = false;
-      if (Shepherd && Shepherd.activeTour) Shepherd.activeTour.show();
       document.removeEventListener('mousemove', this.dragTarget);
       document.removeEventListener('mouseup', this.stopDragging);
+      if (Shepherd && Shepherd.activeTour) Shepherd.activeTour.show();
+      $('.shepherd-element').removeClass('display-none');
+      $('#target').removeClass('display-none');
     },
 
     getCoordinates: function () {
       var left = $('.pin-finder-controls .left').html();
       var top = $('.pin-finder-controls .top').html();
-      return {left: left, top: top}
-    },
-
-
-
-
+      return { left: left, top: top }
+    }
 
   });
 

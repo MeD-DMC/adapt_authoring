@@ -160,7 +160,7 @@ define(function (require) {
       this.model.set('stepData', data);
     },
 
-    repositionTarget: function () {
+    repositionTarget: function (opts) {
       var data = this.model.get('stepData');
       const target = document.getElementById('target');
       var imageCtn = $('.pin-finder-image-wrapper img');
@@ -168,8 +168,8 @@ define(function (require) {
       if (!imageContainer) return;
       const containerRect = imageContainer.getBoundingClientRect();
 
-      var percentageX = parseFloat(data.left || 0);
-      var percentageY = parseFloat(data.top || 0);
+      var percentageX = parseFloat((opts && opts.left) || data.left || '0');
+      var percentageY = parseFloat((opts && opts.top) || data.top || '0');
       var x = percentageX / 100 * containerRect.width;
       var y = percentageY / 100 * containerRect.height;
 
@@ -210,8 +210,12 @@ define(function (require) {
 
     startDragging: function (event) {
       window.isDragging = true;
+      const self = this;
       document.addEventListener('mousemove', this.dragTargetBound);
-      document.addEventListener('mouseup', this.stopDraggingBound);
+      document.addEventListener('mouseup', document.addEventListener('mouseup', function (e) {
+          self.stopDragging(self);
+        })
+      );
     },
 
     dragTarget: function (event) {
@@ -239,13 +243,30 @@ define(function (require) {
         this.model.set('stepData', data);
       }
     },
-    stopDragging: function () {
+    stopDragging: function (self) {
+      self.handleOutOfViewport();
       window.isDragging = false;
       document.removeEventListener('mousemove', this.dragTargetBound);
       document.removeEventListener('mouseup', this.stopDraggingBound);
       if (Shepherd && Shepherd.activeTour) Shepherd.activeTour.show();
       $('.shepherd-element').removeClass('display-none');
       $('#target').removeClass('display-none');
+    },
+
+    handleOutOfViewport: function () {
+      if ($('.shepherd-element').length > 0) {
+        const shepherdRect = $('.shepherd-element')[0].getBoundingClientRect();
+        const acceptableTop = window.innerHeight * 2.5 / 100;
+        const acceptableLeft = window.innerWidth * 2.5 / 100;
+        if (
+          shepherdRect.bottom > (window.innerHeight) ||
+          shepherdRect.right > window.innerWidth ||
+          shepherdRect.left < acceptableLeft ||
+          shepherdRect.top < acceptableTop
+        ) {
+          this.repositionTarget({left: '0', top: '0'});
+        }
+      }
     },
 
     getCoordinates: function () {

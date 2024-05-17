@@ -121,6 +121,7 @@
     visibility: hidden;
     width: 100%;
     z-index: 700;
+    user-select: none;
 }
 
 .shepherd-enabled.shepherd-element {
@@ -225,7 +226,9 @@
 }
 
 .shepherd-button {
-    background: #105067;
+    border-color: #454545 !important;
+    background: #454545 !important;
+    color: #fff !important;
 }
 
 .shepherd-arrow {
@@ -281,6 +284,7 @@
 
 .shepherd-cancel-icon {
     color: #fff!important;
+    cursor: not-allowed;
 }
 
 .shepherd-cancel-icon:hover {
@@ -351,4 +355,11 @@
 
 .shepherd-element.shepherd-has-title[data-popper-placement^=bottom]>.shepherd-arrow:before {
     background-color: #0f2a4a;
+}
+
+button.shepherd-cancel-icon {
+    background: none !important;
+    &:hover {
+        background: none !important;
+    }
 }

@@ -9,8 +9,24 @@
       <button class="apply btn primary">Apply</button>
       <button class="cancel btn action-secondary">Cancel</button>
       <div class="pin-finder-controls">
-        <div>Left: <span class="left"></span></div>
-        <div>Top: <span class="top"></span></div>
+        <div class="position">Left: <span class="left"></span></div>
+        <div class="position">Top: <span class="top"></span></div>
+        <label for="_pinfinder_bubbledirection">Bubble Direction:</label>
+        <select id="_pinfinder_bubbledirection" name="_bubbledirection">
+          <option id="none" value="none" {{#ifValueEquals stepData.direction "none" }} selected{{/ifValueEquals}}>none
+          </option>
+          <option id="left" value="left" {{#ifValueEquals stepData.direction "left" }} selected{{/ifValueEquals}}>left
+          </option>
+          <option id="right" value="right" {{#ifValueEquals stepData.direction "right" }} selected{{/ifValueEquals}}>
+            right</option>
+          <option id="top" value="top" {{#ifValueEquals stepData.direction "top" }} selected{{/ifValueEquals}}>top
+          </option>
+          <option id="bottom" value="bottom" {{#ifValueEquals stepData.direction "bottom" }} selected{{/ifValueEquals}}>
+            bottom</option>
+        </select>
+        <label class="label-picker" for="bubbleColor">Bubble Border Color:
+        </label>
+        <input type="text" class="width-30" id="bubbleColor" autocomplete="off">
       </div>
     </div>
   </div>

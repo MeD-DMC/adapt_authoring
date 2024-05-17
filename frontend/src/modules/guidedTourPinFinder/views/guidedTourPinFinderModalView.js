@@ -10,7 +10,8 @@ define(function (require) {
 
     events: {
       "click .apply": "applyToForm",
-      "click .cancel": "remove"
+      "click .cancel": "remove",
+      "change #_pinfinder_bubbledirection": "onDirectionChange"
     },
 
     initialize: function () {
@@ -27,6 +28,8 @@ define(function (require) {
         borderColor: form.fields._pin.$el.find('.sp-preview-inner').css('background-color')
       }
       this.model.set('stepData', data);
+      this.dragTargetBound = this.dragTarget.bind(this);
+      this.stopDraggingBound = this.stopDragging.bind(this);
       this.render();
     },
 
@@ -63,7 +66,7 @@ define(function (require) {
       });
 
       image.on('load', function(){
-        self.repositionTarget();
+        self.onImageLoaded();
       });
 
       var templateTitle = Handlebars.templates['guidedTourPinFinderStepTitle'];
@@ -79,7 +82,10 @@ define(function (require) {
       this.tour = new Shepherd.Tour({
         defaultStepOptions: {
           scrollTo: false,
-          classes: 'display-none'
+          classes: 'display-none',
+          cancelIcon: {
+            enabled: true
+          }
         }
       });
 
@@ -105,12 +111,53 @@ define(function (require) {
         classes: 'border',
         when: {
           show: function () {
+            $(this.el).find('button').attr('disabled', true);
             $(":root")[0].style.setProperty("--shepherd-border-color", data.borderColor);
           }
         }
       });
 
       this.tour.start();
+    },
+
+    onImageLoaded: function(){
+      this.initSpectrum();
+      this.repositionTarget();
+    },
+
+    initSpectrum: function(){
+      var self = this;
+      var data = this.model.get('stepData');
+      var colorOptions = {
+        color: data.borderColor,
+        showAlpha: true,
+        showInitial: true,
+        showInput: true,
+        showPalette: true,
+        showButtons: true,
+        cancelText: Origin.l10n.t('app.scaffold.colourPickerCancel'),
+        allowEmpty: true, // to allow empty strings in schema default value
+        preferredFormat: "hex3",
+        showSelectionPalette: true,
+        maxSelectionSize: 24,
+        localStorageKey: "adapt-authoring.spectrum.colourpicker",
+        containerClassName: 'pin-finder-spectrum',
+        change: function() {
+          self.onColorChange();
+        },
+        move: function() {
+          self.onColorChange();
+        }
+      }
+      this.$el.find("#bubbleColor").spectrum(colorOptions);
+    },
+
+    onColorChange: function(){
+      var data = this.model.get('stepData');
+      var color = this.$el.find('.sp-preview-inner').css('background-color');
+      $(":root")[0].style.setProperty("--shepherd-border-color", color);
+      data.borderColor = color;
+      this.model.set('stepData', data);
     },
 
     repositionTarget: function () {
@@ -143,27 +190,33 @@ define(function (require) {
     },
 
     applyToForm: function () {
-      this.applyToPinFields(this.getCoordinates());
+      var data = this.model.get('stepData');
+      this.applyToFields(data);
       this.remove();
     },
 
-    applyToPinFields: function (data) {
+    applyToFields: function (data) {
       var form = this.model.get('form');
       var _pin = form.fields._pin.$el;
       var left = _pin.find('#_pin__left');
       var top = _pin.find('#_pin__top');
+      var direction = _pin.find('#_pin__bubbledirection');
+      var color = _pin.find('#_pin__bordercolor');
       left.val(data.left);
       top.val(data.top);
+      direction.val(data.direction);
+      color.spectrum("set", data.borderColor);
     },
 
     startDragging: function (event) {
       window.isDragging = true;
-      document.addEventListener('mousemove', this.dragTarget);
-      document.addEventListener('mouseup', this.stopDragging);
+      document.addEventListener('mousemove', this.dragTargetBound);
+      document.addEventListener('mouseup', this.stopDraggingBound);
     },
 
     dragTarget: function (event) {
       if (window.isDragging) {
+        var data = this.model.get('stepData');
         const target = document.getElementById('target');
         var imageCtn = $('.pin-finder-image-wrapper img');
         const imageContainer = imageCtn[0];
@@ -174,18 +227,22 @@ define(function (require) {
         var percentageX = (x / containerRect.width) * 100;
         var percentageY = (y / containerRect.height) * 100;
 
+        data.left = percentageX.toFixed(2);
+        data.top = percentageY.toFixed(2);
+
         $('.pin-finder-controls .left').html(percentageX.toFixed(2));
         $('.pin-finder-controls .top').html(percentageY.toFixed(2));
 
         target.style.left = `${event.clientX}px`;
         target.style.top = `${event.clientY}px`;
 
+        this.model.set('stepData', data);
       }
     },
     stopDragging: function () {
       window.isDragging = false;
-      document.removeEventListener('mousemove', this.dragTarget);
-      document.removeEventListener('mouseup', this.stopDragging);
+      document.removeEventListener('mousemove', this.dragTargetBound);
+      document.removeEventListener('mouseup', this.stopDraggingBound);
       if (Shepherd && Shepherd.activeTour) Shepherd.activeTour.show();
       $('.shepherd-element').removeClass('display-none');
       $('#target').removeClass('display-none');
@@ -195,6 +252,21 @@ define(function (require) {
       var left = $('.pin-finder-controls .left').html();
       var top = $('.pin-finder-controls .top').html();
       return { left: left, top: top }
+    },
+
+    onDirectionChange: function(event){
+      var data = this.model.get('stepData');
+      data.direction = $(event.target).val()
+      this.model.set('stepData', data);
+      var currentStep = this.tour.currentStep;
+      var options = _.clone(currentStep.options);
+      options.attachTo.on = data.direction !== 'none' ? data.direction : 'bottom';
+      options.arrow = data.direction !== 'none';
+      options.classes = 'border';
+      if(this.tour.currentStep.options !== options){
+        this.tour.currentStep.options = options;
+        if (Shepherd && Shepherd.activeTour) Shepherd.activeTour.show();
+      }
     }
 
   });

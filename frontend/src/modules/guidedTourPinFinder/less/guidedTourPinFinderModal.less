@@ -105,3 +105,25 @@
 .pin-finder-spectrum {
     width: 317px;
 }
+
+.pin-finder-mobile-fallback-message-container {
+    width: 100%;
+    margin: 50% 25%;
+    padding: 10px;
+}
+
+@media (max-width: 700px) {
+
+    .pin-finder-image-container,
+    .shepherd-element,
+    .pin-finder-menu-bar,
+    #target {
+        display: none !important;
+    }
+}
+
+@media (min-width: 701px) {
+    .pin-finder-mobile-fallback-message-container {
+        display: none !important;
+    }
+}

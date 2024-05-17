@@ -562,5 +562,6 @@
   "app.pagemenu": "Page menu",
   "app.articlemenu": "Article menu",
   "app.blockmenu": "Block menu",
-  "app.componentmenu": "Component menu"
+  "app.componentmenu": "Component menu",
+  "app.pinfinder.mobilefallbackmessage": "The pin finder cannot be used due to the narrow width."
 }

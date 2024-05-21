@@ -563,5 +563,6 @@
   "app.articlemenu": "Article menu",
   "app.blockmenu": "Block menu",
   "app.componentmenu": "Component menu",
-  "app.pinfinder.mobilefallbackmessage": "The pin finder cannot be used due to the narrow width."
+  "app.pinfinder.mobilefallbackmessage": "The pin finder cannot be used due to the narrow width.",
+  "app.pinfinder.error": "You must select an image as graphic src to use the pin editor."
 }

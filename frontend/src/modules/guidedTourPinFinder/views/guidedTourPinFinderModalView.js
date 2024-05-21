@@ -18,8 +18,8 @@ define(function (require) {
       const form = this.model.get('form');
       const src = form.$el.find('#_graphic_src img').attr('src');
       const imageId = src.substring(src.lastIndexOf('/') + 1);
-      this.model.set('src', `api/asset/serve/${imageId}`);
       var data = {
+        src: `api/asset/serve/${imageId}`,
         title: form.fields.title.$el.find('input#title').val() || 'Sample Title',
         body: form.fields.body.$el.find('.ck-content').html(),
         left: form.fields._pin.$el.find('input#_pin__left').val(),
@@ -33,7 +33,7 @@ define(function (require) {
       this.render();
     },
 
-    preRender: function(){
+    preRender: function () {
       this.listenTo(Origin, 'window:resize', this.repositionTarget);
     },
 
@@ -45,27 +45,22 @@ define(function (require) {
       return this;
     },
 
-    remove: function () {
-      $('#target').remove();
-      this.tour.cancel();
-      Backbone.View.prototype.remove.apply(this, arguments);
-    },
-
     postRender: function () {
       var self = this;
       var data = this.model.get('stepData');
       var image = this.$el.find('img');
 
-      $('.module-editor').append('<div id="target" class="display-none"></div>');
+      $('.module-editor').append('<div id="target" class="display-none"></div><div id="bullseye" class="display-none"> <div class="box1"></div><div class="box2"></div><div class="box3"></div><div class="box4"></div></div>');
 
-      $('.module-editor #target').on('mousedown', function (event) {
+      $('.module-editor #bullseye').on('mousedown', function (event) {
         self.startDragging(event);
       });
-      $('.module-editor #target').on('dragstart', function () {
+
+      $('.module-editor #bullseye').on('dragstart', function () {
         return false
       });
 
-      image.on('load', function(){
+      image.on('load', function () {
         self.onImageLoaded();
       });
 
@@ -106,8 +101,9 @@ define(function (require) {
         ],
         attachTo: {
           element: '#target',
-          on: data.direction
+          on: data.direction !== 'none' ? data.direction : 'bottom'
         },
+        arrow: data.direction !== 'none',
         classes: 'border',
         when: {
           show: function () {
@@ -120,12 +116,20 @@ define(function (require) {
       this.tour.start();
     },
 
-    onImageLoaded: function(){
+    remove: function () {
+      $('#target').remove();
+      $('#bullseye').remove();
+      $('.pin-finder-spectrum').remove();
+      this.tour.cancel();
+      Backbone.View.prototype.remove.apply(this, arguments);
+    },
+
+    onImageLoaded: function () {
       this.initSpectrum();
       this.repositionTarget();
     },
 
-    initSpectrum: function(){
+    initSpectrum: function () {
       var self = this;
       var data = this.model.get('stepData');
       var colorOptions = {
@@ -142,22 +146,38 @@ define(function (require) {
         maxSelectionSize: 24,
         localStorageKey: "adapt-authoring.spectrum.colourpicker",
         containerClassName: 'pin-finder-spectrum',
-        change: function() {
+        change: function () {
           self.onColorChange();
         },
-        move: function() {
+        move: function () {
           self.onColorChange();
         }
       }
       this.$el.find("#bubbleColor").spectrum(colorOptions);
     },
 
-    onColorChange: function(){
+    onColorChange: function () {
       var data = this.model.get('stepData');
       var color = this.$el.find('.sp-preview-inner').css('background-color');
       $(":root")[0].style.setProperty("--shepherd-border-color", color);
       data.borderColor = color;
       this.model.set('stepData', data);
+    },
+
+    onDirectionChange: function (event) {
+      var data = this.model.get('stepData');
+      data.direction = $(event.target).val()
+      this.model.set('stepData', data);
+      var currentStep = this.tour.currentStep;
+      var options = _.clone(currentStep.options);
+      options.attachTo.on = data.direction !== 'none' ? data.direction : 'bottom';
+      options.arrow = data.direction !== 'none';
+      options.classes = 'border';
+      this.repositionTarget();
+      if (this.tour.currentStep.options !== options) {
+        this.tour.currentStep.options = options;
+        if (Shepherd && Shepherd.activeTour) Shepherd.activeTour.show();
+      }
     },
 
     repositionTarget: function (opts) {
@@ -179,14 +199,118 @@ define(function (require) {
       $('.pin-finder-controls .left').html(percentageX.toFixed(2));
       $('.pin-finder-controls .top').html(percentageY.toFixed(2));
 
+      var targetLeft = clientX - this.getBullseyeOffsetLeft();;
+      var targetTop = clientY - this.getBullseyeOffsetTop();;
+
+      bullseye.style.left = `${targetLeft}px`;
+      bullseye.style.top = `${targetTop}px`;
+
       target.style.left = `${clientX}px`;
       target.style.top = `${clientY}px`;
 
       $('.shepherd-element').removeClass('display-none');
       $('#target').removeClass('display-none');
+      $('#bullseye').removeClass('display-none');
 
       $('.pin-finder-controls .left').html(percentageX.toFixed(2));
       $('.pin-finder-controls .top').html(percentageY.toFixed(2));
+    },
+
+    startDragging: function (event) {
+      window.isDragging = true;
+      const self = this;
+      document.addEventListener('mousemove', this.dragTargetBound);
+      document.addEventListener('mouseup', document.addEventListener('mouseup', function (e) {
+          self.stopDragging(self);
+        })
+      );
+    },
+
+    dragTarget: function (event) {
+      if (window.isDragging) {
+        var data = this.model.get('stepData');
+        const target = document.getElementById('target');
+        const bullseye = document.getElementById('bullseye');
+        var imageCtn = $('.pin-finder-image-wrapper img');
+        const imageContainer = imageCtn[0];
+        const containerRect = imageContainer.getBoundingClientRect();
+
+        var targetLeft = event.clientX + this.getBullseyeOffsetLeft();
+        var targetTop = event.clientY + this.getBullseyeOffsetTop();
+
+        bullseye.style.left = `${event.clientX}px`;
+        bullseye.style.top = `${event.clientY}px`;
+
+        target.style.left = `${targetLeft}px`;
+        target.style.top = `${targetTop}px`;
+
+        const x = targetLeft - imageCtn.offset().left;
+        const y = targetTop - imageCtn.offset().top;
+
+        var percentageX = (x / containerRect.width) * 100;
+        var percentageY = (y / containerRect.height) * 100;
+
+        data.left = percentageX.toFixed(2);
+        data.top = percentageY.toFixed(2);
+
+        $('.pin-finder-controls .left').html(percentageX.toFixed(2));
+        $('.pin-finder-controls .top').html(percentageY.toFixed(2));
+
+        this.model.set('stepData', data);
+      }
+    },
+
+    stopDragging: function (self) {
+      self.handleOutOfViewport();
+      window.isDragging = false;
+      document.removeEventListener('mousemove', this.dragTargetBound);
+      document.removeEventListener('mouseup', this.stopDraggingBound);
+      if (Shepherd && Shepherd.activeTour) Shepherd.activeTour.show();
+      $('.shepherd-element').removeClass('display-none');
+    },
+
+    getBullseyeOffsetLeft: function () {
+      var data = this.model.get('stepData');
+      const offsetMap = {
+        'left': -20,
+        'right': 41,
+        'top': 10,
+        'bottom': 10,
+        'none': 10
+      };
+
+      // Set default value to 0 in case direction is not in the map
+      return offsetMap[data.direction];
+    },
+
+    handleOutOfViewport: function () {
+      if ($('.shepherd-element').length > 0) {
+        const shepherdRect = $('.shepherd-element')[0].getBoundingClientRect();
+        const acceptableTop = window.innerHeight * 2.5 / 100;
+        const acceptableLeft = window.innerWidth * 2.5 / 100;
+        if (
+          shepherdRect.bottom > (window.innerHeight) ||
+          shepherdRect.right > window.innerWidth ||
+          shepherdRect.left < acceptableLeft ||
+          shepherdRect.top < acceptableTop
+        ) {
+          this.repositionTarget({left: '0', top: '0'});
+        }
+      }
+    },
+
+    getBullseyeOffsetTop: function () {
+      var data = this.model.get('stepData');
+      const offsetMap = {
+        'left': 10,
+        'right': 10,
+        'top': -20,
+        'bottom': 41,
+        'none': 26
+      };
+
+      // Set default value to 0 in case direction is not in the map
+      return offsetMap[data.direction];
     },
 
     applyToForm: function () {
@@ -206,88 +330,6 @@ define(function (require) {
       top.val(data.top);
       direction.val(data.direction);
       color.spectrum("set", data.borderColor);
-    },
-
-    startDragging: function (event) {
-      window.isDragging = true;
-      const self = this;
-      document.addEventListener('mousemove', this.dragTargetBound);
-      document.addEventListener('mouseup', document.addEventListener('mouseup', function (e) {
-          self.stopDragging(self);
-        })
-      );
-    },
-
-    dragTarget: function (event) {
-      if (window.isDragging) {
-        var data = this.model.get('stepData');
-        const target = document.getElementById('target');
-        var imageCtn = $('.pin-finder-image-wrapper img');
-        const imageContainer = imageCtn[0];
-        const containerRect = imageContainer.getBoundingClientRect();
-        const x = event.clientX - imageCtn.offset().left;
-        const y = event.clientY - imageCtn.offset().top;
-
-        var percentageX = (x / containerRect.width) * 100;
-        var percentageY = (y / containerRect.height) * 100;
-
-        data.left = percentageX.toFixed(2);
-        data.top = percentageY.toFixed(2);
-
-        $('.pin-finder-controls .left').html(percentageX.toFixed(2));
-        $('.pin-finder-controls .top').html(percentageY.toFixed(2));
-
-        target.style.left = `${event.clientX}px`;
-        target.style.top = `${event.clientY}px`;
-
-        this.model.set('stepData', data);
-      }
-    },
-    stopDragging: function (self) {
-      self.handleOutOfViewport();
-      window.isDragging = false;
-      document.removeEventListener('mousemove', this.dragTargetBound);
-      document.removeEventListener('mouseup', this.stopDraggingBound);
-      if (Shepherd && Shepherd.activeTour) Shepherd.activeTour.show();
-      $('.shepherd-element').removeClass('display-none');
-      $('#target').removeClass('display-none');
-    },
-
-    handleOutOfViewport: function () {
-      if ($('.shepherd-element').length > 0) {
-        const shepherdRect = $('.shepherd-element')[0].getBoundingClientRect();
-        const acceptableTop = window.innerHeight * 2.5 / 100;
-        const acceptableLeft = window.innerWidth * 2.5 / 100;
-        if (
-          shepherdRect.bottom > (window.innerHeight) ||
-          shepherdRect.right > window.innerWidth ||
-          shepherdRect.left < acceptableLeft ||
-          shepherdRect.top < acceptableTop
-        ) {
-          this.repositionTarget({left: '0', top: '0'});
-        }
-      }
-    },
-
-    getCoordinates: function () {
-      var left = $('.pin-finder-controls .left').html();
-      var top = $('.pin-finder-controls .top').html();
-      return { left: left, top: top }
-    },
-
-    onDirectionChange: function(event){
-      var data = this.model.get('stepData');
-      data.direction = $(event.target).val()
-      this.model.set('stepData', data);
-      var currentStep = this.tour.currentStep;
-      var options = _.clone(currentStep.options);
-      options.attachTo.on = data.direction !== 'none' ? data.direction : 'bottom';
-      options.arrow = data.direction !== 'none';
-      options.classes = 'border';
-      if(this.tour.currentStep.options !== options){
-        this.tour.currentStep.options = options;
-        if (Shepherd && Shepherd.activeTour) Shepherd.activeTour.show();
-      }
     }
 
   });

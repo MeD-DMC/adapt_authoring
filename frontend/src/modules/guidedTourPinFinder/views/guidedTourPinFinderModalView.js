@@ -257,6 +257,7 @@ define(function (require) {
     },
 
     stopDragging: function () {
+      this.handleOutOfViewport();
       window.isDragging = false;
       document.removeEventListener('mousemove', this.dragTargetBound);
       document.removeEventListener('mouseup', this.stopDraggingBound);
@@ -276,6 +277,27 @@ define(function (require) {
 
       // Set default value to 0 in case direction is not in the map
       return offsetMap[data.direction];
+    },
+
+    handleOutOfViewport: function () {
+      if ($('.shepherd-element').length > 0) {
+        const shepherdRect = $('.shepherd-element')[0].getBoundingClientRect();
+        const pinfinderOverlay = $('.pin-finder-overlay');
+        const pinfinderOverlayRect = pinfinderOverlay.length > 0 ? pinfinderOverlay[0].getBoundingClientRect() : null;
+        const acceptableTop = pinfinderOverlayRect ? pinfinderOverlayRect.top : window.innerHeight * 2.5 / 100;
+        const acceptableLeft = pinfinderOverlayRect ? pinfinderOverlayRect.left : window.innerWidth * 2.5 / 100;
+        const acceptableBottom = pinfinderOverlayRect ? pinfinderOverlayRect.bottom : window.innerHeight;
+        const acceptableRight = pinfinderOverlayRect ? pinfinderOverlayRect.right : window.innerWidth;
+
+        if (
+          shepherdRect.bottom > acceptableBottom ||
+          shepherdRect.right > acceptableRight ||
+          shepherdRect.left < acceptableLeft ||
+          shepherdRect.top < acceptableTop
+        ) {
+          this.repositionTarget({left: '0', top: '0'});
+        }
+      }
     },
 
     getBullseyeOffsetTop: function () {

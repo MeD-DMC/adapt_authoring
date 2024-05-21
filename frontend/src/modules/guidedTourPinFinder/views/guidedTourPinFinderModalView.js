@@ -218,12 +218,8 @@ define(function (require) {
 
     startDragging: function (event) {
       window.isDragging = true;
-      const self = this;
       document.addEventListener('mousemove', this.dragTargetBound);
-      document.addEventListener('mouseup', document.addEventListener('mouseup', function (e) {
-          self.stopDragging(self);
-        })
-      );
+      document.addEventListener('mouseup', this.stopDraggingBound);
     },
 
     dragTarget: function (event) {
@@ -260,8 +256,8 @@ define(function (require) {
       }
     },
 
-    stopDragging: function (self) {
-      self.handleOutOfViewport();
+    stopDragging: function () {
+      this.handleOutOfViewport();
       window.isDragging = false;
       document.removeEventListener('mousemove', this.dragTargetBound);
       document.removeEventListener('mouseup', this.stopDraggingBound);
@@ -286,11 +282,16 @@ define(function (require) {
     handleOutOfViewport: function () {
       if ($('.shepherd-element').length > 0) {
         const shepherdRect = $('.shepherd-element')[0].getBoundingClientRect();
-        const acceptableTop = window.innerHeight * 2.5 / 100;
-        const acceptableLeft = window.innerWidth * 2.5 / 100;
+        const pinfinderOverlay = $('.pin-finder-overlay');
+        const pinfinderOverlayRect = pinfinderOverlay.length > 0 ? pinfinderOverlay[0].getBoundingClientRect() : null;
+        const acceptableTop = pinfinderOverlayRect ? pinfinderOverlayRect.top : window.innerHeight * 2.5 / 100;
+        const acceptableLeft = pinfinderOverlayRect ? pinfinderOverlayRect.left : window.innerWidth * 2.5 / 100;
+        const acceptableBottom = pinfinderOverlayRect ? pinfinderOverlayRect.bottom : window.innerHeight;
+        const acceptableRight = pinfinderOverlayRect ? pinfinderOverlayRect.right : window.innerWidth;
+
         if (
-          shepherdRect.bottom > (window.innerHeight) ||
-          shepherdRect.right > window.innerWidth ||
+          shepherdRect.bottom > acceptableBottom ||
+          shepherdRect.right > acceptableRight ||
           shepherdRect.left < acceptableLeft ||
           shepherdRect.top < acceptableTop
         ) {

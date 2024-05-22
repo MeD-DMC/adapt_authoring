@@ -42,9 +42,13 @@ define(function (require) {
             self.render();
           },
           error: function (error) {
-            console.error('Problem loading content info for component');
+            console.error('Problem loading component content info for component');
+            self.remove();
           }
         });
+      } else {
+        console.error('Problem loading component content info for component');
+        self.remove();
       }
 
     },
@@ -136,7 +140,7 @@ define(function (require) {
       $('#target').remove();
       $('#bullseye').remove();
       $('.pin-finder-spectrum').remove();
-      this.tour.cancel();
+      if(this.tour) this.tour.cancel();
       Backbone.View.prototype.remove.apply(this, arguments);
     },
 

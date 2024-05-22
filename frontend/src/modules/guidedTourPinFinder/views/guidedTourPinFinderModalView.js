@@ -354,11 +354,10 @@ define(function (require) {
     },
 
     getComponentId: function () {
-      const urlObj = window.location;
-      const hash = urlObj.hash;
+      const hash = window.location.hash;
       const parts = hash.split('/');
       const extractedPart = parts[parts.length - 2];
-      return extractedPart;
+      return extractedPart !== "" ? extractedPart : '000';
     }
 
   });

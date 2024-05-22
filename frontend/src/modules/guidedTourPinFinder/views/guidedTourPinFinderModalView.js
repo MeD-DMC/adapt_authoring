@@ -198,6 +198,7 @@ define(function (require) {
         this.tour.currentStep.options = options;
         if (Shepherd && Shepherd.activeTour) Shepherd.activeTour.show();
       }
+      this.handleOutOfViewport();
     },
 
     repositionTarget: function (opts) {

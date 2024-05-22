@@ -1698,6 +1698,6 @@
     "app.articlemenu": "Menu de l'article",
     "app.blockmenu": "Menu du bloc",
     "app.componentmenu": "Menu du composant",
-    "app.pinfinder.mobilefallbackmessage": "Il n'est pas possible d'utiliser le dispositif de repérage de d'épingle en raison de la faible largeur de l'appareil.",
+    "app.pinfinder.mobilefallbackmessage": "Il n'est pas possible d'utiliser l'éditeur d'épingle en raison de la faible largeur de l'appareil.",
     "app.pinfinder.error":"Vous devez sélectionner une image comme source graphique pour utiliser l'éditeur d'épingle."
 }

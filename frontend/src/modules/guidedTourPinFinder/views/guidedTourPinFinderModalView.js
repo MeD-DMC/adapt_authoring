@@ -315,7 +315,7 @@ define(function (require) {
 
     handleOutOfViewport: function () {
       if ($('.shepherd-element').length > 0) {
-        const shepherdRect = $('.shepherd-element')[0].getBoundingClientRect();
+        const bullseyeRect = $('#bullseye')[0].getBoundingClientRect();
         const pinfinderOverlay = $('.pin-finder-overlay');
         const pinfinderOverlayRect = pinfinderOverlay.length > 0 ? pinfinderOverlay[0].getBoundingClientRect() : null;
         const acceptableTop = pinfinderOverlayRect ? pinfinderOverlayRect.top : window.innerHeight * 2.5 / 100;
@@ -324,10 +324,10 @@ define(function (require) {
         const acceptableRight = pinfinderOverlayRect ? pinfinderOverlayRect.right : window.innerWidth;
 
         if (
-          shepherdRect.bottom > acceptableBottom ||
-          shepherdRect.right > acceptableRight ||
-          shepherdRect.left < acceptableLeft ||
-          shepherdRect.top < acceptableTop
+          bullseyeRect.bottom > acceptableBottom ||
+          bullseyeRect.right > acceptableRight ||
+          bullseyeRect.left < acceptableLeft ||
+          bullseyeRect.top < acceptableTop
         ) {
           this.repositionTarget({ left: '0', top: '0' });
         }

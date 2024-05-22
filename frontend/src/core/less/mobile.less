@@ -9,7 +9,7 @@ screen and (min-resolution: 2dppx) {
 
     .expand-sidebar,
     .collapse-sidebar {
-        display: flex!important;
+        display: flex !important;
     }
 
     .page-inner {
@@ -36,16 +36,12 @@ screen and (min-resolution: 2dppx) {
         width: 100% !important;
     }
 
-    .scaffold-items-modal-sidebar {
-        width: 100% !important;
-    }
-
     .help-dialog-icon-wrapper {
         display: none !important;
     }
 
     .help-dialog-content-wrapper {
-        width: 100%!important;
+        width: 100% !important;
     }
 
     .location-nav {
@@ -96,5 +92,15 @@ screen and (min-resolution: 2dppx) {
                 padding: 0 10px !important;
             }
         }
+    }
+}
+
+@media (max-width: 740px),
+screen and (min--moz-device-pixel-ratio: 2),
+screen and (-o-min-device-pixel-ratio: 2/1),
+screen and (-webkit-min-device-pixel-ratio: 2),
+screen and (min-resolution: 2dppx) {
+    .scaffold-items-modal-sidebar {
+        width: 100% !important;
     }
 }

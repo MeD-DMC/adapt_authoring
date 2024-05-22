@@ -1,8 +1,8 @@
 <div class="pin-finder-overlay">
   <div class="pin-finder-inner">
     <div class="pin-finder-image-container">
-      <div class="pin-finder-image-wrapper">
-        <image draggable="false" src="{{stepData.src}}" />
+      <div class="pin-finder-image-wrapper{{#unless layoutFull}} half-width{{/unless}}">
+        <img draggable="false" src="{{stepData.src}}"/>
       </div>
     </div>
     <div class="pin-finder-menu-bar">

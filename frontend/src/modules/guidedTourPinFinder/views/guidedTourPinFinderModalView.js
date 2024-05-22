@@ -15,6 +15,8 @@ define(function (require) {
     },
 
     initialize: function () {
+      var self = this;
+      var componentId = this.getComponentId();
       const form = this.model.get('form');
       const src = form.$el.find('#_graphic_src img').attr('src');
       const imageId = src.substring(src.lastIndexOf('/') + 1);
@@ -30,7 +32,21 @@ define(function (require) {
       this.model.set('stepData', data);
       this.dragTargetBound = this.dragTarget.bind(this);
       this.stopDraggingBound = this.stopDragging.bind(this);
-      this.render();
+      if (componentId) {
+        $.ajax({
+          url: `api/content/component/${componentId}`,
+          method: 'GET',
+          async: false,
+          success: function (res) {
+            self.model.set('layoutFull', (res._layout === "full"));
+            self.render();
+          },
+          error: function (error) {
+            console.error('Problem loading content info for component');
+          }
+        });
+      }
+
     },
 
     preRender: function () {
@@ -279,6 +295,20 @@ define(function (require) {
       return offsetMap[data.direction];
     },
 
+    getBullseyeOffsetTop: function () {
+      var data = this.model.get('stepData');
+      const offsetMap = {
+        'left': 10,
+        'right': 10,
+        'top': -20,
+        'bottom': 41,
+        'none': 26
+      };
+
+      // Set default value to 0 in case direction is not in the map
+      return offsetMap[data.direction];
+    },
+
     handleOutOfViewport: function () {
       if ($('.shepherd-element').length > 0) {
         const shepherdRect = $('.shepherd-element')[0].getBoundingClientRect();
@@ -295,23 +325,9 @@ define(function (require) {
           shepherdRect.left < acceptableLeft ||
           shepherdRect.top < acceptableTop
         ) {
-          this.repositionTarget({left: '0', top: '0'});
+          this.repositionTarget({ left: '0', top: '0' });
         }
       }
-    },
-
-    getBullseyeOffsetTop: function () {
-      var data = this.model.get('stepData');
-      const offsetMap = {
-        'left': 10,
-        'right': 10,
-        'top': -20,
-        'bottom': 41,
-        'none': 26
-      };
-
-      // Set default value to 0 in case direction is not in the map
-      return offsetMap[data.direction];
     },
 
     applyToForm: function () {
@@ -331,6 +347,14 @@ define(function (require) {
       top.val(data.top);
       direction.val(data.direction);
       color.spectrum("set", data.borderColor);
+    },
+
+    getComponentId: function () {
+      const urlObj = window.location;
+      const hash = urlObj.hash;
+      const parts = hash.split('/');
+      const extractedPart = parts[parts.length - 2];
+      return extractedPart;
     }
 
   });

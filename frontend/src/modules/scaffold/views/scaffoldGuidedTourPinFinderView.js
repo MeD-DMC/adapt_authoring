@@ -37,13 +37,11 @@ define(['core/origin', 'backbone-forms'], function (Origin, BackboneForms) {
           if (mutation.type === 'childList') {
             mutation.addedNodes.forEach(function (node) {
               if (node.nodeName.toLowerCase() === 'img') {
-                console.log('An img was inserted');
                 self.enablePinEditor();
               }
             });
             mutation.removedNodes.forEach(function (node) {
               if (node.nodeName.toLowerCase() === 'img') {
-                console.log('An img was removed');
                 self.disablePinEditor();
               }
             });

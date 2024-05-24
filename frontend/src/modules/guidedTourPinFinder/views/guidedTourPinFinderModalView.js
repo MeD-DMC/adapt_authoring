@@ -24,6 +24,7 @@ define(function (require) {
         src: `api/asset/serve/${imageId}`,
         title: form.fields.title.$el.find('input#title').val() || 'Sample Title',
         body: form.fields.body.$el.find('.ck-content').html(),
+        forceFullWidth: form.fields._graphic.$el.find('input#_graphic__forceFullWidth').is(":checked"),
         left: form.fields._pin.$el.find('input#_pin__left').val(),
         top: form.fields._pin.$el.find('input#_pin__top').val(),
         direction: form.fields._pin.$el.find('select#_pin__bubbledirection').val(),

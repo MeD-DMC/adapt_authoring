@@ -564,5 +564,15 @@
   "app.blockmenu": "Block menu",
   "app.componentmenu": "Component menu",
   "app.pinfinder.mobilefallbackmessage": "The pin editor cannot be used due to the narrow width.",
-  "app.pinfinder.error":"You must select an image as graphic src to use the pin editor."
+  "app.pinfinder.error":"You must select an image as graphic src to use the pin editor.",
+  "app.pineditor": "Pin Editor",
+  "app.top": "Top",
+  "app.scaffold.component._pin._bubbledirection.label": "Bubble Direction",
+  "app.scaffold._bubbledirection.none.variable": "none",
+  "app.scaffold._bubbledirection.left.variable": "left",
+  "app.scaffold._bubbledirection.right.variable": "right",
+  "app.scaffold._bubbledirection.top.variable": "top",
+  "app.scaffold._bubbledirection.bottom.variable": "bottom",
+  "app.scaffold.component._pin._bordercolor.label": "Bubble Border Color"
+
 }

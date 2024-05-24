@@ -1634,5 +1634,9 @@
     "app.blockmenu": "Menu du bloc",
     "app.componentmenu": "Menu du composant",
     "app.pinfinder.mobilefallbackmessage": "Il n'est pas possible d'utiliser l'éditeur d'épingle en raison de la faible largeur de l'appareil.",
-    "app.pinfinder.error": "Vous devez sélectionner une image comme source graphique pour utiliser l'éditeur d'épingle."
+    "app.pinfinder.error": "Vous devez sélectionner une image comme source graphique pour utiliser l'éditeur d'épingle.",
+    "app.top": "Haut",
+    "app.scaffold.component._graphic._forceFullWidth.label": "Élargir à la pleine largeur",
+    "app.scaffold.component._graphic._forceFullWidth.help": "Élargir à la pleine largeur",
+    "app.pineditor": "Éditeur d'épingle"
 }

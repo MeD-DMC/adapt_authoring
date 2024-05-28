@@ -1703,5 +1703,6 @@
     "app.top": "Haut",
     "app.pineditor": "Éditeur d'épingle",
     "app.scaffold.component._graphic._forceFullWidth.label": "Élargir à la pleine largeur",
-    "app.scaffold.component._graphic._forceFullWidth.help": "Élargir à la pleine largeur"
+    "app.scaffold.component._graphic._forceFullWidth.help": "Élargir à la pleine largeur",
+    "app.pinfinder.imgtoohighwarning": "Avertissement: La hauteur de l'image dépasse la plage acceptable, ce qui entraîne une réinitialisation des coordonnées à 0 dans l'éditeur d'épingle."
 }

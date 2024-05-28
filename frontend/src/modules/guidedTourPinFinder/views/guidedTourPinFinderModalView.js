@@ -82,6 +82,14 @@ define(function (require) {
       });
 
       image.on('load', function () {
+        const pinImageCtn = $('.pin-finder-image-container');
+        if (pinImageCtn && image && (pinImageCtn.height() < image.height())) {
+          data.left = '0';
+          data.top = '0';
+          self.model.set('stepData', data);
+          $('.pin-finder-img-too-high').html(Origin.l10n.t('app.pinfinder.imgtoohighwarning'));
+          $('.pin-finder-img-too-high').toggleClass('hidden', false);
+        }
         self.onImageLoaded();
       });
 
@@ -240,6 +248,8 @@ define(function (require) {
 
     startDragging: function (event) {
       window.isDragging = true;
+      $('.pin-finder-img-too-high').html('');
+      $('.pin-finder-img-too-high').toggleClass('hidden', true);
       document.addEventListener('mousemove', this.dragTargetBound);
       document.addEventListener('mouseup', this.stopDraggingBound);
     },

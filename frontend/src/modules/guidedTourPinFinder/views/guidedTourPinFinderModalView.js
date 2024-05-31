@@ -83,12 +83,15 @@ define(function (require) {
 
       image.on('load', function () {
         const pinImageCtn = $('.pin-finder-image-container');
-        if (pinImageCtn && image && (pinImageCtn.height() < image.height())) {
+        var positionNotZero = data.left !== '0' && data.top !== '0';
+        if (pinImageCtn && image && (pinImageCtn.height() < image.height()) && positionNotZero) {
           data.left = '0';
           data.top = '0';
           self.model.set('stepData', data);
-          $('.pin-finder-img-too-high').html(Origin.l10n.t('app.pinfinder.imgtoohighwarning'));
-          $('.pin-finder-img-too-high').toggleClass('hidden', false);
+          Origin.Notify.alert({
+            type: 'warning',
+            text: Origin.l10n.t('app.pinfinder.imgtoohighwarning')
+          });
         }
         self.onImageLoaded();
       });

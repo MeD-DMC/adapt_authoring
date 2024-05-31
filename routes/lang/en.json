@@ -574,5 +574,5 @@
   "app.scaffold._bubbledirection.top.variable": "top",
   "app.scaffold._bubbledirection.bottom.variable": "bottom",
   "app.scaffold.component._pin._bordercolor.label": "Bubble Border Color",
-  "app.pinfinder.imgtoohighwarning": "Warning: The image's height exceeds the acceptable range, prompting a reset of the coordinates to 0 on the pin editor."
+  "app.pinfinder.imgtoohighwarning": "The image height exceeds the pin editor's limit. The pin editor will still function, but the pin cannot be automatically reset to its previous position."
 }

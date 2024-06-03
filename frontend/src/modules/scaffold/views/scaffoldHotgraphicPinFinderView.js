@@ -24,31 +24,13 @@ define(['core/origin', 'backbone-forms'], function (Origin, BackboneForms) {
     },
 
     postRender: function () {
-      if(this.form && this.form.fields && this.form.fields._graphic && this.form.fields._graphic.$el){
-        var _graphic_src = this.form.fields._graphic.$el.find('#_graphic_src')[0];
-        this.startObserver(_graphic_src);
+      var mainHotgraphicImg = $('.component-edit-inner').find(".fieldset-properties").find("img.scaffold-asset-preview");
+      if (mainHotgraphicImg.length > 0) {
+        this.enablePinEditor();
       }
-    },
-
-    startObserver: function (targetNode) {
-      var self = this;
-      this.observer = new MutationObserver(function (mutationsList) {
-        for (var mutation of mutationsList) {
-          if (mutation.type === 'childList') {
-            mutation.addedNodes.forEach(function (node) {
-              if (node.nodeName.toLowerCase() === 'img') {
-                self.enablePinEditor();
-              }
-            });
-            mutation.removedNodes.forEach(function (node) {
-              if (node.nodeName.toLowerCase() === 'img') {
-                self.disablePinEditor();
-              }
-            });
-          }
-        }
-      });
-      this.observer.observe(targetNode, { childList: true, subtree: true });
+      else {
+        this.disablePinEditor();
+      }
     },
 
     enablePinEditor: function () {
@@ -67,13 +49,12 @@ define(['core/origin', 'backbone-forms'], function (Origin, BackboneForms) {
       if (this.imageReady) {
         Origin.trigger('hotgraphicpinfinder:open', this);
       } else {
-        var errorMsg = Origin.l10n.t('app.pinfinder.error') || 'You must select an image as graphic src to use the pin editor.';
+        var errorMsg = Origin.l10n.t('app.hotgraphicpinfinder.error') || 'You must select an image as main hotgraphic src to use the pin editor.';
         this.$el.find('.field-error').text(errorMsg);
       }
     },
 
     remove: function () {
-      this.observer.disconnect();
       Backbone.View.prototype.remove.apply(this, arguments);
     }
 

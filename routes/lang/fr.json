@@ -1639,5 +1639,6 @@
     "app.pineditor": "Éditeur d'épingle",
     "app.scaffold.component._graphic._forceFullWidth.label": "Élargir à la pleine largeur",
     "app.scaffold.component._graphic._forceFullWidth.help": "Élargir à la pleine largeur",
-    "app.pinfinder.imgtoohighwarning": "La hauteur de l'image dépasse la limite de l'éditeur d'épingle. L'éditeur d'épingle fonctionnera toujours, mais l'épingle ne pourra pas être réinitialisée automatiquement à sa position précédente."
+    "app.pinfinder.imgtoohighwarning": "La hauteur de l'image dépasse la limite de l'éditeur d'épingle. L'éditeur d'épingle fonctionnera toujours, mais l'épingle ne pourra pas être réinitialisée automatiquement à sa position précédente.",
+    "app.hotgraphicpinfinder.error": "Vous devez sélectionner une image de l'élément comme source graphique pour utiliser l'éditeur d'épingle."
 }

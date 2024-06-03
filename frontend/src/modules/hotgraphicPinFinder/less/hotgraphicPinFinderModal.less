@@ -10,21 +10,26 @@
     top: 0px;
 }
 
-#bullseye {
+#hotgraphic-bullseye {
     position: absolute;
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    outline: 1px solid black;
     cursor: move;
     user-select: none;
     z-index: 99999999 !important;
     left: 0px;
     top: 0px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
     transition: opacity 0.2s;
+    &.hotgraphic-graphic-pin-image {
+        display: block;
+    }
+    &:not(.hotgraphic-graphic-pin-image) {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        outline: 1px solid black;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr 1fr;
+    }
     &:active {
         opacity: 0.8;
     }

@@ -17,10 +17,14 @@ define(function (require) {
       var self = this;
       var componentId = this.getComponentId();
       const form = this.model.get('form');
-      const src = form.$el.find('#_graphic_src img').attr('src');
+      const mainHotgraphicImg = $('.component-edit-inner').find(".fieldset-properties").find("img.scaffold-asset-preview");
+      const src = mainHotgraphicImg.attr('src');
       const imageId = src.substring(src.lastIndexOf('/') + 1);
+      const pinSrc = form.$el.find('#_pin_src img').attr('src');
+      const pinImageId = pinSrc ? pinSrc.substring(src.lastIndexOf('/') + 1) : null;
       var data = {
         src: `api/asset/serve/${imageId}`,
+        pinSrc: pinImageId ? `api/asset/serve/${pinImageId}` : '',
         title: form.fields.title.$el.find('input#title').val() || 'Sample Title',
         body: form.fields.body.$el.find('.ck-content').html(),
         left: form.fields._left.$el.find('input#_left').val(),
@@ -66,13 +70,20 @@ define(function (require) {
       var data = this.model.get('pinData');
       var image = this.$el.find('img');
 
-      $('.module-editor').append('<div id="bullseye" class="display-none"> <div class="box1"></div><div class="box2"></div><div class="box3"></div><div class="box4"></div></div>');
+      if (data && data.pinSrc && data.pinSrc.length > 0) {
+        $('.module-editor').append(`<div id="hotgraphic-bullseye" class="hotgraphic-graphic-pin-image display-none">
+          <img src="${data.pinSrc}">
+        </div>`);
+      }
+      else {
+        $('.module-editor').append('<div id="hotgraphic-bullseye" class="display-none"> <div class="box1"></div><div class="box2"></div><div class="box3"></div><div class="box4"></div></div>');
+      }
 
-      $('.module-editor #bullseye').on('mousedown', function (event) {
+      $('.module-editor #hotgraphic-bullseye').on('mousedown', function (event) {
         self.startDragging(event);
       });
 
-      $('.module-editor #bullseye').on('dragstart', function () {
+      $('.module-editor #hotgraphic-bullseye').on('dragstart', function () {
         return false
       });
 
@@ -94,7 +105,7 @@ define(function (require) {
 
     remove: function () {
       $('#target').remove();
-      $('#bullseye').remove();
+      $('#hotgraphic-bullseye').remove();
       Backbone.View.prototype.remove.apply(this, arguments);
     },
 
@@ -104,7 +115,7 @@ define(function (require) {
 
     repositionTarget: function (opts) {
       var data = this.model.get('pinData');
-      const bullseye = document.getElementById('bullseye');
+      const bullseye = document.getElementById('hotgraphic-bullseye');
       var imageCtn = $('.pin-finder-image-wrapper img');
       const imageContainer = imageCtn[0];
       if (!imageContainer) return;
@@ -126,7 +137,7 @@ define(function (require) {
 
       $('.shepherd-element').removeClass('display-none');
       $('#target').removeClass('display-none');
-      $('#bullseye').removeClass('display-none');
+      $('#hotgraphic-bullseye').removeClass('display-none');
 
       $('.pin-finder-controls .left').html(percentageX.toFixed(2));
       $('.pin-finder-controls .top').html(percentageY.toFixed(2));
@@ -141,7 +152,7 @@ define(function (require) {
     dragTarget: function (event) {
       if (window.isDragging) {
         var data = this.model.get('pinData');
-        const bullseye = document.getElementById('bullseye');
+        const bullseye = document.getElementById('hotgraphic-bullseye');
         var imageCtn = $('.pin-finder-image-wrapper img');
         const imageContainer = imageCtn[0];
         const containerRect = imageContainer.getBoundingClientRect();
@@ -176,23 +187,21 @@ define(function (require) {
     },
 
     handleOutOfViewport: function () {
-      if ($('.shepherd-element').length > 0) {
-        const bullseyeRect = $('#bullseye')[0].getBoundingClientRect();
-        const pinfinderOverlay = $('.pin-finder-overlay');
-        const pinfinderOverlayRect = pinfinderOverlay.length > 0 ? pinfinderOverlay[0].getBoundingClientRect() : null;
-        const acceptableTop = pinfinderOverlayRect ? pinfinderOverlayRect.top : window.innerHeight * 2.5 / 100;
-        const acceptableLeft = pinfinderOverlayRect ? pinfinderOverlayRect.left : window.innerWidth * 2.5 / 100;
-        const acceptableBottom = pinfinderOverlayRect ? pinfinderOverlayRect.bottom : window.innerHeight;
-        const acceptableRight = pinfinderOverlayRect ? pinfinderOverlayRect.right : window.innerWidth;
+      const bullseyeRect = $('#hotgraphic-bullseye')[0].getBoundingClientRect();
+      const pinfinderOverlay = $('.pin-finder-overlay');
+      const pinfinderOverlayRect = pinfinderOverlay.length > 0 ? pinfinderOverlay[0].getBoundingClientRect() : null;
+      const acceptableTop = pinfinderOverlayRect ? pinfinderOverlayRect.top : window.innerHeight * 2.5 / 100;
+      const acceptableLeft = pinfinderOverlayRect ? pinfinderOverlayRect.left : window.innerWidth * 2.5 / 100;
+      const acceptableBottom = pinfinderOverlayRect ? pinfinderOverlayRect.bottom : window.innerHeight;
+      const acceptableRight = pinfinderOverlayRect ? pinfinderOverlayRect.right : window.innerWidth;
 
-        if (
-          bullseyeRect.bottom > acceptableBottom ||
-          bullseyeRect.right > acceptableRight ||
-          bullseyeRect.left < acceptableLeft ||
-          bullseyeRect.top < acceptableTop
-        ) {
-          this.repositionTarget({ left: '0', top: '0' });
-        }
+      if (
+        bullseyeRect.bottom > acceptableBottom ||
+        bullseyeRect.right > acceptableRight ||
+        bullseyeRect.left < acceptableLeft ||
+        bullseyeRect.top < acceptableTop
+      ) {
+        this.repositionTarget({ left: '0', top: '0' });
       }
     },
 

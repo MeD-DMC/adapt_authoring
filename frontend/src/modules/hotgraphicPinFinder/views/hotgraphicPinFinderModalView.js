@@ -80,7 +80,7 @@ define(function (require) {
         </div>`);
       }
       else {
-        $('.module-editor').append('<div id="hotgraphic-bullseye" class="display-none"> <div class="box1"></div><div class="box2"></div><div class="box3"></div><div class="box4"></div></div>');
+        $('.module-editor').append('<div id="hotgraphic-bullseye" class="display-none icon icon-pin"></div>');
       }
 
       $('.module-editor #hotgraphic-bullseye').on('mousedown', function (event) {

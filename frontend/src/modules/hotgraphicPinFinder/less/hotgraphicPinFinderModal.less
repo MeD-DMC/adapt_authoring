@@ -22,13 +22,9 @@
         display: block;
     }
     &:not(.hotgraphic-graphic-pin-image) {
-        width: 30px;
-        height: 30px;
+        background-color: #FFF;
         border-radius: 50%;
-        outline: 1px solid black;
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        grid-template-rows: 1fr 1fr;
+        display: block;
     }
     &:active {
         opacity: 0.8;
@@ -193,4 +189,25 @@
     .pin-finder-mobile-fallback-message-container {
         display: none !important;
     }
+}
+
+.icon {
+    font-family: 'vanilla';
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    color: #1c4e8a;
+    font-size: 48px;
+    height: 48px;
+    width: 48px;
+    -webkit-transform: translateZ(0);
+}
+
+.icon-pin:before {
+    content: "\e60f";
 }

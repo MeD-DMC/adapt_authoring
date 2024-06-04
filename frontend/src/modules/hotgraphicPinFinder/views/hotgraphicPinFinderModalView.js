@@ -22,10 +22,14 @@ define(function (require) {
       const imageId = src.substring(src.lastIndexOf('/') + 1);
       const pinSrc = form.$el.find('#_pin_src img').attr('src');
       const pinImageId = pinSrc ? pinSrc.substring(src.lastIndexOf('/') + 1) : null;
+
+      var forceFullWidth = $('.component-edit-inner').find(".fieldset-properties").find("input[name='_forceFullWidth']");
+
       var data = {
         src: `api/asset/serve/${imageId}`,
         pinSrc: pinImageId ? `api/asset/serve/${pinImageId}` : '',
         title: form.fields.title.$el.find('input#title').val() || 'Sample Title',
+        forceFullWidth: forceFullWidth.is(":checked"),
         body: form.fields.body.$el.find('.ck-content').html(),
         left: form.fields._left.$el.find('input#_left').val(),
         top: form.fields._top.$el.find('input#_top').val(),

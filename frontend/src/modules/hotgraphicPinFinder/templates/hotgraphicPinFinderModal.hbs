@@ -1,7 +1,7 @@
 <div class="pin-finder-overlay">
   <div class="pin-finder-inner">
     <div class="pin-finder-image-container">
-      <div class="pin-finder-image-wrapper{{#unless layoutFull}} half-width{{/unless}}">
+      <div class="pin-finder-image-wrapper{{#unless layoutFull}} half-width{{/unless}} {{#if stepData.forceFullWidth}} force-full-width{{/if}}">
         <img draggable="false" src="{{pinData.src}}"/>
       </div>
     </div>

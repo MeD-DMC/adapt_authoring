@@ -209,7 +209,20 @@ define(function (require) {
       }
     },
 
+    setFinderSize: function(){
+      var data = this.model.get('pinData');
+      var imageCtn = $('.pin-finder-image-wrapper img');
+      var img = imageCtn[0];
+      var originalWidth = img.naturalWidth;
+      var currentWidth = img.clientWidth;
+      var difference = originalWidth - currentWidth;
+      var percentageChange = (difference / originalWidth) * 100;
+      data.pinFinderSize = percentageChange;
+      this.model.set('pinData', data);
+    },
+
     applyToForm: function () {
+      this.setFinderSize();
       var data = this.model.get('pinData');
       this.applyToFields(data);
       this.remove();
@@ -217,9 +230,10 @@ define(function (require) {
 
     applyToFields: function (data) {
       var form = this.model.get('form');
-      var _pin = form.fields._pin.$el;
+      var pinFinderSize = form.fields._pinfinderSize.$el.find('input#_pinfinderSize');
       var left = form.fields._left.$el.find('input#_left');
       var top = form.fields._top.$el.find('input#_top');
+      pinFinderSize.val(data.pinFinderSize);
       left.val(data.left);
       top.val(data.top);
     },

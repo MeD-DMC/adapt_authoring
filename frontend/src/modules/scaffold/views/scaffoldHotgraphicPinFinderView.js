@@ -24,7 +24,7 @@ define(['core/origin', 'backbone-forms'], function (Origin, BackboneForms) {
     },
 
     postRender: function () {
-      var mainHotgraphicImg = $('.component-edit-inner').find(".fieldset-properties").find("img.scaffold-asset-preview");
+      var mainHotgraphicImg = $('.component-edit-inner').find("[data-key='properties']").find("img.scaffold-asset-preview");
       if (mainHotgraphicImg.length > 0) {
         this.enablePinEditor();
       }

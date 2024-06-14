@@ -1640,5 +1640,13 @@
     "app.scaffold.component._graphic._forceFullWidth.label": "Élargir à la pleine largeur",
     "app.scaffold.component._graphic._forceFullWidth.help": "Élargir à la pleine largeur",
     "app.pinfinder.imgtoohighwarning": "La hauteur de l'image dépasse la limite de l'éditeur d'épingle. L'éditeur d'épingle fonctionnera toujours, mais l'épingle ne pourra pas être réinitialisée automatiquement à sa position précédente.",
-    "app.hotgraphicpinfinder.error": "Vous devez sélectionner une image de l'élément comme source graphique pour utiliser l'éditeur d'épingle."
+    "app.hotgraphicpinfinder.error": "Vous devez sélectionner une image de l'élément comme source graphique pour utiliser l'éditeur d'épingle.",
+    "app.scaffold.course._extensions._Adapt-accessibilitystatement.legend": "Énoncé d'accessibilité",
+    "app.scaffold.course._accessibilityStatement._statementEnabled.label": "Afficher l'énoncé d'accessibilité",
+    "app.scaffold.course._accessibilityStatement._statementEnabled.help": "Si cette option est activée, un énoncé d'accessibilité sera automatiquement affichée dans le menu principal du cours.",
+    "app.scaffold.course._accessibilityStatement._sabaProfile.label": "Lien du profil de Saba",
+    "app.scaffold.course._accessibilityStatement._sabaProfile.help": "Utilisez ce champ pour établir un lien avec votre profil Saba dans la section contact de l'énoncé.",
+    "app.scaffold.course._accessibilityStatement._customSection.label": "Considérations spécifiques au cours",
+    "app.scaffold.course._accessibilityStatement._customSection.help": "Ce texte sera affiché dans l'énoncé d'accessibilité en tant que considérations  spécifiques au cours.",
+    "app.scaffold.course._Adapt-accessibilitystatement._accessibilityStatement.label": "Options supplémentaires"
 }

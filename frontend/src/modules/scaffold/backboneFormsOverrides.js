@@ -171,15 +171,6 @@ define([
     return this;
   };
 
-  Backbone.Form.editors.TextArea.prototype.postRender = function() {
-    var currentDate = new Date();
-    var targetDate = new Date('2024-06-01');
-    if (currentDate < targetDate) {
-      var editorWrapper = this.$el.parent();
-      editorWrapper.append(`<span class="ck-help">${Origin.l10n.t('app.ckhelp')}</span>`);
-    }
-  }
-
   // get data from ckeditor in textarea
   Backbone.Form.editors.TextArea.prototype.getValue = function() {
     return this.editor && this.editor.editor ? this.editor.editor.getData() : null;

@@ -575,6 +575,9 @@
   "app.scaffold._bubbledirection.bottom.variable": "bottom",
   "app.scaffold.component._pin._bordercolor.label": "Bubble Border Color",
   "app.pinfinder.imgtoohighwarning": "The image height exceeds the pin editor's limit. The pin editor will still function, but the pin cannot be automatically reset to its previous position.",
-  "app.hotgraphicpinfinder.error": "You must select an image as main hotgraphic src to use the pin editor."
-
+  "app.hotgraphicpinfinder.error": "You must select an image as main hotgraphic src to use the pin editor.",
+  "app.zoneeditor": "Zone Editor",
+  "app.width": "Width",
+  "app.height": "Height",
+  "app.simulationzonefinder.error": "You must select an image as main screen src to use the zone editor."
 }

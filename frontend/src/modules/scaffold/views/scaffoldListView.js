@@ -129,7 +129,8 @@ define([
         });
       });
 
-      this.list.addItem(this.editor.value, true);
+      var listItem = _.omit(this.editor.value, '_screendID');
+      this.list.addItem(listItem, true);
     }
   });
 
@@ -176,7 +177,7 @@ define([
       // ESDC - added translated label to schema
       var translatedTitle = Helpers.keyToTranslatedString({ key: convertNameToCamelCase(title), level: '_items', type: 'label', fallback: title });
       const noTitle = this.nestedSchema[key].noTitle || false;
-      return noTitle ? parts : parts + '<p class="list-item-modal-item">' + wrapSchemaTitle(translatedTitle) + val + '</p>';
+      return noTitle ? parts : parts + '<p class="list-item-modal-item">' + wrapSchemaTitle(translatedTitle) + wrapSchemaValue(val) + '</p>';
     }.bind(this), '');
   }
 
@@ -214,6 +215,10 @@ define([
 
   function wrapSchemaTitle(value) {
     return '<span class="list-item-description">' + value + ':</span>';
+  }
+
+  function wrapSchemaValue(value) {
+    return '<span class="list-item-value">' + value + '</span>';
   }
 
   return ScaffoldListView;

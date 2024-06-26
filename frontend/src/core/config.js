@@ -22,6 +22,7 @@ require.config({
     scrollTo: 'libraries/scrollTo',
     selectize: 'libraries/selectize/js/selectize',
     shepherd: 'libraries/shepherd/shepherd',
+    cropper: 'libraries/cropperjs/js/cropper',
     sweetalert: 'libraries/sweetalert.min',
     sweetalert2: 'libraries/sweetalert2.min',
     typeahead: 'libraries/typeahead',

@@ -1713,5 +1713,9 @@
     "app.scaffold.course._accessibilityStatement._customSection.label": "Considérations spécifiques au cours",
     "app.scaffold.course._accessibilityStatement._customSection.help": "Ce texte sera affiché dans l'énoncé d'accessibilité en tant que considérations  spécifiques au cours.",
     "app.scaffold.course._accessibilityStatement._sabaProfile.label": "Lien du profil de Saba",
-    "app.scaffold.course._accessibilityStatement._sabaProfile.help": "Utilisez ce champ pour établir un lien avec votre profil Saba dans la section contact de l'énoncé."
+    "app.scaffold.course._accessibilityStatement._sabaProfile.help": "Utilisez ce champ pour établir un lien avec votre profil Saba dans la section contact de l'énoncé.",
+    "app.zoneeditor": "Éditeur de zone",
+    "app.width": "Largeur",
+    "app.height": "Hauteur",
+    "app.simulationzonefinder.error" : "Vous devez sélectionner une image comme src de l'écran pour utiliser l'éditeur de zone."
 }

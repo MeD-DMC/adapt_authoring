@@ -14,6 +14,7 @@
       'scrollTo',
       'selectize',
       'shepherd',
+      'cropper',
       'sweetalert',
       'sweetalert2',
       'velocity'

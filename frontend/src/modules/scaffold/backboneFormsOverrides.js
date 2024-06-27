@@ -13,6 +13,81 @@ define([
   var textAreaRender = Backbone.Form.editors.TextArea.prototype.render;
   var textAreaSetValue = Backbone.Form.editors.TextArea.prototype.setValue;
 
+  function applyFieldConditions(self) {
+
+    let hasAndConditions = self.schema && self.schema.conditions && self.schema.conditions.and && self.schema.conditions.and.length > 0;
+    let hasOrConditions = self.schema && self.schema.conditions && self.schema.conditions.or && self.schema.conditions.or.length > 0;
+
+    if (!(hasAndConditions || hasOrConditions)) {
+      return;
+    }
+
+    let andConditionResults = [];
+
+    function toggleFieldVisibility() {
+      let $el = self.form.$el.find(`[data-editor-id="${self.key}"]`);
+      if (andConditionResults.length < 1 || (hasAndConditions && andConditionResults.includes("failed"))) {
+        $el.hide();
+      }
+      else {
+        $el.show();
+      }
+    }
+
+    function getAndConditionResult(val, obj) {
+      let passedValue = obj['value'] && (obj['value']).split(',').includes(val);
+      let failedValue = obj['value'] && !(obj['value']).split(',').includes(val);
+      let passedNotValue = obj['!value'] && !(obj['!value']).split(',').includes(val);
+      let failedNotValue = obj['!value'] && (obj['!value']).split(',').includes(val);
+
+      if (passedValue || passedNotValue) {
+        andConditionResults.push('passed');
+      }
+      else if (failedValue || failedNotValue) {
+        andConditionResults.push('failed');
+      }
+    }
+
+    function getEditorValue(obj) {
+      let editorValue = self.form.fields[obj['name']].editor.$el.val();
+      if (self.form.fields[obj['name']].editor.$el.prop('type') == 'checkbox') {
+        editorValue = self.form.fields[obj['name']].editor.$el.prop('checked');
+      }
+      // some editors (e.g. checkbox) return values (e.g. on, off) that don't match the type of the field (e.g. boolean - true/false)
+      switch (editorValue) {
+        case "on":
+          editorValue = "true";
+          break;
+        case "off":
+          editorValue = "false";
+          break;
+        default:
+          break;
+      }
+      return String(editorValue);
+    }
+
+    self.form.$el.find(`[data-editor-id="${self.key}"]`).hide();
+
+    if (hasAndConditions) {
+      for (const obj of self.schema.conditions.and) {
+        if (!obj || !obj['name'] || !(obj['value'] || obj['!value'])) {
+          continue;
+        }
+        if (self.form.fields[obj['name']].$el) {
+          self.form.fields[obj['name']].editor.$el.on('change', function(e) {
+            // reset the andConditionResults when the condition field value changes
+            andConditionResults = [];
+            getAndConditionResult(getEditorValue(obj), obj);
+            toggleFieldVisibility();
+          });
+          getAndConditionResult(getEditorValue(obj), obj);
+          toggleFieldVisibility();
+        }
+      }
+    }
+  }
+
   Backbone.Form.prototype.constructor.template = templates.form;
   Backbone.Form.Fieldset.prototype.template = templates.fieldset;
   Backbone.Form.Field.prototype.template = fieldTemplate;
@@ -163,6 +238,8 @@ define([
           }
         })
         .then(() => {
+          let self = this;
+          applyFieldConditions(self);
           this.postRender();
         })
         .catch((error) => {});

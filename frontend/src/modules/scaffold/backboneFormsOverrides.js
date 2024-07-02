@@ -2,8 +2,9 @@ define([
   'core/origin',
   'backbone-forms',
   'backbone-forms-lists',
-  'core/helpers'
-], function(Origin, BackboneForms, BackboneFormsList, Helpers) {
+  'core/helpers',
+  './views/scaffoldSelectScreenView'
+], function (Origin, BackboneForms, BackboneFormsList, Helpers, ScaffoldSelectScreenView) {
 
   var templates = Handlebars.templates;
   var fieldTemplate = templates.field;
@@ -13,7 +14,156 @@ define([
   var textAreaRender = Backbone.Form.editors.TextArea.prototype.render;
   var textAreaSetValue = Backbone.Form.editors.TextArea.prototype.setValue;
 
+  function applyFieldConditions(self) {
+
+    let hasAndConditions = self.schema && self.schema.conditions && self.schema.conditions.and && self.schema.conditions.and.length > 0;
+    let hasOrConditions = self.schema && self.schema.conditions && self.schema.conditions.or && self.schema.conditions.or.length > 0;
+
+    if (!(hasAndConditions || hasOrConditions)) {
+      return;
+    }
+
+    let andConditionResults = {};
+    let orConditionResults = {};
+
+    function toggleFieldVisibility() {
+      let $el = self.form.$el.find(`[data-editor-id="${self.id}"]`);
+      let passedAndConditions = hasAndConditions && !Object.values(andConditionResults).includes("failed");
+      let failedAndConditions = hasAndConditions && Object.values(andConditionResults).includes("failed");
+      let passedOrConditions = hasOrConditions && Object.values(orConditionResults).includes("passed");
+      let failedOrConditions = hasOrConditions && !Object.values(orConditionResults).includes("passed");
+
+      if ((hasAndConditions && Object.keys(andConditionResults).length < 1) ||
+        (hasOrConditions && Object.keys(orConditionResults).length < 1) ||
+        (hasAndConditions && failedAndConditions) ||
+        (hasOrConditions && failedOrConditions)) {
+          $el.hide();
+      }
+      else if (passedAndConditions || passedOrConditions) {
+        $el.show();
+      }
+    }
+
+    function getAndConditionResult(val, obj) {
+      let passedValue = obj['value'] && (obj['value']).split(',').includes(val);
+      let failedValue = obj['value'] && !(obj['value']).split(',').includes(val);
+      let passedNotValue = obj['!value'] && !(obj['!value']).split(',').includes(val);
+      let failedNotValue = obj['!value'] && (obj['!value']).split(',').includes(val);
+
+      if (passedValue || passedNotValue) {
+        andConditionResults[obj['name']] = 'passed';
+      }
+      else if (failedValue || failedNotValue) {
+        andConditionResults[obj['name']] = 'failed';
+      }
+    }
+
+    function getOrConditionResult(val, obj) {
+      let passedValue = obj['value'] && (obj['value']).split(',').includes(val);
+      let failedValue = obj['value'] && !(obj['value']).split(',').includes(val);
+      let passedNotValue = obj['!value'] && !(obj['!value']).split(',').includes(val);
+      let failedNotValue = obj['!value'] && (obj['!value']).split(',').includes(val);
+
+      if (passedValue || passedNotValue) {
+        orConditionResults[obj['name']] = 'passed';
+      }
+      else if (failedValue || failedNotValue) {
+        orConditionResults[obj['name']] = 'failed';
+      }
+    }
+
+    function getElement(obj) {
+      let formField = self.form.fields[obj['name']];
+      let $el = formField ? self.form.fields[obj['name']].editor.$el : null;
+      let objNames = obj['name'].split('.');
+      if (objNames.length > 1) {
+        $el = self.form.fields[objNames[0]].editor.$el.find(`[data-editor-id="${objNames[0]}_${objNames[objNames.length - 1]}"]`);
+        let editor = self.form.fields[objNames[0]].editor;
+        for (let index = 1; index < objNames.length; index++) {
+          let name = objNames[index];
+          let nestedForm = editor.nestedForm;
+          if (nestedForm) {
+            editor = nestedForm.fields[name].editor;
+          }
+        }
+        $el = editor.$el;
+      }
+      return $el;
+    }
+
+    function getEditorValue(element) {
+      if (!element) {
+        return '';
+      }
+      let editorValue = element.val();
+
+      if (element.prop('type') == 'checkbox') {
+        editorValue = element.prop('checked');
+      }
+      // some editors (e.g. checkbox) return values (e.g. on, off) that don't match the type of the field (e.g. boolean - true/false)
+      switch (editorValue) {
+        case "on":
+          editorValue = "true";
+          break;
+        case "off":
+          editorValue = "false";
+          break;
+        default:
+          break;
+      }
+      return String(editorValue);
+    }
+
+    if (hasAndConditions) {
+      for (const obj of self.schema.conditions.and) {
+        if (!obj || !obj['name'] || !(obj['value'] || obj['!value'])) {
+          continue;
+        }
+        let element = getElement(obj);
+        if (element) {
+          element.on('change', function(e) {
+            getAndConditionResult(getEditorValue(getElement(obj)), obj);
+            toggleFieldVisibility();
+          });
+          getAndConditionResult(getEditorValue(getElement(obj)), obj);
+          toggleFieldVisibility();
+        }
+      }
+    }
+
+    if (hasOrConditions) {
+      for (const obj of self.schema.conditions.or) {
+        if (!obj || !obj['name'] || !(obj['value'] || obj['!value'])) {
+          continue;
+        }
+        let element = getElement(obj);
+        if (element) {
+          element.on('change', function (e) {
+            getOrConditionResult(getEditorValue(getElement(obj)), obj);
+            toggleFieldVisibility();
+          });
+          getOrConditionResult(getEditorValue(getElement(obj)), obj);
+          toggleFieldVisibility();
+        }
+      }
+    }
+  }
+
   Backbone.Form.prototype.constructor.template = templates.form;
+
+  var FieldsetBaseRender = Backbone.Form.Fieldset.prototype.render;
+  Backbone.Form.Fieldset.prototype.render = function (options) {
+    _.defer(_.bind(function () {
+      if (this && this.fields) {
+        Object.values(this.fields).forEach(function(field) {
+          if (field && field.schema && field.schema.conditions && field.schema.fieldType === 'Object') {
+            applyFieldConditions(field && field.editor ? field.editor : field);
+          }
+        })
+      }
+    }, this));
+    return FieldsetBaseRender.call(this);
+  }
   Backbone.Form.Fieldset.prototype.template = templates.fieldset;
   Backbone.Form.Field.prototype.template = fieldTemplate;
   Backbone.Form.NestedField.prototype.template = fieldTemplate;
@@ -163,6 +313,7 @@ define([
           }
         })
         .then(() => {
+          applyFieldConditions(this);
           this.postRender();
         })
         .catch((error) => {});
@@ -193,6 +344,23 @@ define([
         .catch(error => {});
     }
   };
+
+  var ScaffoldSelectScreenViewBaseRender = ScaffoldSelectScreenView.prototype.render;
+
+  ScaffoldSelectScreenView.prototype.render = function(){
+    _.defer(_.bind(function () {
+      applyFieldConditions(this)
+    }, this));
+    return ScaffoldSelectScreenViewBaseRender.call(this);
+  }
+
+  var SelectBaseRender = Backbone.Form.editors.Select.prototype.render;
+  Backbone.Form.editors.Select.prototype.render = function(options) {
+    _.defer(_.bind(function () {
+      applyFieldConditions(this)
+    }, this));
+    return SelectBaseRender.call(this);
+  }
 
 
   // ESDC - added override on arrayToHtml for select tags so the option can be added as id and the value translated
@@ -315,6 +483,14 @@ define([
       event.preventDefault();
     }
   };
+
+  var ListBaseRender = Backbone.Form.editors.List.prototype.render;
+  Backbone.Form.editors.List.prototype.render = function (options) {
+    _.defer(_.bind(function() {
+      applyFieldConditions(this)
+    }, this));
+    return ListBaseRender.call(this);
+  }
 
   Backbone.Form.editors.List.prototype.validate = function(){
     var listValidatorMessage;

@@ -20,12 +20,15 @@ define(function (require) {
       const simulationScreenImg = $('.scaffold-items-modal-sidebar #_graphic_src img.scaffold-asset-preview');
       const src = simulationScreenImg.attr('src');
       const imageId = src.substring(src.lastIndexOf('/') + 1);
+      var forceFullWidth = $('.scaffold-items-modal-sidebar #_graphic input#_graphic__forceFullWidth');
+
       var data = {
         src: `api/asset/serve/${imageId}`,
         left: form.fields._position.$el.find('input#_position__left').val(),
         top: form.fields._position.$el.find('input#_position__top').val(),
         width: form.fields._position.$el.find('input#_position__width').val(),
         height: form.fields._position.$el.find('input#_position__height').val(),
+        forceFullWidth: forceFullWidth.is(":checked")
       }
       this.model.set('actionData', data);
       if (componentId) {

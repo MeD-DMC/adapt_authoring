@@ -2,6 +2,7 @@
 const archiver = require('archiver');
 const async = require('async');
 const exec = require('child_process').exec;
+var execSync = require('child_process').execSync;
 const fs = require('fs-extra');
 const path = require('path');
 const semver = require('semver');
@@ -187,7 +188,15 @@ function publishCourse(courseId, mode, request, response, next) {
 
         logger.log('info', 'grunt server-build:' + buildMode + ' ' + args.join(' '));
 
-        child = exec('grunt server-build:' + buildMode + ' ' + args.join(' '), {cwd: path.join(FRAMEWORK_ROOT_FOLDER)},
+        if(process.platform === 'linux'){
+          var sysavail = execSync('sysavail');
+          var availableCPU = parseFloat(sysavail);
+          var limit = typeof availableCPU === 'number' ? availableCPU : 50;
+        }
+
+        var cpulimit = process.platform === 'linux' ? `cpulimit -l ${limit} -- ` : '';
+
+        child = exec(cpulimit + 'grunt server-build:' + buildMode + ' ' + args.join(' '), {cwd: path.join(FRAMEWORK_ROOT_FOLDER)},
           function(error, stdout, stderr) {
             if (error !== null) {
               logger.log('error', 'exec error: ' + error);

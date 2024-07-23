@@ -3,8 +3,9 @@ define([
   'backbone-forms',
   'backbone-forms-lists',
   'core/helpers',
-  './views/scaffoldSelectScreenView'
-], function (Origin, BackboneForms, BackboneFormsList, Helpers, ScaffoldSelectScreenView) {
+  './views/scaffoldSelectScreenView',
+  './views/scaffoldSimulationZoneFinderView'
+], function (Origin, BackboneForms, BackboneFormsList, Helpers, ScaffoldSelectScreenView, ScaffoldSimulationZoneFinderView) {
 
   var templates = Handlebars.templates;
   var fieldTemplate = templates.field;
@@ -214,6 +215,15 @@ define([
     }
   };
 
+  var TextBaseRender = Backbone.Form.editors.Text.prototype.render;
+
+  Backbone.Form.editors.Text.prototype.render = function (options) {
+    _.defer(_.bind(function () {
+      applyFieldConditions(this)
+    }, this));
+    return TextBaseRender.call(this);
+  }
+
   Backbone.Form.editors.TextArea.prototype.className = "cke_replace";
 
   // render ckeditor in textarea
@@ -344,6 +354,15 @@ define([
         .catch(error => {});
     }
   };
+
+  var ScaffoldSimulationZoneFinderViewBaseRender = ScaffoldSimulationZoneFinderView.prototype.render;
+
+  ScaffoldSimulationZoneFinderView.prototype.render = function(){
+    _.defer(_.bind(function () {
+      applyFieldConditions(this)
+    }, this));
+    return ScaffoldSimulationZoneFinderViewBaseRender.call(this);
+  }
 
   var ScaffoldSelectScreenViewBaseRender = ScaffoldSelectScreenView.prototype.render;
 

@@ -215,6 +215,15 @@ define([
     }
   };
 
+  var CheckboxBaseRender = Backbone.Form.editors.Checkbox.prototype.render;
+
+  Backbone.Form.editors.Checkbox.prototype.render = function (options) {
+    _.defer(_.bind(function () {
+      applyFieldConditions(this)
+    }, this));
+    return CheckboxBaseRender.call(this);
+  }
+
   var TextBaseRender = Backbone.Form.editors.Text.prototype.render;
 
   Backbone.Form.editors.Text.prototype.render = function (options) {

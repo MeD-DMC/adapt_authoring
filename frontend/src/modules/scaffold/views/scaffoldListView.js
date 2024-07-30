@@ -129,7 +129,7 @@ define([
         });
       });
 
-      var listItem = _.omit(this.editor.value, '_screendID');
+      var listItem = _.omit(this.editor.value, '_screenID');
       this.list.addItem(listItem, true);
     }
   });

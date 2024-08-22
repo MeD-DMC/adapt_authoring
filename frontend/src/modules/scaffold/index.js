@@ -159,6 +159,7 @@ define([
         a11y: field.a11y ? (Helpers.keyToTranslatedString(buildTranslationKey('a11y', field.a11y)) || field.a11y) : '',
         secondaryLabel: field.secondaryLabel ? (Helpers.keyToTranslatedString(buildTranslationKey('secondaryLabel', field.secondaryLabel)) || field.secondaryLabel) : '',
         noTitle: field.noTitle || false,
+        noListTitle: field.noListTitle || false,
         hiddenField: field.hiddenField || false,
         conditions: field.conditions
       };

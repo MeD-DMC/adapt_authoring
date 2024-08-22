@@ -177,7 +177,9 @@ define([
       // ESDC - added translated label to schema
       var translatedTitle = Helpers.keyToTranslatedString({ key: convertNameToCamelCase(title), level: '_items', type: 'label', fallback: title });
       const noTitle = this.nestedSchema[key].noTitle || false;
-      return noTitle ? parts : parts + '<p class="list-item-modal-item">' + wrapSchemaTitle(translatedTitle) + wrapSchemaValue(val) + '</p>';
+      const noListTitle = this.nestedSchema[key].noListTitle || false;
+
+      return noTitle || noListTitle ? parts : parts + '<p class="list-item-modal-item">' + wrapSchemaTitle(translatedTitle) + wrapSchemaValue(val) + '</p>';
     }.bind(this), '');
   }
 

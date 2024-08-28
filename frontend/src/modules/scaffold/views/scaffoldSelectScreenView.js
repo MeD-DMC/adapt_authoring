@@ -16,8 +16,8 @@ define(['core/origin', 'backbone-forms'], function (Origin, BackboneForms) {
       var screens = [];
       $('.component-edit-inner [data-key="properties"] .field-simulation-screens .list-items .list-item').each(function () {
         $(this).find('div[name="_items"] > div').each(function () {
-          var title = $(this).children().eq(0).find('.list-item-value').text();
-          var id = $(this).children().eq(1).find('.list-item-value').text();
+          var title = $(this).find('[data-id="title"] .list-item-value').text();
+          var id = $(this).find('[data-id="_screenID"] .list-item-value').text();
           var thisScreenId = $('.scaffold-items-modal-sidebar-inner #_screenID input').val();
           if (title && id && id !== 'undefined' && id !== thisScreenId) {
             screens.push({ title: title, screenID: id });

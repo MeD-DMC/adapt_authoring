@@ -160,6 +160,7 @@ define([
         secondaryLabel: field.secondaryLabel ? (Helpers.keyToTranslatedString(buildTranslationKey('secondaryLabel', field.secondaryLabel)) || field.secondaryLabel) : '',
         noTitle: field.noTitle || false,
         noListTitle: field.noListTitle || false,
+        hiddenListTitle: field.hiddenListTitle || false,
         hiddenField: field.hiddenField || false,
         conditions: field.conditions
       };

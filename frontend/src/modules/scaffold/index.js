@@ -21,7 +21,8 @@ define([
   './views/scaffoldHotgraphicPinFinderView',
   './views/scaffoldUniqueFieldView',
   './views/scaffoldSelectScreenView',
-  './views/scaffoldSimulationZoneFinderView'
+  './views/scaffoldSimulationZoneFinderView',
+  './views/scaffoldReadableIDView'
 ], function (Origin, Helpers, Schemas, BackboneForms, BackboneFormsLists, BackboneFormsOverrides, ScaffoldAssetView, ScaffoldAssetItemView, ScaffoldCodeEditorView, ScaffoldColourPickerView, ScaffoldDisplayTitleView, ScaffoldItemsModalView, ScaffoldListView, ScaffoldTagsView, ScaffoldUsersView, ScaffoldSingleUserView, ScaffoldUsersWithEmailView, ScaffoldRangeView, ScaffoldGuidedTourPinFinderView, ScaffoldHotgraphicPinFinderView, ScaffoldUniqueFieldView, ScaffoldSelectScreenView, ScaffoldSimulationZoneFinderView) {
 
   var Scaffold = {};

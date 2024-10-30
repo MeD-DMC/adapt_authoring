@@ -163,7 +163,8 @@ define([
         noListTitle: field.noListTitle || false,
         hiddenListTitle: field.hiddenListTitle || false,
         hiddenField: field.hiddenField || false,
-        conditions: field.conditions
+        conditions: field.conditions,
+        placeholder: field.placeholder
       };
 
       if (_.isObject(inputType)) {

@@ -230,6 +230,9 @@ define([
     _.defer(_.bind(function () {
       applyFieldConditions(this)
     }, this));
+    if(this.schema.placeholder){
+       this.$el.attr('placeholder', this.schema.placeholder);
+    }
     return TextBaseRender.call(this);
   }
 

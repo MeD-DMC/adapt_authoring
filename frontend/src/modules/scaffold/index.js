@@ -21,9 +21,10 @@ define([
   './views/scaffoldHotgraphicPinFinderView',
   './views/scaffoldUniqueFieldView',
   './views/scaffoldSelectScreenView',
+  './views/scaffoldSelectTalkCharacterView',
   './views/scaffoldSimulationZoneFinderView',
   './views/scaffoldReadableIDView'
-], function (Origin, Helpers, Schemas, BackboneForms, BackboneFormsLists, BackboneFormsOverrides, ScaffoldAssetView, ScaffoldAssetItemView, ScaffoldCodeEditorView, ScaffoldColourPickerView, ScaffoldDisplayTitleView, ScaffoldItemsModalView, ScaffoldListView, ScaffoldTagsView, ScaffoldUsersView, ScaffoldSingleUserView, ScaffoldUsersWithEmailView, ScaffoldRangeView, ScaffoldGuidedTourPinFinderView, ScaffoldHotgraphicPinFinderView, ScaffoldUniqueFieldView, ScaffoldSelectScreenView, ScaffoldSimulationZoneFinderView) {
+], function (Origin, Helpers, Schemas, BackboneForms, BackboneFormsLists, BackboneFormsOverrides, ScaffoldAssetView, ScaffoldAssetItemView, ScaffoldCodeEditorView, ScaffoldColourPickerView, ScaffoldDisplayTitleView, ScaffoldItemsModalView, ScaffoldListView, ScaffoldTagsView, ScaffoldUsersView, ScaffoldSingleUserView, ScaffoldUsersWithEmailView, ScaffoldRangeView, ScaffoldGuidedTourPinFinderView, ScaffoldHotgraphicPinFinderView, ScaffoldUniqueFieldView, ScaffoldSelectScreenView, ScaffoldSelectTalkCharacterView, ScaffoldSimulationZoneFinderView) {
 
   var Scaffold = {};
   var alternativeModel;

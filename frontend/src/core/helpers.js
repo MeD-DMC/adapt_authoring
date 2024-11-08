@@ -81,7 +81,7 @@ define(function(require){
       }
       // fall-back: remove all _ and capitalise
       if(Origin.constants.translating){
-        return l10nKey;
+        return `${options.fallback || options.key} -*/*- ${l10nKey}`;
       }
       return options.fallback;
     },

@@ -322,8 +322,8 @@
     "app.scaffold.component.properties._recordInteraction.help": "Si cette option est désactivée, l’enregistrement des réponses de l’utilisateur sous « cmi.interactions » dans le SGA est désactivée uniquement pour le composant en question.",
     "app.scaffold.component.properties._columns.label": "Colonnes",
     "app.scaffold.component.properties._columns.help": "Définit le nombre de colonnes. Si la valeur est établie à zéro (« 0 »), le composant fait appel à la structure par défaut.",
-    "app.scaffold.component.properties._selectable.label": "Éléments sélectionnables",
-    "app.scaffold.component.properties._selectable.help": "Détermine le nombre d’éléments sélectionnables",
+    "app.scaffold.component.properties._selectable.label": "Nombre de réponses sélectionnables",
+    "app.scaffold.component.properties._selectable.help": "Détermine le nombre de réponses que l'apprenant peut sélectionner lorsqu'il répond à la question.",
     "app.scaffold.component.properties._feedback.label": "Rétroaction",
     "app.scaffold.component._feedback.title.label": "Titre de la rétroaction",
     "app.scaffold.component._feedback.title.help": "Laisser le champ vide pour afficher plutôt le titre du composant.",
@@ -1714,5 +1714,6 @@
     "app.scaffold.course._accessibilityStatement._customSection.label": "Considérations spécifiques au cours",
     "app.scaffold.course._accessibilityStatement._customSection.help": "Ce texte sera affiché dans l'énoncé d'accessibilité en tant que considérations  spécifiques au cours.",
     "app.scaffold.course._accessibilityStatement._sabaProfile.label": "Lien du profil de Saba",
-    "app.scaffold.course._accessibilityStatement._sabaProfile.help": "Utilisez ce champ pour établir un lien avec votre profil Saba dans la section contact de l'énoncé."
+    "app.scaffold.course._accessibilityStatement._sabaProfile.help": "Utilisez ce champ pour établir un lien avec votre profil Saba dans la section contact de l'énoncé.",
+    "app.clone": "Cloner"
 }

@@ -367,22 +367,10 @@ LocalFileStorage.prototype.createThumbnail = function (filePath, fileType, optio
   var ff = new ffmpeg({ source: filePath }).output(imgThumbPath);
 
   if ('video' === fileType) {
-    // pixel format for gifs (only needed with ffmpeg older versions eg 1.2)
-    ff.outputOptions('-pix_fmt rgb24');
-    // limit file size to ~300kb
-    ff.outputOptions('-fs 300000');
-    // start position 1sec in case of black screen
-    ff.seekInput('00:00:01');
-    // setting speed to ~x20 gives a good overview
-    ff.videoFilters('setpts=0.05*PTS');
-    // set output framerate
-    ff.fps(1.5);
+    return next(null, false);
   }
   else if ('gif' === fileFormat) {
-    // pixel format for gifs (only needed with ffmpeg older versions eg 1.2)
-    ff.outputOptions('-pix_fmt rgb24');
-    // only want 1 output image
-    ff.frames(1);
+    return next(null, false);
   }
   // use size from options
   ff.size(options.width + 'x' + options.height);

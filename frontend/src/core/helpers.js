@@ -392,10 +392,14 @@ define(function(require){
     },
 
     maxUploadSize: function(options) {
-      return new Handlebars.SafeString([
-        '<span class="max-fileupload-size">',
-        Origin.l10n.t('app.maxfileuploadsize', {size: Origin.constants.humanMaxFileUploadSize}),
-        '</span>'].join(''))
+      var maxSizes = Origin.constants.humanMaxCustomUploadSize;
+      var uploadArray = [];
+      Object.keys(maxSizes).forEach(function(key){
+        uploadArray.push({type: key, size: maxSizes[key]})
+      })
+      var data = {uploads: uploadArray, uploadMaxSize: Origin.l10n.t('app.maxfileuploadsize')}
+      var template = Handlebars.templates['assetManagementUploadMaxSize'];
+      return new Handlebars.SafeString(template(data));
     },
 
     flattenNestedProperties: function(properties) {

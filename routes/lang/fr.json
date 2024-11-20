@@ -1831,6 +1831,7 @@
   "app.scaffold.component._form._prefilledWithDate.label": "Définir la valeur pré-remplie avec la date du jour",
   "app.scaffold.component._form._prefilledWithDate.help": "En sélectionnant cette option, la valeur préremplie sera la date du jour au format AAAA-MM-JJ.",
   "app.scaffold.component._form._matchTextItems.label": "Éléments de rencontre",
+  "app.scaffold.component._form._matchTextItems.help": "Dans ce champ, vous pouvez définir des conditions pour valider l'entrée. Si aucun élément de rencontre n'est spécifié, l'entrée sera automatiquement marquée comme terminée (quelle que soit son contenu) lorsque l'entrée est suivie en tant que tâche.",
   "app.scaffold.component._form.matchFailure.label": "Message d'échec du texte de rencontre",
   "app.scaffold.component._form.matchFailure.help": "Expliquez aux apprenants pourquoi cette saisie est incorrecte à ce stade du processus.",
   "app.scaffold.component._form._selectOptions.label": "Options de sélection",

@@ -365,6 +365,14 @@ LocalFileStorage.prototype.createThumbnail = function (filePath, fileType, optio
   var imgThumbPath = path.join(path.dirname(filePath), path.basename(filePath)) + '_thumb' + thumbExt;
 
   var ff = new ffmpeg({ source: filePath }).output(imgThumbPath);
+  if ('video' === fileType) {
+    ff.outputOptions('-pix_fmt rgb24');
+    ff.seekInput('00:00:05'); // Seek to 1 second
+    ff.outputOptions('-frames:v 1'); // Output only one frame
+} else if ('gif' === fileFormat) {
+    ff.outputOptions('-pix_fmt rgb24');
+    ff.frames(1);
+}
   // use size from options
   ff.size(options.width + 'x' + options.height);
   // event handling
@@ -381,7 +389,7 @@ LocalFileStorage.prototype.createThumbnail = function (filePath, fileType, optio
 
 function isThumbnailTypeSupported(type, format) {
   switch(type) {
-    //case 'video':
+    case 'video':
     case 'image':
       // https://github.com/adaptlearning/adapt_authoring/issues/2065
       return format !== 'svg+xml';

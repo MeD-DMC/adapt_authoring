@@ -4,7 +4,7 @@ define(['core/origin', 'backbone-forms'], function (Origin, BackboneForms) {
     className: 'scaffold-select-talk-character-editor',
 
     events: {
-
+      'change #_selectTalkCharacter': 'updateCharacterName'
     },
 
     initialize: function (options) {
@@ -36,7 +36,11 @@ define(['core/origin', 'backbone-forms'], function (Origin, BackboneForms) {
     },
 
     postRender: function () {
+      this.updateCharacterName();
+    },
 
+    updateCharacterName: function() {
+      this.form.fields['_characterName'].editor.setValue(this.characters[this.getValue()-1]['title']);
     },
 
     setValue: function (value) {

@@ -40,7 +40,9 @@ define(['core/origin', 'backbone-forms'], function (Origin, BackboneForms) {
     },
 
     updateCharacterName: function() {
-      this.form.fields['_characterName'].editor.setValue(this.characters[this.getValue()-1]['title']);
+      if (this.characters && this.characters.length > 0) {
+        this.form.fields['_characterName'].editor.setValue(this.characters[this.getValue()-1]['title']);
+      }
     },
 
     setValue: function (value) {

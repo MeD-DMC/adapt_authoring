@@ -19,6 +19,7 @@ define(['core/origin', 'backbone-forms'], function (Origin, BackboneForms) {
 
     render: function () {
       this.preRender();
+      this.readableIDLabel = Handlebars.templates['scaffoldReadableIDLabel'](this);
       this.$el.append(Handlebars.templates[this.constructor.template](this));
       this.setValue(this.value);
       return this;
@@ -26,8 +27,8 @@ define(['core/origin', 'backbone-forms'], function (Origin, BackboneForms) {
 
     handleInputChange: function(e){
       var value = $(e.target).val();
-      var readableID = this.stringToCamelCase(value);
-      this.$el.find('.readable-id-value').text(readableID);
+      this.readableID = this.stringToCamelCase(value);
+      this.$el.find('.readable-id-label').html(Handlebars.templates['scaffoldReadableIDLabel'](this));
     },
 
     setValue: function (value) {

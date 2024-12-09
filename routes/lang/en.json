@@ -582,5 +582,5 @@
   "app.simulationzonefinder.error": "You must select an image as main screen src to use the zone editor.",
   "app.scaffold._setCompletionOn.actionSuccess.variable": "Trigger on action success",
   "app.scaffold._actionType.select.variable" : "dropdown menu",
-  "app.readableID": "ID Lisible"
+  "app.readableID": "Readable ID"
 }

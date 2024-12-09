@@ -393,11 +393,12 @@ define(function(require){
 
     maxUploadSize: function(options) {
       var maxSizes = Origin.constants.humanMaxCustomUploadSize;
+      var maxUploadSizeDefault = Origin.constants.humanMaxFileUploadSize;
       var uploadArray = [];
       Object.keys(maxSizes).forEach(function(key){
         uploadArray.push({type: key, size: maxSizes[key]})
       })
-      var data = {uploads: uploadArray, uploadMaxSize: Origin.l10n.t('app.maxfileuploadsize')}
+      var data = {uploads: uploadArray, uploadMaxSize: Origin.l10n.t('app.maxfileuploadsize', {size: maxUploadSizeDefault} )}
       var template = Handlebars.templates['assetManagementUploadMaxSize'];
       return new Handlebars.SafeString(template(data));
     },

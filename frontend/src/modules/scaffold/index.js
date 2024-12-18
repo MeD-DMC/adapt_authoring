@@ -164,6 +164,7 @@ define([
         noListTitle: field.noListTitle || false,
         hiddenListTitle: field.hiddenListTitle || false,
         hiddenField: field.hiddenField || false,
+        realValueKey: field.realValueKey,
         conditions: field.conditions,
         placeholder: field.placeholder
       };

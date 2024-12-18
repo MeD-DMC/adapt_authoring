@@ -180,7 +180,12 @@ define([
       const noListTitle = this.nestedSchema[key].noListTitle || false;
       const hiddenListTitle = this.nestedSchema[key].hiddenListTitle || false;
       const hiddenList = hiddenListTitle ? 'display-none' : '';
-      return noTitle || noListTitle ? parts : parts + `<p class="list-item-modal-item ${hiddenList}" data-id="${key}">${wrapSchemaTitle(translatedTitle)}${wrapSchemaValue(val)}</p>`;
+      const realValueKey = this.nestedSchema[key].realValueKey || false;
+      var realVal = val;
+      if (realValueKey) {
+        realVal = value[realValueKey];
+      }
+      return noTitle || noListTitle ? parts : parts + `<p class="list-item-modal-item ${hiddenList}" data-id="${key}" data-realvalue="${realVal}">${wrapSchemaTitle(translatedTitle)}${wrapSchemaValue(val)}</p>`;
     }.bind(this), '');
   }
 

@@ -76,12 +76,18 @@ define([
       }.bind(this);
       // no confirmation needed, just remove
       if (!this.schema.confirmDelete) return remove();
+
+      var itemInUse = verifyIfItemIsInUser(item, this);
       // confirm delete action
-      window.confirm({
-        title: this.schema.confirmDelete,
-        type: 'warning',
-        callback: remove
-      });
+      if (itemInUse) {
+        Origin.Notify.alert({ type: 'error', text: Origin.l10n.t('app.erroritemtoremoveinuse') });
+      } else {
+        window.confirm({
+          title: this.schema.confirmDelete,
+          type: 'warning',
+          callback: remove
+        });
+      }
     }
   });
 
@@ -219,6 +225,35 @@ define([
       if (value.hasOwnProperty(name)) pairs += '<br />' + wrapSchemaTitle(translatedName) + value[name];
     }
     return '<p class="list-item-modal-object">' + pairs + '</p>';
+  }
+
+  function verifyIfItemIsInUser(item, context) {
+    var itemInUse = false;
+    var associatedItemsProperties = item && item.schema && item.schema.asociatedItemsProperties;
+
+    if (!associatedItemsProperties || Object.keys(associatedItemsProperties).length < 1) return itemInUse;
+
+    Object.keys(associatedItemsProperties).forEach(function (key) {
+      if (associatedItemsProperties[key] && associatedItemsProperties[key].length >0) {
+        associatedItemsProperties[key].forEach(function(prop) {
+          var associatedItemValues = context.form.$el.find(`[data-id="${prop}"] .list-item-value`).toArray().map(function(el) {
+            return el.innerHTML;
+          });
+          var itemValueEl = item.$el.find(`[data-id="${key}"] .list-item-value`).toArray()[0];
+          var itemValue = itemValueEl && itemValueEl.innerHTML;
+          if (!itemValue) {
+            itemValue = item.value && item.value[key];
+          }
+          itemInUse = associatedItemValues.includes(itemValue);
+          if (itemInUse) return;
+        })
+      }
+      else {
+        return itemInUse;
+      }
+    });
+
+    return itemInUse;
   }
 
   function wrapSchemaTitle(value) {

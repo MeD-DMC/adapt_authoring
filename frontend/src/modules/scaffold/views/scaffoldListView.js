@@ -77,7 +77,7 @@ define([
       // no confirmation needed, just remove
       if (!this.schema.confirmDelete) return remove();
 
-      var itemInUse = verifyIfItemIsInUser(item, this);
+      var itemInUse = verifyIfItemIsInUse(item, this);
       // confirm delete action
       if (itemInUse) {
         Origin.Notify.alert({ type: 'error', text: Origin.l10n.t('app.erroritemtoremoveinuse') });
@@ -227,7 +227,7 @@ define([
     return '<p class="list-item-modal-object">' + pairs + '</p>';
   }
 
-  function verifyIfItemIsInUser(item, context) {
+  function verifyIfItemIsInUse(item, context) {
     var itemInUse = false;
     var associatedItemsProperties = item && item.schema && item.schema.asociatedItemsProperties;
 

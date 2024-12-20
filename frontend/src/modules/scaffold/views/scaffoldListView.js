@@ -187,7 +187,7 @@ define([
       const hiddenListTitle = this.nestedSchema[key].hiddenListTitle || false;
       const hiddenList = hiddenListTitle ? 'display-none' : '';
       const realValueKey = this.nestedSchema[key].realValueKey || false;
-      var realVal = val;
+      var realVal;
       if (realValueKey) {
         realVal = value[realValueKey];
       }

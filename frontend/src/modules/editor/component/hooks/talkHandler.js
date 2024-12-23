@@ -20,6 +20,7 @@ define(function(require) {
 
   const before = function(model) {
     var properties = model.get('properties');
+    if (!properties) return;
     var items = properties['_items'];
     var characters = properties['_characters'].map(function(character) {
       return character['name'];
@@ -31,6 +32,7 @@ define(function(require) {
     Origin.on('scaffold:decreaseActiveModals', function() {
       if (model.get('_component') == 'talk') {
         var properties = model.get('properties');
+        if (!properties) return;
         var items = properties['_items'];
         var formPropertiesEditor = form.fields && form.fields['properties'] && form.fields['properties'].editor;
         if (formPropertiesEditor) {

@@ -41,10 +41,10 @@ define(['core/origin', 'backbone-forms'], function (Origin, BackboneForms) {
 
     updateCharacterName: function() {
       if (this.characters && this.characters.length > 0) {
-        if (this.characters[this.getValue()-1]) {
+        if (this.getValue() > 0) {
           this.form.fields['_characterName'].editor.setValue(this.characters[this.getValue()-1]['title']);
         }
-        else if (this.getValue() === 0) {
+        else {
           this.form.fields['_characterName'].editor.setValue(this.characters[0]['title']);
         }
       }

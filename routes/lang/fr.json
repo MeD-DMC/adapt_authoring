@@ -1942,5 +1942,6 @@
   "app.scaffold.component._form._clickFormBlocking.help": "Cette option bloque l'envoi du formulaire pour cette action et renvoie le message d'erreur dans la rétroaction du formulaire.",
   "app.scaffold.component._form.clickFailure.label": "Méssage d'échec de clic",
   "app.scaffold.component._form.clickFailure.help": "Expliquez aux apprenants pourquoi ce clic est nécessaire à ce stade.",
-  "app.erroritemtoremoveinuse": "L'élément que vous souhaitez supprimer est en cours d'utilisation."
+  "app.erroritemtoremoveinuse": "L'élément que vous souhaitez supprimer est en cours d'utilisation.",
+  "app.narrator": "Narrateur"
 }

@@ -13,7 +13,7 @@ define(['core/origin', 'backbone-forms'], function (Origin, BackboneForms) {
     },
 
     preRender: function () {
-      var characters = [];
+      var characters = [{ title: Origin.l10n.t('app.narrator'), characterID: 0 }];
       var charIndex = 1;
       $('.component-edit-inner [data-key="properties"] .field-talk-characters .list-items .list-item').each(function () {
         $(this).find('div[name="_characters"] > div').each(function () {
@@ -41,7 +41,12 @@ define(['core/origin', 'backbone-forms'], function (Origin, BackboneForms) {
 
     updateCharacterName: function() {
       if (this.characters && this.characters.length > 0) {
-        this.form.fields['_characterName'].editor.setValue(this.characters[this.getValue()-1]['title']);
+        if (this.characters[this.getValue()-1]) {
+          this.form.fields['_characterName'].editor.setValue(this.characters[this.getValue()-1]['title']);
+        }
+        else if (this.characters.length === 1) {
+          this.form.fields['_characterName'].editor.setValue(this.characters[0]['title']);
+        }
       }
     },
 

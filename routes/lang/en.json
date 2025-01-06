@@ -583,5 +583,6 @@
   "app.scaffold._setCompletionOn.actionSuccess.variable": "Trigger on action success",
   "app.scaffold._actionType.select.variable" : "dropdown menu",
   "app.readableID": "Readable ID",
-  "app.erroritemtoremoveinuse": "The item you wish to delete is in use."
+  "app.erroritemtoremoveinuse": "The item you wish to delete is in use.",
+  "app.narrator": "Narrator"
 }

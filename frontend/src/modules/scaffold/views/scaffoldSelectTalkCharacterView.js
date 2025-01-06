@@ -44,7 +44,7 @@ define(['core/origin', 'backbone-forms'], function (Origin, BackboneForms) {
         if (this.characters[this.getValue()-1]) {
           this.form.fields['_characterName'].editor.setValue(this.characters[this.getValue()-1]['title']);
         }
-        else if (this.characters.length === 1) {
+        else if (this.getValue() === 0) {
           this.form.fields['_characterName'].editor.setValue(this.characters[0]['title']);
         }
       }

@@ -4,8 +4,9 @@ define([
   'backbone-forms-lists',
   'core/helpers',
   './views/scaffoldSelectScreenView',
-  './views/scaffoldSimulationZoneFinderView'
-], function (Origin, BackboneForms, BackboneFormsList, Helpers, ScaffoldSelectScreenView, ScaffoldSimulationZoneFinderView) {
+  './views/scaffoldSimulationZoneFinderView',
+  './views/scaffoldAssetView'
+], function (Origin, BackboneForms, BackboneFormsList, Helpers, ScaffoldSelectScreenView, ScaffoldSimulationZoneFinderView, ScaffoldAssetView) {
 
   var templates = Handlebars.templates;
   var fieldTemplate = templates.field;
@@ -92,7 +93,7 @@ define([
       return $el;
     }
 
-    function getEditorValue(element) {
+    function getEditorValue(element, obj) {
       if (!element) {
         return '';
       }
@@ -100,6 +101,10 @@ define([
 
       if (element.prop('type') == 'checkbox') {
         editorValue = element.prop('checked');
+      }
+
+      if (obj['id']) {
+        editorValue = element.find(`#${obj['id']}`).val();
       }
       // some editors (e.g. checkbox) return values (e.g. on, off) that don't match the type of the field (e.g. boolean - true/false)
       switch (editorValue) {
@@ -123,10 +128,10 @@ define([
         let element = getElement(obj);
         if (element) {
           element.on('change', function(e) {
-            getAndConditionResult(getEditorValue(getElement(obj)), obj);
+            getAndConditionResult(getEditorValue(getElement(obj), obj), obj);
             toggleFieldVisibility();
           });
-          getAndConditionResult(getEditorValue(getElement(obj)), obj);
+          getAndConditionResult(getEditorValue(getElement(obj), obj), obj);
           toggleFieldVisibility();
         }
       }
@@ -140,10 +145,10 @@ define([
         let element = getElement(obj);
         if (element) {
           element.on('change', function (e) {
-            getOrConditionResult(getEditorValue(getElement(obj)), obj);
+            getOrConditionResult(getEditorValue(getElement(obj), obj), obj);
             toggleFieldVisibility();
           });
-          getOrConditionResult(getEditorValue(getElement(obj)), obj);
+          getOrConditionResult(getEditorValue(getElement(obj), obj), obj);
           toggleFieldVisibility();
         }
       }
@@ -366,6 +371,15 @@ define([
         .catch(error => {});
     }
   };
+
+  var ScaffoldAssetViewBaseRender = ScaffoldAssetView.prototype.render;
+
+  ScaffoldAssetView.prototype.render = function(){
+    _.defer(_.bind(function () {
+      applyFieldConditions(this)
+    }, this));
+    return ScaffoldAssetViewBaseRender.call(this);
+  }
 
   var ScaffoldSimulationZoneFinderViewBaseRender = ScaffoldSimulationZoneFinderView.prototype.render;
 

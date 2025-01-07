@@ -1733,7 +1733,7 @@
   "app.scaffold.component.properties._items.talk.label": "Messages de dialogue",
   "app.scaffold._items.character.label": "Personnage",
   "app.scaffold.component.talk._character.label": "Personnage",
-  "app.scaffold.component.talk._character.help": "Sélectionnez le personnage qui sera associé à votre message.",
+  "app.scaffold.component.talk._character.help": "Sélectionnez le personnage qui sera associé à votre message. Par défaut, le personnage sera un 'Narrateur'. Veuillez noter que le Narrateur n'aura pas d'image d'avatar et ne sera pas affiché dans une bulle de texte, contrairement aux autres personnages.",
   "app.scaffold.component.talk.text.label": "Texte",
   "app.scaffold.component.talk.text.help": "Le texte du message de dialogue",
   "app.scaffold.component.talk._graphic.label": "Image",

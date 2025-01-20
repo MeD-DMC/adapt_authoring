@@ -1943,5 +1943,10 @@
   "app.scaffold.component._form.clickFailure.label": "Méssage d'échec de clic",
   "app.scaffold.component._form.clickFailure.help": "Expliquez aux apprenants pourquoi ce clic est nécessaire à ce stade.",
   "app.erroritemtoremoveinuse": "L'élément que vous souhaitez supprimer est en cours d'utilisation.",
-  "app.narrator": "Narrateur"
+  "app.narrator": "Narrateur",
+  "app.scaffold.component._pin._offsetGapSize.label": "Taille de l'écart",
+  "app.scaffold._offsetGapSize.small.variable": "petit",
+  "app.scaffold._offsetGapSize.large.variable": "grand",
+  "app.scaffold.component._pin._highlight.label": "Activer la mise en évidence",
+  "app.scaffold.component._pin._highlightBorder.label": "Activer la bordure de mise en évidence"
 }

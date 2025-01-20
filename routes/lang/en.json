@@ -584,5 +584,10 @@
   "app.scaffold._actionType.select.variable" : "dropdown menu",
   "app.readableID": "Readable ID",
   "app.erroritemtoremoveinuse": "The item you wish to delete is in use.",
-  "app.narrator": "Narrator"
+  "app.narrator": "Narrator",
+  "app.scaffold.component._pin._offsetGapSize.label": "Offset Gap Size",
+  "app.scaffold._offsetGapSize.small.variable": "small",
+  "app.scaffold._offsetGapSize.large.variable": "large",
+  "app.scaffold.component._pin._highlight.label": "Enable Spotlight",
+  "app.scaffold.component._pin._highlightBorder.label": "Enable Spotlight Border"
 }

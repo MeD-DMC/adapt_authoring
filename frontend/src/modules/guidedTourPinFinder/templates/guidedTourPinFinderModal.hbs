@@ -1,8 +1,9 @@
 <div class="pin-finder-overlay">
   <div class="pin-finder-inner">
     <div class="pin-finder-image-container">
-      <div class="pin-finder-image-wrapper{{#unless layoutFull}} half-width{{/unless}}{{#if stepData.forceFullWidth}} force-full-width{{/if}}">
-        <img draggable="false" src="{{stepData.src}}"/>
+      <div
+        class="pin-finder-image-wrapper{{#unless layoutFull}} half-width{{/unless}}{{#if stepData.forceFullWidth}} force-full-width{{/if}}">
+        <img draggable="false" src="{{stepData.src}}" />
       </div>
     </div>
     <div class="pin-finder-menu-bar">
@@ -11,22 +12,47 @@
       <div class="pin-finder-controls">
         <div class="position">{{ t 'app.layoutleft' }}: <span class="left"></span></div>
         <div class="position">{{ t 'app.top' }}: <span class="top"></span></div>
+        <div class="position">{{ t 'app.width' }}: <span class="width"></span></div>
+        <div class="position">{{ t 'app.height' }}: <span class="height"></span></div>
+        <label for="_pinfinder_offsetGapSize">{{ t 'app.scaffold.component._pin._offsetGapSize.label' }}:</label>
+        <select id="_pinfinder_offsetGapSize" name="_offsetGapSize">
+          <option id="small" value="small" {{#ifValueEquals stepData.offsetGapSize "small" }} selected{{/ifValueEquals}}>
+            {{ t
+            'app.scaffold._offsetGapSize.small.variable' }}
+          </option>
+          <option id="large" value="large" {{#ifValueEquals stepData.offsetGapSize "large" }} selected{{/ifValueEquals}}>
+            {{ t
+            'app.scaffold._offsetGapSize.large.variable' }}
+          </option>
+        </select>
         <label for="_pinfinder_bubbledirection">{{ t 'app.scaffold.component._pin._bubbledirection.label' }}:</label>
         <select id="_pinfinder_bubbledirection" name="_bubbledirection">
-          <option id="none" value="none" {{#ifValueEquals stepData.direction "none" }} selected{{/ifValueEquals}}>{{ t 'app.scaffold._bubbledirection.none.variable' }}
+          <option id="none" value="none" {{#ifValueEquals stepData.direction "none" }} selected{{/ifValueEquals}}>{{ t
+            'app.scaffold._bubbledirection.none.variable' }}
           </option>
-          <option id="left" value="left" {{#ifValueEquals stepData.direction "left" }} selected{{/ifValueEquals}}>{{ t 'app.scaffold._bubbledirection.left.variable' }}
+          <option id="left" value="left" {{#ifValueEquals stepData.direction "left" }} selected{{/ifValueEquals}}>{{ t
+            'app.scaffold._bubbledirection.left.variable' }}
           </option>
           <option id="right" value="right" {{#ifValueEquals stepData.direction "right" }} selected{{/ifValueEquals}}>
             {{ t 'app.scaffold._bubbledirection.right.variable' }}</option>
-          <option id="top" value="top" {{#ifValueEquals stepData.direction "top" }} selected{{/ifValueEquals}}>{{ t 'app.scaffold._bubbledirection.top.variable' }}
+          <option id="top" value="top" {{#ifValueEquals stepData.direction "top" }} selected{{/ifValueEquals}}>{{ t
+            'app.scaffold._bubbledirection.top.variable' }}
           </option>
-          <option id="bottom" value="bottom" {{#ifValueEquals stepData.direction "bottom" }} selected{{/ifValueEquals}}>
+          <option id="bottom" value="bottom" {{#ifValueEquals stepData.direction "bottom" }}
+            selected{{/ifValueEquals}}>
             {{ t 'app.scaffold._bubbledirection.bottom.variable' }}</option>
         </select>
         <label class="label-picker" for="bubbleColor">{{ t 'app.scaffold.component._pin._bordercolor.label' }}:
         </label>
         <input type="text" class="width-30" id="bubbleColor" autocomplete="off">
+        <div class="pin-finder-checkbox">
+          <input type="checkbox" id="_pinfinder_highlight" name="highlight" {{#if stepData.highlight}}checked{{/if}}>
+          <label for="_pinfinder_highlight">{{ t 'app.scaffold.component._pin._highlight.label' }}</label>
+        </div>
+        <div class="pin-finder-checkbox">
+          <input type="checkbox" id="_pinfinder_highlightBorder" name="highlightBorder" {{#if stepData.highlightBorder}}checked{{/if}}>
+          <label for="_pinfinder_highlightBorder">{{ t 'app.scaffold.component._pin._highlightBorder.label' }}</label>
+        </div>
       </div>
     </div>
     <div class="pin-finder-mobile-fallback-message-container">

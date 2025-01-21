@@ -126,6 +126,7 @@ define(function (require) {
     },
 
     initializeShepherd: function () {
+      var self = this;
       var data = this.model.get('stepData');
       var templateTitle = Handlebars.templates['guidedTourPinFinderStepTitle'];
 
@@ -173,6 +174,9 @@ define(function (require) {
           show: function () {
             $(this.el).find('button').attr('disabled', true);
             $(":root")[0].style.setProperty("--shepherd-border-color", data.borderColor);
+            requestAnimationFrame(function () {
+              self.adjustOutOfBounds();
+            });
           }
         }
       });
@@ -191,18 +195,18 @@ define(function (require) {
 
     onDirectionChange: function (event) {
       var data = this.model.get('stepData');
-      data.direction = $(event.target).val()
+      if (event) data.direction = $(event.target).val();
       this.model.set('stepData', data);
       var currentStep = this.tour.currentStep;
       var options = _.clone(currentStep.options);
       options.attachTo.on = data.direction !== 'none' ? data.direction : 'bottom';
       options.arrow = data.direction !== 'none';
       options.classes = `border ${data.offsetGapSize}`;
-      this.repositionTarget();
       if (this.tour.currentStep.options !== options) {
         this.tour.currentStep.options = options;
         if (Shepherd && Shepherd.activeTour) Shepherd.activeTour.show();
       }
+      this.repositionTarget();
     },
 
     onGapSizeChange: function (event) {
@@ -266,8 +270,6 @@ define(function (require) {
       var color = _pin.find('#_pin__bordercolor');
       var highlight = _pin.find('#_pin__highlight');
       var highlightBorder = _pin.find('#_pin__highlightBorder');
-      console.log(highlight);
-      console.log(data.highlight);
       left.val(data.left);
       top.val(data.top);
       width.val(data.width);
@@ -287,7 +289,6 @@ define(function (require) {
     },
 
     initializeCropper: function () {
-      var initialData = this.model.get('stepData');
       var self = this;
       if (this.cropper) {
         this.cropper.destroy();
@@ -304,7 +305,9 @@ define(function (require) {
         responsive: true,
 
         crop: function (event) {
+          var initialData = self.model.get('stepData');
           var imageCtn = $('.pin-finder-image-wrapper .cropper-wrap-box');
+
           const imageContainer = imageCtn[0];
           const containerRect = imageContainer.getBoundingClientRect();
 
@@ -397,8 +400,71 @@ define(function (require) {
           self.initializeShepherd();
         }
       });
-      var self = this;
     },
+
+    adjustOutOfBounds: function(){
+      var self = this;
+      var data = this.model.get('stepData');
+      var shepherdModal = $('.shepherd-element');
+      var cropperContainer = self.$el.find('.cropper-container');
+      var cropperCropBox = self.$el.find('.cropper-crop-box');
+      var cropperCropBoxWidth = cropperCropBox.outerWidth() + 8;
+
+      if(shepherdModal.length > 0 && cropperContainer.length > 0){
+
+        var shepherdModalPosition = {
+          left: cropperCropBox.offset().left - shepherdModal.outerWidth(),
+          right: cropperCropBox.offset().left + cropperCropBoxWidth + shepherdModal.outerWidth()
+        }
+
+        var cropperContainerPosition = {
+          left: cropperContainer.offset().left,
+          right: cropperContainer.offset().left + cropperContainer.width()
+        }
+
+        var leftOutOfBound = shepherdModalPosition.left - cropperContainerPosition.left < -100;
+        var rightOutOfBound =  shepherdModalPosition.right > cropperContainerPosition.right + 100;
+
+        var directionSelect = self.$el.find('#_pinfinder_bubbledirection');
+
+        var leftOption = directionSelect.find('#left');
+        var rightOption = directionSelect.find('#right');
+        var topOption = directionSelect.find('#top');
+
+        if(data.direction === 'left'){
+          if(rightOutOfBound && leftOutOfBound) {
+            topOption.prop('selected', true);
+            data.direction = 'top';
+            self.model.set('stepData', data);
+            self.onDirectionChange();
+          } else if(leftOutOfBound && !rightOutOfBound){
+            rightOption.prop('selected', true);
+            leftOption.prop('disabled', true);
+            data.direction = 'right';
+            self.model.set('stepData', data);
+            self.onDirectionChange();
+          } else {
+            leftOption.prop('disabled', leftOutOfBound);
+            rightOption.prop('disabled', rightOutOfBound);
+          }
+        } else if(data.direction === 'right'){
+          if(rightOutOfBound && leftOutOfBound) {
+            topOption.prop('selected', true);
+            data.direction = 'top';
+            self.model.set('stepData', data);
+            self.onDirectionChange();
+          } else if(rightOutOfBound && !leftOutOfBound){
+            leftOption.prop('selected', true);
+            rightOption.prop('disabled', true);
+            data.direction = 'left';
+            self.model.set('stepData', data);
+            self.onDirectionChange();
+          }
+        }
+        leftOption.prop('disabled', leftOutOfBound);
+        rightOption.prop('disabled', rightOutOfBound);
+      }
+    }
 
   });
 

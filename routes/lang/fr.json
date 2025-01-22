@@ -1439,10 +1439,10 @@
   "app.scaffold.component.guidedtour._graphic.label": "Graphique d'étape",
   "app.scaffold.component.guidedtour._pin.label": "Position de l'étape",
   "app.scaffold.component.guidedtour._pin.secondaryLabel": "Astuce : Vous pouvez rapidement trouver la position de l'épingle avec l'outil de recherche de position de l'épingle",
-  "app.scaffold.component._pin._left.label": "Position de l'épingle - Gauche",
-  "app.scaffold.component._pin._left.help": "Position gauche de l'épingle",
-  "app.scaffold.component._pin._top.label": "Position de l'épingle - Haut",
-  "app.scaffold.component._pin._top.help": "Position supérieure de l'épingle",
+  "app.scaffold.component._pin._left.label": "Position - Gauche",
+  "app.scaffold.component._pin._left.help": "Position gauche",
+  "app.scaffold.component._pin._top.label": "Position - Haut",
+  "app.scaffold.component._pin._top.help": "Position supérieure",
   "app.scaffold.component._pin._bubbledirection.label": "Direction de la bulle",
   "app.scaffold.component._pin._bubbledirection.help": "Direction de la bulle",
   "app.scaffold._bubbledirection.none.variable": "aucune",
@@ -1948,5 +1948,9 @@
   "app.scaffold._offsetGapSize.small.variable": "petit",
   "app.scaffold._offsetGapSize.large.variable": "grand",
   "app.scaffold.component._pin._highlight.label": "Activer la mise en évidence",
-  "app.scaffold.component._pin._highlightBorder.label": "Activer la bordure de mise en évidence"
+  "app.scaffold.component._pin._highlightBorder.label": "Activer la bordure de mise en évidence",
+  "app.scaffold.component._pin._width.label": "Largeur de l'élément",
+  "app.scaffold.component._pin._width.help": "Largeur de l'élément",
+  "app.scaffold.component._pin._height.label": "Hauteur de l'élément",
+  "app.scaffold.component._pin._height.help": "Hauteur de l'élément"
 }

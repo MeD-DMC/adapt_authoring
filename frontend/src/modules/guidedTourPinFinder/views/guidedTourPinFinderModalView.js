@@ -89,6 +89,7 @@ define(function (require) {
       $('#bullseye').remove();
       $('.pin-finder-spectrum').remove();
       if (this.tour) this.tour.cancel();
+      if (this.cropper) this.cropper.destroy();
       Backbone.View.prototype.remove.apply(this, arguments);
     },
 
@@ -419,7 +420,7 @@ define(function (require) {
 
         var cropperContainerPosition = {
           left: cropperContainer.offset().left,
-          right: cropperContainer.offset().left + cropperContainer.width()
+          right: cropperContainer.offset().left + 900
         }
 
         var leftOutOfBound = shepherdModalPosition.left - cropperContainerPosition.left < -100;

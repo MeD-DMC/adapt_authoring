@@ -392,7 +392,7 @@ define(function(require){
     },
 
     maxUploadSize: function(options) {
-      var maxSizes = Origin.constants.humanMaxCustomUploadSize;
+      var maxSizes = Origin.constants.humanMaxCustomUploadSize || {};
       var maxUploadSizeDefault = Origin.constants.humanMaxFileUploadSize;
       var uploadArray = [];
       Object.keys(maxSizes).forEach(function(key){

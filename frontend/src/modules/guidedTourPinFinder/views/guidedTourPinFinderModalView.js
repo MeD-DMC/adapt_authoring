@@ -173,6 +173,7 @@ define(function (require) {
         classes: `border ${data.offsetGapSize}`,
         when: {
           show: function () {
+            var data = self.model.get('stepData');
             $(this.el).find('button').attr('disabled', true);
             $(":root")[0].style.setProperty("--shepherd-border-color", data.borderColor);
             requestAnimationFrame(function () {

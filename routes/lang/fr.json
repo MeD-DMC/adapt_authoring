@@ -1624,7 +1624,7 @@
   "app.passwordneedsuppercaseletter": "Une lettre majuscule",
   "app.passwordneedsspeccialcharacter": "Un caractère spécial !@#$%^&*",
   "app.passwordneedsonenumber": "Un chiffre",
-  "app.passwordminimumlength": "8 caractères",
+  "app.passwordminimumlength": "12 caractères",
   "app.passwordchangemessage": "Veuillez mettre à jour votre mot de passe. Cette notification sera automatiquement supprimée lors de la réussite de la modification du mot de passe.",
   "app.passwordForceMessage": "Conformément à nos protocoles de sécurité départementaux, nous vous demandons de mettre à jour votre mot de passe Adapt dès maintenant. Ce message ne sera plus affiché une fois que la modification de votre mot de passe sera terminée.",
   "app.numberofrequirementscompleted": "%{number} sur %{total} exigences satisfaites",

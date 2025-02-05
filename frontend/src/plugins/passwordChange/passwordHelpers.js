@@ -9,7 +9,7 @@ define(function (require) {
 
       if (!/[A-Z]/.test(value)) errors = ['missinguppercase', ...errors];
 
-      if (!value || value.length < 8) errors = ['tooshort', ...errors];
+      if (!value || value.length < 12) errors = ['tooshort', ...errors];
 
       return errors;
     },

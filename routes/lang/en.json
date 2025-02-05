@@ -493,7 +493,7 @@
   "app.passwordneedsuppercaseletter": "One uppercase letter",
   "app.passwordneedsspeccialcharacter": "One special character !@#$%^&*",
   "app.passwordneedsonenumber": "One number",
-  "app.passwordminimumlength": "8 characters",
+  "app.passwordminimumlength": "12 characters",
   "app.passwordchangemessage": "Kindly update your password. This notification will be automatically dismissed upon successful password modification.",
   "app.numberofrequirementscompleted": "%{number} out of %{total} requirements completed.",
   "app.crosscoursepagecopy": "Copying pages across courses is not yet available. It will be implemetend in future releases.",

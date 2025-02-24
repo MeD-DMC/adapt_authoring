@@ -1826,7 +1826,7 @@
   "app.scaffold.component._form._isFailure.help": "Sélectionnez cette option si vous souhaitez que l'élément soit interactif mais qu'il serait incorrect pour les apprenants de le sélectionner.",
   "app.scaffold.component._form._inputType.label": "Type d'action de saisie",
   "app.scaffold.component._form._inputType.help": "Sélectionnez le type de saisie correspondant à l'élément à l'écran.",
-  "app.scaffold.component._form._goTo.label": "GoTo",
+  "app.scaffold.component._form._goTo.label": "Emplacement de destination",
   "app.scaffold.component._form._goTo.help": "Choisissez l'écran à charger en cas de réussite de cet élément.",
   "app.scaffold.component._form._fontSize.label": "Taille de la police",
   "app.scaffold.component._form._fontSize.help": "Sélectionnez la taille de la police de l'élément - elle s'adaptera automatiquement à la taille de l'écran utilisé par l'apprenant (mobile, plein écran, etc.).",
